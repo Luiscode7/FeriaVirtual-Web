@@ -1,0 +1,848 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FeriaVirtualModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="RUTCLIENTE" />
+          </Key>
+          <Property Name="RUTCLIENTE" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="TELEFONO" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="CORREO" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="DIRECCION" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="PAIS" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="TIPOCLIENTE" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONTACTO">
+          <Key>
+            <PropertyRef Name="IDCONTACTO" />
+          </Key>
+          <Property Name="IDCONTACTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMPRESA" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="CORREO" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="TELEFONO" Type="varchar2" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPRESA">
+          <Key>
+            <PropertyRef Name="RUTEMPRESA" />
+          </Key>
+          <Property Name="RUTEMPRESA" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="DIRECCION" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="CORREO" Type="varchar2" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ORDEN">
+          <Key>
+            <PropertyRef Name="IDORDEN" />
+          </Key>
+          <Property Name="IDORDEN" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CANTIDAD" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="PRODUCTO_IDPRODUCTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CLIENTE_RUTCLIENTE" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="RECHAZO" Type="varchar2" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="PAGO">
+          <Key>
+            <PropertyRef Name="IDPAGO" />
+          </Key>
+          <Property Name="IDPAGO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="TOTAL" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ORDEN_IDORDEN" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PERFIL">
+          <Key>
+            <PropertyRef Name="IDPERFIL" />
+          </Key>
+          <Property Name="IDPERFIL" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PROCESOVENTA">
+          <Key>
+            <PropertyRef Name="IDPROCESOVENTA" />
+          </Key>
+          <Property Name="IDPROCESOVENTA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="CANTIDADVENDER" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="ORDEN_IDORDEN" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCTO">
+          <Key>
+            <PropertyRef Name="IDPRODUCTO" />
+          </Key>
+          <Property Name="IDPRODUCTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="PRECIO" Type="number" Precision="38" Scale="0" />
+          <Property Name="STOCK" Type="number" Precision="38" Scale="0" />
+          <Property Name="PRODUCTOR_RUTPRODUCTOR" Type="varchar2" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCTOR">
+          <Key>
+            <PropertyRef Name="RUTPRODUCTOR" />
+          </Key>
+          <Property Name="RUTPRODUCTOR" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="TELEFONO" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="CORREO" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="DIRECCION" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="CIUDAD" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="CONTRATO" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="FECHAINICIOCONTRATO" Type="date" Nullable="false" />
+          <Property Name="FECHATERMINOCONTRATO" Type="date" Nullable="false" />
+          <Property Name="ESTADOCONTRATO" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUBASTA">
+          <Key>
+            <PropertyRef Name="IDSUBASTA" />
+          </Key>
+          <Property Name="IDSUBASTA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="PRECIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ORDEN_IDORDEN" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="TRANSPORTISTA_RUTTRANSPORTISTA" Type="varchar2" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRANSPORTISTA">
+          <Key>
+            <PropertyRef Name="RUTTRANSPORTISTA" />
+          </Key>
+          <Property Name="RUTTRANSPORTISTA" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar2" MaxLength="100" Nullable="false" />
+          <Property Name="TELEFONO" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="TIPOTRANSPORTE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="ANCHO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ALTO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CAPACIDADCARGA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="REFRIGERACION" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="RUTUSUARIO" />
+          </Key>
+          <Property Name="RUTUSUARIO" Type="nvarchar2" MaxLength="12" Nullable="false" />
+          <Property Name="NOMBREUSUARIO" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="CONTRASENA" Type="varchar2" MaxLength="128" Nullable="false" />
+          <Property Name="PERFIL_IDPERFIL" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VENTA">
+          <Key>
+            <PropertyRef Name="IDVENTA" />
+          </Key>
+          <Property Name="IDVENTA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+          <Property Name="IMPUESTOADUANA" Type="number" Precision="2" Scale="0" />
+          <Property Name="COSTOTRANSPORTE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="COMISIONEMPRESA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="GASTOTOTAL" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="GANANCIA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ESTADO" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="EMPRESA_RUTEMPRESA" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="PROCESOVENTA_IDPROCESOVENTA" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="ORDEN_CLIENTE_FK">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="RUTCLIENTE" />
+            </Principal>
+            <Dependent Role="ORDEN">
+              <PropertyRef Name="CLIENTE_RUTCLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORDEN_PRODUCTO_FK">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="IDPRODUCTO" />
+            </Principal>
+            <Dependent Role="ORDEN">
+              <PropertyRef Name="PRODUCTO_IDPRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PAGO_ORDEN_FK">
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="1" />
+          <End Role="PAGO" Type="Self.PAGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDEN">
+              <PropertyRef Name="IDORDEN" />
+            </Principal>
+            <Dependent Role="PAGO">
+              <PropertyRef Name="ORDEN_IDORDEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PROCESOVENTA_ORDEN_FK">
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="1" />
+          <End Role="PROCESOVENTA" Type="Self.PROCESOVENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDEN">
+              <PropertyRef Name="IDORDEN" />
+            </Principal>
+            <Dependent Role="PROCESOVENTA">
+              <PropertyRef Name="ORDEN_IDORDEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRODUCTO_PRODUCTOR_FK">
+          <End Role="PRODUCTOR" Type="Self.PRODUCTOR" Multiplicity="1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTOR">
+              <PropertyRef Name="RUTPRODUCTOR" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="PRODUCTOR_RUTPRODUCTOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUBASTA_ORDEN_FK">
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="1" />
+          <End Role="SUBASTA" Type="Self.SUBASTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDEN">
+              <PropertyRef Name="IDORDEN" />
+            </Principal>
+            <Dependent Role="SUBASTA">
+              <PropertyRef Name="ORDEN_IDORDEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUBASTA_TRANSPORTISTA_FK">
+          <End Role="TRANSPORTISTA" Type="Self.TRANSPORTISTA" Multiplicity="1" />
+          <End Role="SUBASTA" Type="Self.SUBASTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSPORTISTA">
+              <PropertyRef Name="RUTTRANSPORTISTA" />
+            </Principal>
+            <Dependent Role="SUBASTA">
+              <PropertyRef Name="TRANSPORTISTA_RUTTRANSPORTISTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USUARIO_PERFIL_FK">
+          <End Role="PERFIL" Type="Self.PERFIL" Multiplicity="1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERFIL">
+              <PropertyRef Name="IDPERFIL" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="PERFIL_IDPERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VENTA_EMPRESA_FK">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="RUTEMPRESA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="EMPRESA_RUTEMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VENTA_PROCESOVENTA_FK">
+          <End Role="PROCESOVENTA" Type="Self.PROCESOVENTA" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROCESOVENTA">
+              <PropertyRef Name="IDPROCESOVENTA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="PROCESOVENTA_IDPROCESOVENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FeriaVirtualModelStoreContainer">
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="CONTACTO" EntityType="Self.CONTACTO" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="EMPRESA" EntityType="Self.EMPRESA" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="ORDEN" EntityType="Self.ORDEN" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="PAGO" EntityType="Self.PAGO" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="PERFIL" EntityType="Self.PERFIL" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="PROCESOVENTA" EntityType="Self.PROCESOVENTA" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="PRODUCTOR" EntityType="Self.PRODUCTOR" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="SUBASTA" EntityType="Self.SUBASTA" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="TRANSPORTISTA" EntityType="Self.TRANSPORTISTA" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <EntitySet Name="VENTA" EntityType="Self.VENTA" Schema="FERIAVIRTUAL" store:Type="Tables" />
+          <AssociationSet Name="ORDEN_CLIENTE_FK" Association="Self.ORDEN_CLIENTE_FK">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="ORDEN" EntitySet="ORDEN" />
+          </AssociationSet>
+          <AssociationSet Name="ORDEN_PRODUCTO_FK" Association="Self.ORDEN_PRODUCTO_FK">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="ORDEN" EntitySet="ORDEN" />
+          </AssociationSet>
+          <AssociationSet Name="PAGO_ORDEN_FK" Association="Self.PAGO_ORDEN_FK">
+            <End Role="ORDEN" EntitySet="ORDEN" />
+            <End Role="PAGO" EntitySet="PAGO" />
+          </AssociationSet>
+          <AssociationSet Name="PROCESOVENTA_ORDEN_FK" Association="Self.PROCESOVENTA_ORDEN_FK">
+            <End Role="ORDEN" EntitySet="ORDEN" />
+            <End Role="PROCESOVENTA" EntitySet="PROCESOVENTA" />
+          </AssociationSet>
+          <AssociationSet Name="PRODUCTO_PRODUCTOR_FK" Association="Self.PRODUCTO_PRODUCTOR_FK">
+            <End Role="PRODUCTOR" EntitySet="PRODUCTOR" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="SUBASTA_ORDEN_FK" Association="Self.SUBASTA_ORDEN_FK">
+            <End Role="ORDEN" EntitySet="ORDEN" />
+            <End Role="SUBASTA" EntitySet="SUBASTA" />
+          </AssociationSet>
+          <AssociationSet Name="SUBASTA_TRANSPORTISTA_FK" Association="Self.SUBASTA_TRANSPORTISTA_FK">
+            <End Role="TRANSPORTISTA" EntitySet="TRANSPORTISTA" />
+            <End Role="SUBASTA" EntitySet="SUBASTA" />
+          </AssociationSet>
+          <AssociationSet Name="USUARIO_PERFIL_FK" Association="Self.USUARIO_PERFIL_FK">
+            <End Role="PERFIL" EntitySet="PERFIL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="VENTA_EMPRESA_FK" Association="Self.VENTA_EMPRESA_FK">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="VENTA" EntitySet="VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="VENTA_PROCESOVENTA_FK" Association="Self.VENTA_PROCESOVENTA_FK">
+            <End Role="PROCESOVENTA" EntitySet="PROCESOVENTA" />
+            <End Role="VENTA" EntitySet="VENTA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FeriaVirtualModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="RUTCLIENTE" />
+          </Key>
+          <Property Name="RUTCLIENTE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORREO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PAIS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TIPOCLIENTE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ORDEN" Relationship="Self.ORDEN_CLIENTE_FK" FromRole="CLIENTE" ToRole="ORDEN" />
+        </EntityType>
+        <EntityType Name="CONTACTO">
+          <Key>
+            <PropertyRef Name="IDCONTACTO" />
+          </Key>
+          <Property Name="IDCONTACTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EMPRESA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORREO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPRESA">
+          <Key>
+            <PropertyRef Name="RUTEMPRESA" />
+          </Key>
+          <Property Name="RUTEMPRESA" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORREO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="VENTA" Relationship="Self.VENTA_EMPRESA_FK" FromRole="EMPRESA" ToRole="VENTA" />
+        </EntityType>
+        <EntityType Name="ORDEN">
+          <Key>
+            <PropertyRef Name="IDORDEN" />
+          </Key>
+          <Property Name="IDORDEN" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CANTIDAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" />
+          <Property Name="PRODUCTO_IDPRODUCTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CLIENTE_RUTCLIENTE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RECHAZO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.ORDEN_CLIENTE_FK" FromRole="ORDEN" ToRole="CLIENTE" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.ORDEN_PRODUCTO_FK" FromRole="ORDEN" ToRole="PRODUCTO" />
+          <NavigationProperty Name="PAGO" Relationship="Self.PAGO_ORDEN_FK" FromRole="ORDEN" ToRole="PAGO" />
+          <NavigationProperty Name="PROCESOVENTA" Relationship="Self.PROCESOVENTA_ORDEN_FK" FromRole="ORDEN" ToRole="PROCESOVENTA" />
+          <NavigationProperty Name="SUBASTA" Relationship="Self.SUBASTA_ORDEN_FK" FromRole="ORDEN" ToRole="SUBASTA" />
+        </EntityType>
+        <EntityType Name="PAGO">
+          <Key>
+            <PropertyRef Name="IDPAGO" />
+          </Key>
+          <Property Name="IDPAGO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" />
+          <Property Name="TOTAL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ORDEN_IDORDEN" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="ORDEN" Relationship="Self.PAGO_ORDEN_FK" FromRole="PAGO" ToRole="ORDEN" />
+        </EntityType>
+        <EntityType Name="PERFIL">
+          <Key>
+            <PropertyRef Name="IDPERFIL" />
+          </Key>
+          <Property Name="IDPERFIL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.USUARIO_PERFIL_FK" FromRole="PERFIL" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="PROCESOVENTA">
+          <Key>
+            <PropertyRef Name="IDPROCESOVENTA" />
+          </Key>
+          <Property Name="IDPROCESOVENTA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" />
+          <Property Name="CANTIDADVENDER" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ORDEN_IDORDEN" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ORDEN" Relationship="Self.PROCESOVENTA_ORDEN_FK" FromRole="PROCESOVENTA" ToRole="ORDEN" />
+          <NavigationProperty Name="VENTA" Relationship="Self.VENTA_PROCESOVENTA_FK" FromRole="PROCESOVENTA" ToRole="VENTA" />
+        </EntityType>
+        <EntityType Name="PRODUCTO">
+          <Key>
+            <PropertyRef Name="IDPRODUCTO" />
+          </Key>
+          <Property Name="IDPRODUCTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRECIO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="STOCK" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PRODUCTOR_RUTPRODUCTOR" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ORDEN" Relationship="Self.ORDEN_PRODUCTO_FK" FromRole="PRODUCTO" ToRole="ORDEN" />
+          <NavigationProperty Name="PRODUCTOR" Relationship="Self.PRODUCTO_PRODUCTOR_FK" FromRole="PRODUCTO" ToRole="PRODUCTOR" />
+        </EntityType>
+        <EntityType Name="PRODUCTOR">
+          <Key>
+            <PropertyRef Name="RUTPRODUCTOR" />
+          </Key>
+          <Property Name="RUTPRODUCTOR" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CORREO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CIUDAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTRATO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FECHAINICIOCONTRATO" Type="DateTime" Nullable="false" />
+          <Property Name="FECHATERMINOCONTRATO" Type="DateTime" Nullable="false" />
+          <Property Name="ESTADOCONTRATO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PRODUCTO" Relationship="Self.PRODUCTO_PRODUCTOR_FK" FromRole="PRODUCTOR" ToRole="PRODUCTO" />
+        </EntityType>
+        <EntityType Name="SUBASTA">
+          <Key>
+            <PropertyRef Name="IDSUBASTA" />
+          </Key>
+          <Property Name="IDSUBASTA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" />
+          <Property Name="PRECIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ORDEN_IDORDEN" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TRANSPORTISTA_RUTTRANSPORTISTA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ORDEN" Relationship="Self.SUBASTA_ORDEN_FK" FromRole="SUBASTA" ToRole="ORDEN" />
+          <NavigationProperty Name="TRANSPORTISTA" Relationship="Self.SUBASTA_TRANSPORTISTA_FK" FromRole="SUBASTA" ToRole="TRANSPORTISTA" />
+        </EntityType>
+        <EntityType Name="TRANSPORTISTA">
+          <Key>
+            <PropertyRef Name="RUTTRANSPORTISTA" />
+          </Key>
+          <Property Name="RUTTRANSPORTISTA" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TIPOTRANSPORTE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ANCHO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ALTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CAPACIDADCARGA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="REFRIGERACION" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SUBASTA" Relationship="Self.SUBASTA_TRANSPORTISTA_FK" FromRole="TRANSPORTISTA" ToRole="SUBASTA" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="RUTUSUARIO" />
+          </Key>
+          <Property Name="RUTUSUARIO" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NOMBREUSUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTRASENA" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PERFIL_IDPERFIL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="PERFIL" Relationship="Self.USUARIO_PERFIL_FK" FromRole="USUARIO" ToRole="PERFIL" />
+        </EntityType>
+        <EntityType Name="VENTA">
+          <Key>
+            <PropertyRef Name="IDVENTA" />
+          </Key>
+          <Property Name="IDVENTA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" />
+          <Property Name="IMPUESTOADUANA" Type="Int16" />
+          <Property Name="COSTOTRANSPORTE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="COMISIONEMPRESA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="GASTOTOTAL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="GANANCIA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMPRESA_RUTEMPRESA" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PROCESOVENTA_IDPROCESOVENTA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="EMPRESA" Relationship="Self.VENTA_EMPRESA_FK" FromRole="VENTA" ToRole="EMPRESA" />
+          <NavigationProperty Name="PROCESOVENTA" Relationship="Self.VENTA_PROCESOVENTA_FK" FromRole="VENTA" ToRole="PROCESOVENTA" />
+        </EntityType>
+        <Association Name="ORDEN_CLIENTE_FK">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="RUTCLIENTE" />
+            </Principal>
+            <Dependent Role="ORDEN">
+              <PropertyRef Name="CLIENTE_RUTCLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VENTA_EMPRESA_FK">
+          <End Role="EMPRESA" Type="Self.EMPRESA" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPRESA">
+              <PropertyRef Name="RUTEMPRESA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="EMPRESA_RUTEMPRESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ORDEN_PRODUCTO_FK">
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="1" />
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTO">
+              <PropertyRef Name="IDPRODUCTO" />
+            </Principal>
+            <Dependent Role="ORDEN">
+              <PropertyRef Name="PRODUCTO_IDPRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PAGO_ORDEN_FK">
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="1" />
+          <End Role="PAGO" Type="Self.PAGO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDEN">
+              <PropertyRef Name="IDORDEN" />
+            </Principal>
+            <Dependent Role="PAGO">
+              <PropertyRef Name="ORDEN_IDORDEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PROCESOVENTA_ORDEN_FK">
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="1" />
+          <End Role="PROCESOVENTA" Type="Self.PROCESOVENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDEN">
+              <PropertyRef Name="IDORDEN" />
+            </Principal>
+            <Dependent Role="PROCESOVENTA">
+              <PropertyRef Name="ORDEN_IDORDEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUBASTA_ORDEN_FK">
+          <End Role="ORDEN" Type="Self.ORDEN" Multiplicity="1" />
+          <End Role="SUBASTA" Type="Self.SUBASTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ORDEN">
+              <PropertyRef Name="IDORDEN" />
+            </Principal>
+            <Dependent Role="SUBASTA">
+              <PropertyRef Name="ORDEN_IDORDEN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USUARIO_PERFIL_FK">
+          <End Role="PERFIL" Type="Self.PERFIL" Multiplicity="1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERFIL">
+              <PropertyRef Name="IDPERFIL" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="PERFIL_IDPERFIL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VENTA_PROCESOVENTA_FK">
+          <End Role="PROCESOVENTA" Type="Self.PROCESOVENTA" Multiplicity="1" />
+          <End Role="VENTA" Type="Self.VENTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROCESOVENTA">
+              <PropertyRef Name="IDPROCESOVENTA" />
+            </Principal>
+            <Dependent Role="VENTA">
+              <PropertyRef Name="PROCESOVENTA_IDPROCESOVENTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRODUCTO_PRODUCTOR_FK">
+          <End Role="PRODUCTOR" Type="Self.PRODUCTOR" Multiplicity="1" />
+          <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTOR">
+              <PropertyRef Name="RUTPRODUCTOR" />
+            </Principal>
+            <Dependent Role="PRODUCTO">
+              <PropertyRef Name="PRODUCTOR_RUTPRODUCTOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUBASTA_TRANSPORTISTA_FK">
+          <End Role="TRANSPORTISTA" Type="Self.TRANSPORTISTA" Multiplicity="1" />
+          <End Role="SUBASTA" Type="Self.SUBASTA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRANSPORTISTA">
+              <PropertyRef Name="RUTTRANSPORTISTA" />
+            </Principal>
+            <Dependent Role="SUBASTA">
+              <PropertyRef Name="TRANSPORTISTA_RUTTRANSPORTISTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FeriaVirtualEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+          <EntitySet Name="CONTACTO" EntityType="Self.CONTACTO" />
+          <EntitySet Name="EMPRESA" EntityType="Self.EMPRESA" />
+          <EntitySet Name="ORDEN" EntityType="Self.ORDEN" />
+          <EntitySet Name="PAGO" EntityType="Self.PAGO" />
+          <EntitySet Name="PERFIL" EntityType="Self.PERFIL" />
+          <EntitySet Name="PROCESOVENTA" EntityType="Self.PROCESOVENTA" />
+          <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" />
+          <EntitySet Name="PRODUCTOR" EntityType="Self.PRODUCTOR" />
+          <EntitySet Name="SUBASTA" EntityType="Self.SUBASTA" />
+          <EntitySet Name="TRANSPORTISTA" EntityType="Self.TRANSPORTISTA" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <EntitySet Name="VENTA" EntityType="Self.VENTA" />
+          <AssociationSet Name="ORDEN_CLIENTE_FK" Association="Self.ORDEN_CLIENTE_FK">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="ORDEN" EntitySet="ORDEN" />
+          </AssociationSet>
+          <AssociationSet Name="VENTA_EMPRESA_FK" Association="Self.VENTA_EMPRESA_FK">
+            <End Role="EMPRESA" EntitySet="EMPRESA" />
+            <End Role="VENTA" EntitySet="VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="ORDEN_PRODUCTO_FK" Association="Self.ORDEN_PRODUCTO_FK">
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+            <End Role="ORDEN" EntitySet="ORDEN" />
+          </AssociationSet>
+          <AssociationSet Name="PAGO_ORDEN_FK" Association="Self.PAGO_ORDEN_FK">
+            <End Role="ORDEN" EntitySet="ORDEN" />
+            <End Role="PAGO" EntitySet="PAGO" />
+          </AssociationSet>
+          <AssociationSet Name="PROCESOVENTA_ORDEN_FK" Association="Self.PROCESOVENTA_ORDEN_FK">
+            <End Role="ORDEN" EntitySet="ORDEN" />
+            <End Role="PROCESOVENTA" EntitySet="PROCESOVENTA" />
+          </AssociationSet>
+          <AssociationSet Name="SUBASTA_ORDEN_FK" Association="Self.SUBASTA_ORDEN_FK">
+            <End Role="ORDEN" EntitySet="ORDEN" />
+            <End Role="SUBASTA" EntitySet="SUBASTA" />
+          </AssociationSet>
+          <AssociationSet Name="USUARIO_PERFIL_FK" Association="Self.USUARIO_PERFIL_FK">
+            <End Role="PERFIL" EntitySet="PERFIL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="VENTA_PROCESOVENTA_FK" Association="Self.VENTA_PROCESOVENTA_FK">
+            <End Role="PROCESOVENTA" EntitySet="PROCESOVENTA" />
+            <End Role="VENTA" EntitySet="VENTA" />
+          </AssociationSet>
+          <AssociationSet Name="PRODUCTO_PRODUCTOR_FK" Association="Self.PRODUCTO_PRODUCTOR_FK">
+            <End Role="PRODUCTOR" EntitySet="PRODUCTOR" />
+            <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="SUBASTA_TRANSPORTISTA_FK" Association="Self.SUBASTA_TRANSPORTISTA_FK">
+            <End Role="TRANSPORTISTA" EntitySet="TRANSPORTISTA" />
+            <End Role="SUBASTA" EntitySet="SUBASTA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FeriaVirtualModelStoreContainer" CdmEntityContainer="FeriaVirtualEntities">
+          <EntitySetMapping Name="CLIENTE">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="RUTCLIENTE" ColumnName="RUTCLIENTE" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="PAIS" ColumnName="PAIS" />
+                <ScalarProperty Name="TIPOCLIENTE" ColumnName="TIPOCLIENTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTACTO">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.CONTACTO">
+              <MappingFragment StoreEntitySet="CONTACTO">
+                <ScalarProperty Name="IDCONTACTO" ColumnName="IDCONTACTO" />
+                <ScalarProperty Name="EMPRESA" ColumnName="EMPRESA" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPRESA">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.EMPRESA">
+              <MappingFragment StoreEntitySet="EMPRESA">
+                <ScalarProperty Name="RUTEMPRESA" ColumnName="RUTEMPRESA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDEN">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.ORDEN">
+              <MappingFragment StoreEntitySet="ORDEN">
+                <ScalarProperty Name="IDORDEN" ColumnName="IDORDEN" />
+                <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="PRODUCTO_IDPRODUCTO" ColumnName="PRODUCTO_IDPRODUCTO" />
+                <ScalarProperty Name="CLIENTE_RUTCLIENTE" ColumnName="CLIENTE_RUTCLIENTE" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="RECHAZO" ColumnName="RECHAZO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAGO">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.PAGO">
+              <MappingFragment StoreEntitySet="PAGO">
+                <ScalarProperty Name="IDPAGO" ColumnName="IDPAGO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="ORDEN_IDORDEN" ColumnName="ORDEN_IDORDEN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERFIL">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.PERFIL">
+              <MappingFragment StoreEntitySet="PERFIL">
+                <ScalarProperty Name="IDPERFIL" ColumnName="IDPERFIL" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROCESOVENTA">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.PROCESOVENTA">
+              <MappingFragment StoreEntitySet="PROCESOVENTA">
+                <ScalarProperty Name="IDPROCESOVENTA" ColumnName="IDPROCESOVENTA" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="CANTIDADVENDER" ColumnName="CANTIDADVENDER" />
+                <ScalarProperty Name="ORDEN_IDORDEN" ColumnName="ORDEN_IDORDEN" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTO">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.PRODUCTO">
+              <MappingFragment StoreEntitySet="PRODUCTO">
+                <ScalarProperty Name="IDPRODUCTO" ColumnName="IDPRODUCTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="STOCK" ColumnName="STOCK" />
+                <ScalarProperty Name="PRODUCTOR_RUTPRODUCTOR" ColumnName="PRODUCTOR_RUTPRODUCTOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTOR">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.PRODUCTOR">
+              <MappingFragment StoreEntitySet="PRODUCTOR">
+                <ScalarProperty Name="RUTPRODUCTOR" ColumnName="RUTPRODUCTOR" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="CIUDAD" ColumnName="CIUDAD" />
+                <ScalarProperty Name="CONTRATO" ColumnName="CONTRATO" />
+                <ScalarProperty Name="FECHAINICIOCONTRATO" ColumnName="FECHAINICIOCONTRATO" />
+                <ScalarProperty Name="FECHATERMINOCONTRATO" ColumnName="FECHATERMINOCONTRATO" />
+                <ScalarProperty Name="ESTADOCONTRATO" ColumnName="ESTADOCONTRATO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUBASTA">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.SUBASTA">
+              <MappingFragment StoreEntitySet="SUBASTA">
+                <ScalarProperty Name="IDSUBASTA" ColumnName="IDSUBASTA" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="ORDEN_IDORDEN" ColumnName="ORDEN_IDORDEN" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="TRANSPORTISTA_RUTTRANSPORTISTA" ColumnName="TRANSPORTISTA_RUTTRANSPORTISTA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRANSPORTISTA">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.TRANSPORTISTA">
+              <MappingFragment StoreEntitySet="TRANSPORTISTA">
+                <ScalarProperty Name="RUTTRANSPORTISTA" ColumnName="RUTTRANSPORTISTA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="TIPOTRANSPORTE" ColumnName="TIPOTRANSPORTE" />
+                <ScalarProperty Name="ANCHO" ColumnName="ANCHO" />
+                <ScalarProperty Name="ALTO" ColumnName="ALTO" />
+                <ScalarProperty Name="CAPACIDADCARGA" ColumnName="CAPACIDADCARGA" />
+                <ScalarProperty Name="REFRIGERACION" ColumnName="REFRIGERACION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="RUTUSUARIO" ColumnName="RUTUSUARIO" />
+                <ScalarProperty Name="NOMBREUSUARIO" ColumnName="NOMBREUSUARIO" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+                <ScalarProperty Name="PERFIL_IDPERFIL" ColumnName="PERFIL_IDPERFIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENTA">
+            <EntityTypeMapping TypeName="FeriaVirtualModel.VENTA">
+              <MappingFragment StoreEntitySet="VENTA">
+                <ScalarProperty Name="IDVENTA" ColumnName="IDVENTA" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="IMPUESTOADUANA" ColumnName="IMPUESTOADUANA" />
+                <ScalarProperty Name="COSTOTRANSPORTE" ColumnName="COSTOTRANSPORTE" />
+                <ScalarProperty Name="COMISIONEMPRESA" ColumnName="COMISIONEMPRESA" />
+                <ScalarProperty Name="GASTOTOTAL" ColumnName="GASTOTOTAL" />
+                <ScalarProperty Name="GANANCIA" ColumnName="GANANCIA" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="EMPRESA_RUTEMPRESA" ColumnName="EMPRESA_RUTEMPRESA" />
+                <ScalarProperty Name="PROCESOVENTA_IDPROCESOVENTA" ColumnName="PROCESOVENTA_IDPROCESOVENTA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

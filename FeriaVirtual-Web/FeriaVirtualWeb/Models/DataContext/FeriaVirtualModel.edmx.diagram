@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="506c89420c8040e7a22cb0e2e6b556a1" Name="Diagram1">
+        <EntityTypeShape EntityType="FeriaVirtualModel.CLIENTE" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.CONTACTO" Width="1.5" PointX="9.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.EMPRESA" Width="1.5" PointX="7.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.ORDEN" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.PAGO" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.PERFIL" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.PROCESOVENTA" Width="1.5" PointX="7.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.PRODUCTO" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.PRODUCTOR" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.SUBASTA" Width="1.5" PointX="10.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.TRANSPORTISTA" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.USUARIO" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FeriaVirtualModel.VENTA" Width="1.5" PointX="9.75" PointY="6.875" IsExpanded="true" />
+        <AssociationConnector Association="FeriaVirtualModel.ORDEN_CLIENTE_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.VENTA_EMPRESA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.ORDEN_PRODUCTO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.PAGO_ORDEN_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.PROCESOVENTA_ORDEN_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.SUBASTA_ORDEN_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.USUARIO_PERFIL_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.VENTA_PROCESOVENTA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.PRODUCTO_PRODUCTOR_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.SUBASTA_TRANSPORTISTA_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
