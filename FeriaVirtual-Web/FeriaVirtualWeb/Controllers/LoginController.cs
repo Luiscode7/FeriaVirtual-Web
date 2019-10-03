@@ -8,7 +8,8 @@ using FeriaVirtualWeb.Models.DataManager;
 
 namespace FeriaVirtualWeb.Controllers
 {
-    public class UsuarioController : Controller
+  
+    public class LoginController : Controller
     {
         
         public ActionResult Index()
@@ -27,9 +28,9 @@ namespace FeriaVirtualWeb.Controllers
         {
             var usuarioManager = new UsuarioManager();
             var usuarioReturned = usuarioManager.GetUsuario(usuario.RUTUSUARIO, usuario.CONTRASENA);
-            Session["usuario"] = usuarioReturned.NOMBREUSUARIO;
+            Session["usuario"] = usuarioReturned;
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
     }

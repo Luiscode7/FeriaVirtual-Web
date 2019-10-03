@@ -1,16 +1,20 @@
-﻿using System;
+﻿using FeriaVirtualWeb.Filter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FeriaVirtualWeb.Models.DataContext;
 
 namespace FeriaVirtualWeb.Controllers
 {
+    [UserAuthorization(Rol = 1)]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View();
+            var usuario = (USUARIO)Session["usuario"];
+            return View(usuario);
         }
 
         public ActionResult About()

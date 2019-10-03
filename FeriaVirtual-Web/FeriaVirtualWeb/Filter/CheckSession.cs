@@ -15,7 +15,7 @@ namespace FeriaVirtualWeb.Filter
 
             if(usuario == null)
             {
-                if(filterContext.Controller is UsuarioController == false)
+                if(filterContext.Controller is LoginController == false)
                 {
                     filterContext.HttpContext.Response.Redirect("~/Usuario/Login");
                 }
