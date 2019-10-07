@@ -24,8 +24,10 @@ namespace FeriaVirtualWeb.Models.DataContext
         public Nullable<decimal> PRECIO { get; set; }
         public Nullable<decimal> STOCK { get; set; }
         public string PRODUCTOR_RUTPRODUCTOR { get; set; }
-    
+        public bool IsChecked { get; set; } 
+
         public virtual ICollection<ORDEN> ORDEN { get; set; }
         public virtual PRODUCTOR PRODUCTOR { get; set; }
     }
+
 }
