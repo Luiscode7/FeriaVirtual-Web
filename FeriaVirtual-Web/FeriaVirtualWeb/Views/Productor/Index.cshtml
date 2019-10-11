@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Index";
-    //var lista = new List<FeriaVirtualWeb.Models.DataContext.PRODUCTO>();
 }
 
 <h2>Index</h2>
@@ -17,17 +16,22 @@
                 <table class="table">
                     @for (var i = 0; i < Model.Count(); i++)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
-                            </td>
-                            <td>
-                                @*<input type="checkbox" @(item.IsChecked ? "seleccionado" : "") name="productos" value="@item.IDPRODUCTO" />*@
-                                @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { id = "boolcheck" })
-                                @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
-                                @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { id = "boolcheck" })
+                            @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
+                            @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
+                        </td>
+                        <td>
+                            @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control" } })
+                        </td>
+                        <td>
+                            @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control" } })
+                        </td>
+                    </tr>
 
                     }
                 </table>
@@ -40,35 +44,25 @@
         </div>
     </div>
     }
-    <div class="col-md-4" style="padding:0">
-        <div class="panel panel-default">
-            <div class="panel-heading">Productos</div>
-            <div class="panel-body" id="addprod">
-                
-            </div>
-        </div>
-    </div>
 </div>
 
 <script>
-   $(document).ready(function () {
+    $(document).ready(function () {
+
+        var form = $("#form-productos");
+        var botonAgregar = $("#btnAgregar");
+        
        $("#btnAgregar").click(function () {
-           var form = $("#form-productos");
            $.ajax({
                url: form.attr('action'),
                type: "POST",
-               dataType: 'json',
+               dataType: 'html',
                data: form.serialize(),
                success: function (response) {
-                   $("#addprod").hide("slow", function () {
-                       console.log(response);
-                       $("#btnAgregar").enable(false);
-                       $(this).html(response.PartialView);
-                        $(this).show("slow");
-                    });
+                   console.log(response);
                 }
            });
            return false;
-       });
+        });
     });
 </script>

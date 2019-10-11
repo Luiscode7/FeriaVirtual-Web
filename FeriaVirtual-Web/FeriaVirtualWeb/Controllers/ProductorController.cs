@@ -28,9 +28,13 @@ namespace FeriaVirtualWeb.Controllers
         public JsonResult Listar(List<PRODUCTO> productos)
         {
             var productsSeleted = GetProductsSelected(productos);
-            var productoToView = ConvertViewToString("Listar", productsSeleted);
-            ViewBag.usuario = Session["usuario"];
-            return Json(new { PartialView = productoToView });
+            var productor = new ProductorManager();
+            var usuario = (USUARIO)Session["usuario"];
+            foreach (var item in productsSeleted)
+            {
+                productor.InsertNewProducto(item, usuario);
+            }
+            return Json(productsSeleted);
         }
 
         private string ConvertViewToString(string viewName, object model)
@@ -48,28 +52,6 @@ namespace FeriaVirtualWeb.Controllers
         private List<PRODUCTO> GetProductsSelected(List<PRODUCTO> products)
         {
             return products.Where(p => p.IsChecked == true).ToList();
-        }
-
-        // GET: Productor/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Productor/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Productor/Edit/5
