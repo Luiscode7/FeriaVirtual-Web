@@ -12,9 +12,12 @@ namespace FeriaVirtualWeb.Models.DataManager
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return !string.IsNullOrEmpty(rut) && !string.IsNullOrEmpty(password) ?
-                    db.USUARIO.Where(u => u.RUTUSUARIO == rut && u.CONTRASENA == password).FirstOrDefault() 
-                    : null;
+                var usuario = new USUARIO();
+                if(!string.IsNullOrEmpty(rut) && !string.IsNullOrEmpty(password))
+                {
+                    usuario = db.USUARIO.FirstOrDefault(p => p.RUTUSUARIO == rut && p.CONTRASENA == password);
+                }
+                return usuario;
             }
         }
     }

@@ -7,36 +7,39 @@
 <h2>Index</h2>
 
 <div style="padding:0; height:100vh">
-    @using (Html.BeginForm("Listar", "Productor", FormMethod.Post, new { id = "form-productos" }))
+    @using (Html.BeginForm("Listar", "Productor", FormMethod.Post, new { id = "form-productos" })) { }
     {
     <div class="col-md-4" style="padding:0">
-        <div class="panel panel-default">
-            <div class="panel-heading">Productos</div>
-            <div class="panel-body">
-                <table class="table">
-                    @for (var i = 0; i < Model.Count(); i++)
-                    {
-                    <tr>
-                        <td>
-                            @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { id = "boolcheck" })
-                            @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
-                            @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
-                        </td>
-                        <td>
-                            @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control" } })
-                        </td>
-                        <td>
-                            @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control" } })
-                        </td>
-                    </tr>
+        <div class="modal-body">
+            <div class="panel panel-default">
+                <div class="panel-heading">Productos</div>
+                <div class="panel-body">
+                    <table class="table">
+                        @for (var i = 0; i < Model.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { id = "boolcheck" })
+                                    @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
+                                    @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
+                                </td>
+                                <td>
+                                    @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                                <td>
+                                    @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                            </tr>
 
-                    }
-                </table>
+                        }
+                    </table>
+                </div>
             </div>
         </div>
+        
     </div>
     <div class="form-group">
         <div class="col-md-2">

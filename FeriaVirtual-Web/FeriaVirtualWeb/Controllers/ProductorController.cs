@@ -13,13 +13,22 @@ namespace FeriaVirtualWeb.Controllers
     [UserAuthorization(Rol = 5)]
     public class ProductorController : Controller
     {
-        CollectionManager productosList = new CollectionManager();
+        CollectionManager collection = new CollectionManager();
         
         // GET: Productor
+        public ActionResult MyListProducts()
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            var lista = collection.GetMyProductosList(usuario);
+            var listaVacia = collection.GetProductosList();
+            ViewBag.misproductos = lista;
+            return View(listaVacia);
+        }
+
         public ActionResult Index()
         {
             var lista = new List<PRODUCTO>();
-            lista = (List<PRODUCTO>)productosList.GetProductosList();
+            lista = (List<PRODUCTO>)collection.GetProductosList();
             return View(lista);
         }
 

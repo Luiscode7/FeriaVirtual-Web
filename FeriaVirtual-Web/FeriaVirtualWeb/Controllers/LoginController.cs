@@ -28,7 +28,8 @@ namespace FeriaVirtualWeb.Controllers
         {
             var usuarioManager = new UsuarioManager();
             ActionResult redirect = null;
-            var usuarioReturned = usuarioManager.GetUsuario(usuario.RUTUSUARIO, usuario.CONTRASENA);
+            var usuarioReturned = new USUARIO();
+            usuarioReturned = usuarioManager.GetUsuario(usuario.RUTUSUARIO, usuario.CONTRASENA);
 
             if(usuarioReturned != null)
             {
@@ -45,7 +46,7 @@ namespace FeriaVirtualWeb.Controllers
             ActionResult output = null;
             switch (perfil)
             {
-                case 5: output = RedirectToAction("Index", "Productor");
+                case 5: output = RedirectToAction("MyListProducts", "Productor");
                     break;
                 default:
                     break;
