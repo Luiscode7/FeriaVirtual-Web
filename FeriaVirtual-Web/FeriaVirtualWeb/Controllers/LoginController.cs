@@ -12,11 +12,6 @@ namespace FeriaVirtualWeb.Controllers
     public class LoginController : Controller
     {
         
-        public ActionResult Index()
-        {   
-            return View();
-        }
-
         public ActionResult Login()
         {
             return View();
@@ -46,6 +41,9 @@ namespace FeriaVirtualWeb.Controllers
             ActionResult output = null;
             switch (perfil)
             {
+                case 3:
+                    output = RedirectToAction("ChooseProducts", "Cliente");
+                    break;
                 case 5: output = RedirectToAction("MyListProducts", "Productor");
                     break;
                 default:

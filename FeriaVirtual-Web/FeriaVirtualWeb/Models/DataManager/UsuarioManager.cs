@@ -10,15 +10,17 @@ namespace FeriaVirtualWeb.Models.DataManager
     {
         public USUARIO GetUsuario(string rut, string password)
         {
+            var usuario = new USUARIO();
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                var usuario = new USUARIO();
+                
                 if(!string.IsNullOrEmpty(rut) && !string.IsNullOrEmpty(password))
                 {
                     usuario = db.USUARIO.FirstOrDefault(p => p.RUTUSUARIO == rut && p.CONTRASENA == password);
                 }
-                return usuario;
+                
             }
+            return usuario;
         }
     }
 }

@@ -3,53 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FeriaVirtualWeb.Filter;
-using FeriaVirtualWeb.Models.DataContext;
-using FeriaVirtualWeb.Models.DataManager;
 
 namespace FeriaVirtualWeb.Controllers
 {
-    [UserAuthorization(Rol = 3)]
-    public class ClienteController : Controller
+    public class ContactoController : Controller
     {
-        CollectionManager collection = new CollectionManager();
-        public ActionResult ChooseProducts()
+        // GET: Contacto
+        public ActionResult Index()
         {
-            var lista = new List<PRODUCTO>();
-            var listaOrdenes = new List<ORDEN>();
-            var usuario = (USUARIO)Session["usuario"];
-            listaOrdenes = collection.GetMyOrderList(usuario);
-            ViewBag.ordenList = listaOrdenes;
-            lista = (List<PRODUCTO>)collection.GetProductosList();
-            return View(lista);
+            return View();
         }
 
-        public JsonResult AddOrder(List<PRODUCTO> productos)
+        // GET: Contacto/Details/5
+        public ActionResult Details(int id)
         {
-            var productsSeleted = new List<PRODUCTO>();
-
-            if (ModelState.IsValid)
-            {
-                productsSeleted = collection.GetProductsSelected(productos);
-                var cliente = new ClienteManager();
-                var usuario = (USUARIO)Session["usuario"];
-                cliente.InsertNewProductoToOrder(productsSeleted, usuario);
-            }
-            else
-            {
-                return Json(null);
-            }
-
-            return Json(productsSeleted);
+            return View();
         }
 
-        // GET: Cliente/Create
+        // GET: Contacto/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Cliente/Create
+        // POST: Contacto/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -65,13 +42,13 @@ namespace FeriaVirtualWeb.Controllers
             }
         }
 
-        // GET: Cliente/Edit/5
+        // GET: Contacto/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Cliente/Edit/5
+        // POST: Contacto/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -87,13 +64,13 @@ namespace FeriaVirtualWeb.Controllers
             }
         }
 
-        // GET: Cliente/Delete/5
+        // GET: Contacto/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Cliente/Delete/5
+        // POST: Contacto/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

@@ -12,9 +12,6 @@ namespace FeriaVirtualWeb.Models.DataContext
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Objects;
-    using System.Data.Objects.DataClasses;
-    using System.Linq;
     
     public partial class FeriaVirtualEntities : DbContext
     {
@@ -41,6 +38,5 @@ namespace FeriaVirtualWeb.Models.DataContext
         public DbSet<TRANSPORTISTA> TRANSPORTISTA { get; set; }
         public DbSet<USUARIO> USUARIO { get; set; }
         public DbSet<VENTA> VENTA { get; set; }
-    
     }
 }

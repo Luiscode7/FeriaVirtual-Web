@@ -1,0 +1,38 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.backimg {
+    display: flex;
+    background: url('/assest/img/transporte6.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+}
+
+.panel-right {
+    height: 100vh;
+    width: 50%;
+    background-color: #FFFFFF;
+    opacity: 0.9;
+}
+
+.panel-left {
+    height: 100vh;
+    width: 50%;
+    background-color: #6CF9CE;
+    opacity: 0.9;
+}
+
+.font-white {
+    display:flex;
+    justify-content:center;
+    color: #8D908F;
+}
+
+#form-login{
+    display:flex;
+}

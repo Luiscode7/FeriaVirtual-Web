@@ -17,11 +17,12 @@ namespace FeriaVirtualWeb.Models.DataManager
                 {
                     PRODUCTO producto = new PRODUCTO
                     {
-                        IDPRODUCTO = DatabaseUtil.GetNextID(),
+                        IDPRODUCTO = DatabaseUtil.GetNextIDProducto(),
                         DESCRIPCION = newProducto.DESCRIPCION,
                         PRECIO = newProducto.PRECIO,
                         STOCK = newProducto.STOCK,
-                        PRODUCTOR_RUTPRODUCTOR = usuario.RUTUSUARIO
+                        PRODUCTOR_RUTPRODUCTOR = usuario.RUTUSUARIO,
+                        TIPOVENTA = newProducto.TIPOVENTA
                     };
                     db.PRODUCTO.Add(producto);
                     db.SaveChanges();

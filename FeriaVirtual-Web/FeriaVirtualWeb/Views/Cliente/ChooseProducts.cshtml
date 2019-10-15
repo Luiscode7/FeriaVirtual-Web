@@ -1,0 +1,140 @@
+﻿@model List<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+
+@{ 
+    List<FeriaVirtualWeb.Models.DataContext.ORDEN> listaOrden = ViewBag.ordenList;
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    @*<tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IDPRODUCTO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DESCRIPCION)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRECIO)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.STOCK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ORDEN_IDORDEN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PRODUCTOR_RUTPRODUCTOR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IDPROCESOVENTA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TIPOVENTA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CANTIDAD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsChecked)
+            </th>
+            <th></th>
+        </tr>*@
+
+    @foreach (var item in listaOrden)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDORDEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FECHA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CLIENTE_RUTCLIENTE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ESTADO)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">
+    Agregar
+</button>
+
+<!-- Modal -->
+<div class="modal fade modal fade bd-example-modal-lg" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("AddOrder", "Cliente", FormMethod.Post, new { id = "form-productosOrder" }))
+            {
+                <div class="modal-body">
+
+                    <table class="table">
+                        @for (var i = 0; i < Model.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { htmlAttributes = new { @class = "check" } })
+                                    @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
+                                    @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
+                                </td>
+                                <td>
+                                    @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                            </tr>
+
+                        }
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrar">Close</button>
+                    <button type="submit" class="btn btn-primary" id="btnAgregar2">Agregar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var form = $("#form-productosOrder");
+        var botonAgregar = $("#btnAgregar2");
+
+        $("#btnAgregar2").click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                success: function (response) {
+                    console.log(response);
+                    if (response) {
+                        $("#exampleModalCenter2").modal("hide");
+                        location.reload(true);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>

@@ -14,11 +14,6 @@ namespace FeriaVirtualWeb.Models.DataContext
     
     public partial class TRANSPORTISTA
     {
-        public TRANSPORTISTA()
-        {
-            this.SUBASTA = new HashSet<SUBASTA>();
-        }
-    
         public string RUTTRANSPORTISTA { get; set; }
         public string NOMBRE { get; set; }
         public string TELEFONO { get; set; }
@@ -27,7 +22,8 @@ namespace FeriaVirtualWeb.Models.DataContext
         public decimal ALTO { get; set; }
         public decimal CAPACIDADCARGA { get; set; }
         public string REFRIGERACION { get; set; }
+        public Nullable<decimal> SUBASTAID { get; set; }
     
-        public virtual ICollection<SUBASTA> SUBASTA { get; set; }
+        public virtual SUBASTA SUBASTA { get; set; }
     }
 }

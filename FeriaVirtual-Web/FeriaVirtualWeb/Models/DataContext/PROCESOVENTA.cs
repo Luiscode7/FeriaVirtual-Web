@@ -16,16 +16,18 @@ namespace FeriaVirtualWeb.Models.DataContext
     {
         public PROCESOVENTA()
         {
+            this.CLIENTE = new HashSet<CLIENTE>();
+            this.PRODUCTO = new HashSet<PRODUCTO>();
             this.VENTA = new HashSet<VENTA>();
         }
     
         public decimal IDPROCESOVENTA { get; set; }
         public System.DateTime FECHA { get; set; }
-        public string CANTIDADVENDER { get; set; }
-        public decimal ORDEN_IDORDEN { get; set; }
         public string ESTADO { get; set; }
+        public string TIPOPROCESO { get; set; }
     
-        public virtual ORDEN ORDEN { get; set; }
+        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
+        public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
         public virtual ICollection<VENTA> VENTA { get; set; }
     }
 }

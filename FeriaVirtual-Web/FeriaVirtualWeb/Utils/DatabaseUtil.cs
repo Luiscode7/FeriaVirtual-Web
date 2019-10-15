@@ -8,13 +8,23 @@ namespace FeriaVirtualWeb.Utils
 {
     public class DatabaseUtil
     {
-        public static decimal GetNextID()
+        public static decimal GetNextIDProducto()
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 var lastID = db.PRODUCTO.Max(p => p.IDPRODUCTO);
                 var nextID = lastID + 1;
                 return nextID;
+            }
+        }
+
+        public static decimal GetNextIDOrder()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var lastID = db.ORDEN.Max(p => p.IDORDEN);
+                var nextID = lastID + 1;
+                return nextID;            
             }
         }
     }

@@ -26,7 +26,9 @@ namespace FeriaVirtualWeb.Models.DataContext
         public string DIRECCION { get; set; }
         public string PAIS { get; set; }
         public string TIPOCLIENTE { get; set; }
+        public Nullable<decimal> PROCESOVENTA { get; set; }
     
         public virtual ICollection<ORDEN> ORDEN { get; set; }
+        public virtual PROCESOVENTA PROCESOVENTA1 { get; set; }
     }
 }

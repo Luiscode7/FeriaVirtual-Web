@@ -15,7 +15,6 @@ namespace FeriaVirtualWeb.Controllers
     {
         CollectionManager collection = new CollectionManager();
         
-        // GET: Productor
         public ActionResult MyListProducts()
         {
             var usuario = (USUARIO)Session["usuario"];
@@ -25,24 +24,25 @@ namespace FeriaVirtualWeb.Controllers
             return View(listaVacia);
         }
 
-        public ActionResult Index()
-        {
-            var lista = new List<PRODUCTO>();
-            lista = (List<PRODUCTO>)collection.GetProductosList();
-            return View(lista);
-        }
-
-        // GET: Productor/Details/5
-      
         public JsonResult Listar(List<PRODUCTO> productos)
         {
-            var productsSeleted = GetProductsSelected(productos);
-            var productor = new ProductorManager();
-            var usuario = (USUARIO)Session["usuario"];
-            foreach (var item in productsSeleted)
+            var productsSeleted = new List<PRODUCTO>();
+
+            if (ModelState.IsValid)
             {
-                productor.InsertNewProducto(item, usuario);
+                productsSeleted = collection.GetProductsSelected(productos);
+                var productor = new ProductorManager();
+                var usuario = (USUARIO)Session["usuario"];
+                foreach (var item in productsSeleted)
+                {
+                    productor.InsertNewProducto(item, usuario);
+                }
             }
+            else
+            {
+                return Json(null);
+            }
+            
             return Json(productsSeleted);
         }
 
@@ -56,11 +56,6 @@ namespace FeriaVirtualWeb.Controllers
                 vResult.View.Render(vContext, writer);
                 return writer.ToString();
             }
-        }
-
-        private List<PRODUCTO> GetProductsSelected(List<PRODUCTO> products)
-        {
-            return products.Where(p => p.IsChecked == true).ToList();
         }
 
         // GET: Productor/Edit/5

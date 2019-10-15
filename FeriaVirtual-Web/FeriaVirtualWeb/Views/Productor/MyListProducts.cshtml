@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "MyListProducts";
     List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> misProductos = ViewBag.misproductos;
+    string externo = ViewBag.enumproductos;
 }
 
 <h2>Mis Productos</h2>
@@ -29,28 +30,28 @@
 
     @foreach (var item in misProductos)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDPRODUCTO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DESCRIPCION)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PRECIO)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.STOCK)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PRODUCTOR_RUTPRODUCTOR)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPCION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRECIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STOCK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRODUCTOR_RUTPRODUCTOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIPOVENTA)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
     }
 
 </table>
@@ -61,8 +62,8 @@
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
@@ -77,22 +78,26 @@
                     <table class="table">
                         @for (var i = 0; i < Model.Count(); i++)
                         {
-                            <tr>
-                                <td>
-                                    @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { id = "boolcheck" })
-                                    @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
-                                    @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
-                                </td>
-                                <td>
-                                    @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control" } })
-                                </td>
-                                <td>
-                                    @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control" } })
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { htmlAttributes = new { @class = "check" } })
+                                @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
+                                @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+                            <td>
+                                @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value ="Externo"}, new SelectListItem { Text = "Local", Value = "Local" } },
+                                    new { @class = "form-control" })
+                            </td>
+                        </tr>
 
                         }
                     </table>
@@ -112,7 +117,7 @@
 
         var form = $("#form-productos");
         var botonAgregar = $("#btnAgregar");
-
+       
         $("#btnAgregar").click(function () {
             $.ajax({
                 url: form.attr('action'),

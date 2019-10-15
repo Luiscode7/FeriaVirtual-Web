@@ -14,14 +14,18 @@ namespace FeriaVirtualWeb.Models.DataContext
     
     public partial class SUBASTA
     {
+        public SUBASTA()
+        {
+            this.TRANSPORTISTA = new HashSet<TRANSPORTISTA>();
+        }
+    
         public decimal IDSUBASTA { get; set; }
         public System.DateTime FECHA { get; set; }
         public decimal PRECIO { get; set; }
         public decimal ORDEN_IDORDEN { get; set; }
         public string ESTADO { get; set; }
-        public string TRANSPORTISTA_RUTTRANSPORTISTA { get; set; }
     
         public virtual ORDEN ORDEN { get; set; }
-        public virtual TRANSPORTISTA TRANSPORTISTA { get; set; }
+        public virtual ICollection<TRANSPORTISTA> TRANSPORTISTA { get; set; }
     }
 }
