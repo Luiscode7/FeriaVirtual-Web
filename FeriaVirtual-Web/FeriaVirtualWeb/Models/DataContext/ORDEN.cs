@@ -11,7 +11,8 @@ namespace FeriaVirtualWeb.Models.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ORDEN
     {
         public ORDEN()
@@ -19,9 +20,11 @@ namespace FeriaVirtualWeb.Models.DataContext
             this.PAGO = new HashSet<PAGO>();
             this.PRODUCTO = new HashSet<PRODUCTO>();
             this.SUBASTA = new HashSet<SUBASTA>();
+            this.PROCESOVENTA = new HashSet<PROCESOVENTA>();
         }
     
         public decimal IDORDEN { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
         public string CLIENTE_RUTCLIENTE { get; set; }
         public string ESTADO { get; set; }
@@ -30,5 +33,6 @@ namespace FeriaVirtualWeb.Models.DataContext
         public virtual ICollection<PAGO> PAGO { get; set; }
         public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
         public virtual ICollection<SUBASTA> SUBASTA { get; set; }
+        public virtual ICollection<PROCESOVENTA> PROCESOVENTA { get; set; }
     }
 }

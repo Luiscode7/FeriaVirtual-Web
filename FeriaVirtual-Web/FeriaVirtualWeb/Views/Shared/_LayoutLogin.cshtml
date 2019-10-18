@@ -6,8 +6,11 @@
     <title></title>
     <link href="~/assest/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/assest/css/mystiles.css" rel="stylesheet" />
+    <link href="~/assest/css/toastr.min.css" rel="stylesheet" />
+    <script src="~/assest/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
+    <div class="loading" style="display:none"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Maipo Grande</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,25 +35,30 @@
             <div>
                 @RenderBody()
             </div>
-            @*<form class="form-inline my-2 my-lg-0">
-                
-            </form>*@
         </div>
     </nav>
     <div class="backimg">
-            <div class="panel-left"></div>
-            <div class="panel-right">
-                <div>
-                    <h2 class="font-white">¿Desea vender y comprar productos</h2>
-                    <h2 class="font-white">a través de nuestra empresa?</h2>
-                    <br />
-                    <h2 class="font-white">Contacte con Nosotros</h2>
+        <div class="panel-left"></div>
+        <div class="panel-right">
+            <div>
+                <br />
+                <br />
+                <br />
+                <h3 class="font-white">¿Desea vender y comprar productos</h3>
+                <h3 class="font-white">a través de nuestra empresa?</h3>
+                <br />
+                <h3 class="font-white">Contacte con Nosotros</h3>
+                <br />
+                <br />
+                <div class="col-md-6 m-auto d-flex justify-content-center pb-2" style="background-color: #6CF9CE;box-shadow: -2px 3px 17px -1px rgba(0,0,0,0.75);box-sizing:border-box;">
+                    @Html.Partial("NewContacto")
                 </div>
             </div>
         </div>
-
+    </div>
     <script src="~/assest/js/jquery-3.3.1.min.js"></script>
     <script src="~/assest/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assest/js/toastr.min.js"></script>
 </body>
 </html>
 

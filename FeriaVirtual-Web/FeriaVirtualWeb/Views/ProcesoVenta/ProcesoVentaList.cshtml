@@ -1,0 +1,122 @@
+﻿@model List<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
+
+@{
+    List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> productos = ViewBag.productos;
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayName("N° ORDEN")
+        </th>
+        <th>
+            @Html.DisplayName("CLIENTE")
+        </th>
+        <th>
+            @Html.DisplayName("FECHA INICIO")
+        </th>
+        <th>
+            @Html.DisplayName("ACCION")
+        </th>
+    </tr>
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+        <tr>
+            <td>
+                @((int)Model[i].ORDEN)
+            </td>
+            <td>
+                @Html.DisplayFor(model => Model[i].NOMBRECLIENTE)
+            </td>
+            <td>
+                @Html.DisplayFor(model => Model[i].FECHA)
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" id="btnProductoscli" data-toggle="modal" data-target="#exampleModalCenter3">
+                    Ver Productos
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Productos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                @Html.DisplayName("PRODUCTOS")
+                            </th>
+                            <th>
+                                @Html.DisplayName("CANTIDAD")
+                            </th>
+                        </tr>
+
+                        @for (var i = 0; i < productos.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => productos[i].DESCRIPCION)
+                                </td>
+                                <td>
+                                    @("$" + (int)productos[i].CANTIDAD)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                @using (Html.BeginForm("Postular", "ProcesoVenta", FormMethod.Post, new { id = "form-postular" }))
+                {
+                    for (var i = 0; i < Model.Count(); i++)
+                    {
+                        @Html.HiddenFor(model => Model[i].ORDEN)
+                        @Html.HiddenFor(model => Model[i].PROCESO)
+                    }
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary col-12" id="btnEnviar">Postular</button>
+                    </div>
+                    <div class="loader"></div>
+                }
+            </div>
+        </div>
+    </div>
+
+    @*<script>
+    $(document).ready(function () {
+
+        var form = $("#form-postular");
+        var botonAgregar = $("#btnEnviar");
+
+        $("#btnEnviar").click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                beforeSend: function () {
+                    $(".loader").fadeOut("slow");
+                },
+                success: function (response) {
+                   
+                }
+            });
+           
+        });
+    });
+    </script>*@

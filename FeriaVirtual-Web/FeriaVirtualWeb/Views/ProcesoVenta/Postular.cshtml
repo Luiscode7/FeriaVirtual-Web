@@ -1,0 +1,79 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+
+
+<table class="table table-bordered">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.IDPRODUCTO)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PRECIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STOCK)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ORDEN_IDORDEN)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.PRODUCTOR_RUTPRODUCTOR)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.IDPROCESOVENTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIPOVENTA)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.CANTIDAD)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.IsChecked)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.IDPRODUCTO)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPCION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRECIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STOCK)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ORDEN_IDORDEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRODUCTOR_RUTPRODUCTOR)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.IDPROCESOVENTA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIPOVENTA)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.CANTIDAD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsChecked)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

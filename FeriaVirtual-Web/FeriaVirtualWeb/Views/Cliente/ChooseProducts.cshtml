@@ -3,55 +3,38 @@
 @{ 
     List<FeriaVirtualWeb.Models.DataContext.ORDEN> listaOrden = ViewBag.ordenList;
 }
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    @*<tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IDPRODUCTO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DESCRIPCION)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PRECIO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.STOCK)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ORDEN_IDORDEN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PRODUCTOR_RUTPRODUCTOR)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IDPROCESOVENTA)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TIPOVENTA)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CANTIDAD)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsChecked)
-            </th>
-            <th></th>
-        </tr>*@
+
+<br />
+<br />
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2" id="btnModal">
+    Agregar
+</button>
+<br />
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayName("N° ORDEN")
+        </th>
+        <th>
+            @Html.DisplayName("FECHA")
+        </th>
+        <th>
+            @Html.DisplayName("ESTADO")
+        </th>
+        <th>
+            @Html.DisplayName("ACCIONES")
+        </th>
+    </tr>
 
     @foreach (var item in listaOrden)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IDORDEN)
+                @((int)item.IDORDEN)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FECHA)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CLIENTE_RUTCLIENTE)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ESTADO)
@@ -66,13 +49,10 @@
 
 </table>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2">
-    Agregar
-</button>
 
 <!-- Modal -->
-<div class="modal fade modal fade bd-example-modal-lg" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
@@ -97,7 +77,7 @@
                                     @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
                                 </td>
                                 <td>
-                                    @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "cantidad form-control" } })
                                 </td>
                             </tr>
 
@@ -106,8 +86,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrar">Close</button>
-                    <button type="submit" class="btn btn-primary" id="btnAgregar2">Agregar</button>
+                    <button type="submit" class="btn btn-primary col" id="btnAgregar2">Agregar</button>
                 </div>
             }
         </div>
@@ -119,6 +98,10 @@
 
         var form = $("#form-productosOrder");
         var botonAgregar = $("#btnAgregar2");
+
+        $("#btnModal").click(function () {
+            $(".cantidad").val('');
+        });
 
         $("#btnAgregar2").click(function () {
             $.ajax({

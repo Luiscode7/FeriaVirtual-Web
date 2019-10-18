@@ -29,6 +29,7 @@
         <AssociationConnector Association="FeriaVirtualModel.VENTA_PROCESOVENTA_FK" ManuallyRouted="false" />
         <AssociationConnector Association="FeriaVirtualModel.PRODUCTO_PRODUCTOR_FK" ManuallyRouted="false" />
         <AssociationConnector Association="FeriaVirtualModel.TRANSPORTISTA_SUBASTA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="FeriaVirtualModel.PROCESOV_ORDEN_FK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

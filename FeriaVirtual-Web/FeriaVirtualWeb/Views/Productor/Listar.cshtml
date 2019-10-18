@@ -6,7 +6,7 @@
 
 @using (Html.BeginForm("Listar", "Productor", FormMethod.Post, new { id = "form-agregarProductos" }))
 {
-    <table class="table">
+    <table class="table table-bordered">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.DESCRIPCION)

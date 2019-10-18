@@ -1,0 +1,87 @@
+﻿@model FeriaVirtualWeb.Models.DataContext.CONTACTO
+
+@using (Html.BeginForm("NewContacto", "Login", FormMethod.Post, new { id = "form-contacto", @class = "col-md-10" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h5 class="d-flex justify-content-center pt-3">CONTACTO</h5>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMPRESA, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.EMPRESA, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EMPRESA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CORREO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.CORREO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CORREO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TELEFONO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.TELEFONO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TELEFONO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-12" id="divBtnContacto">
+                <input type="submit" value="Enviar" class="btn btn-primary col" id="btnContacto" />
+                <div class="loadbutton d-flex justify-content-center"></div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+
+        var form = $("#form-contacto");
+        var botonContacto = $("#btnContacto");
+
+        botonContacto.click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                beforeSend: function () {
+                    botonContacto.replaceWith($(".loadbutton"));
+                    $(".loadbutton").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+                },
+                success: function (response) {
+                    form[0].reset();
+                    $(".loadbutton").hide();
+                    $("#divBtnContacto").html('<input type="submit" value="Enviar" class="btn btn-primary col" id="btnContacto" />');
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-center",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    toastr["success"]("Sus Datos han  sido Enviados Satisfactoriamente", "Maipo Grande Dice")
+                }
+            });
+            return false;
+        });
+    });
+</script>

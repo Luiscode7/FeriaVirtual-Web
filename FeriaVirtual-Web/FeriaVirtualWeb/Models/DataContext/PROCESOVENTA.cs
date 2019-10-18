@@ -11,7 +11,8 @@ namespace FeriaVirtualWeb.Models.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PROCESOVENTA
     {
         public PROCESOVENTA()
@@ -25,9 +26,13 @@ namespace FeriaVirtualWeb.Models.DataContext
         public System.DateTime FECHA { get; set; }
         public string ESTADO { get; set; }
         public string TIPOPROCESO { get; set; }
-    
+        public Nullable<decimal> ORDENID { get; set; }
+        public string NOMBRECLIENTE { get; set; }
+        public string PAIS { get; set; }
+
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
         public virtual ICollection<VENTA> VENTA { get; set; }
+        public virtual ORDEN ORDEN { get; set; }
     }
 }

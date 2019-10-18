@@ -44,12 +44,24 @@ namespace FeriaVirtualWeb.Controllers
                 case 3:
                     output = RedirectToAction("ChooseProducts", "Cliente");
                     break;
-                case 5: output = RedirectToAction("MyListProducts", "Productor");
+                case 5: output = RedirectToAction("ProcesoVentaList", "ProcesoVenta");
                     break;
                 default:
                     break;
             }
             return output;
+        }
+
+        public JsonResult NewContacto(CONTACTO contacto)
+        {
+            ContactoManager contactoManager = new ContactoManager();
+            var newContacto = new CONTACTO();
+            if (contacto != null)
+            {
+                newContacto = contactoManager.InsertNewContacto(contacto);
+            }
+
+            return Json(newContacto);
         }
 
     }

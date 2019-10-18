@@ -8,25 +8,24 @@
 
 <h2>Mis Productos</h2>
 
-<table class="table" id="listaProductos">
-    @*<tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IDPRODUCTO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DESCRIPCION)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PRECIO)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.STOCK)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PRODUCTOR_RUTPRODUCTOR)
-            </th>
-            <th></th>
-        </tr>*@
+<table class="table table-bordered" id="listaProductos">
+    <tr>
+        <th>
+            @Html.DisplayName("DESCRIPCION")
+        </th>
+        <th>
+            @Html.DisplayName("PRECIO")
+        </th>
+        <th>
+            @Html.DisplayName("STOCK")
+        </th>
+        <th>
+            @Html.DisplayName("TIPO VENTA")
+        </th>
+        <th>
+            @Html.DisplayName("ACCIONES")
+        </th>
+    </tr>
 
     @foreach (var item in misProductos)
     {
@@ -35,14 +34,14 @@
             @Html.DisplayFor(modelItem => item.DESCRIPCION)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PRECIO)
+            @((int)item.PRECIO)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.STOCK)
+            @((int)item.STOCK)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.PRODUCTOR_RUTPRODUCTOR)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.TIPOVENTA)
         </td>
@@ -66,7 +65,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Productos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -76,6 +75,23 @@
                 <div class="modal-body">
 
                     <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayName("")
+                            </th>
+                            <th>
+                                @Html.DisplayName("DESCRIPCION")
+                            </th>
+                            <th>
+                                @Html.DisplayName("PRECIO")
+                            </th>
+                            <th>
+                                @Html.DisplayName("STOCK")
+                            </th>
+                            <th>
+                                @Html.DisplayName("TIPO VENTA")
+                            </th>
+                        </tr>
                         @for (var i = 0; i < Model.Count(); i++)
                         {
                         <tr>
@@ -104,8 +120,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrar">Close</button>
-                    <button type="submit" class="btn btn-primary" id="btnAgregar">Agregar</button>
+                    <button type="submit" class="btn btn-primary col-12" id="btnAgregar">Agregar</button>
                 </div>
             }
         </div>

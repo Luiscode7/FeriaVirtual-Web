@@ -12,7 +12,7 @@ namespace FeriaVirtualWeb.Utils
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                var lastID = db.PRODUCTO.Max(p => p.IDPRODUCTO);
+                var lastID = db.PRODUCTO.DefaultIfEmpty().Max(p => p == null ? 0 : p.IDPRODUCTO);
                 var nextID = lastID + 1;
                 return nextID;
             }
@@ -22,9 +22,19 @@ namespace FeriaVirtualWeb.Utils
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                var lastID = db.ORDEN.Max(p => p.IDORDEN);
+                var lastID = db.ORDEN.DefaultIfEmpty().Max(p => p ==null ? 0 : p.IDORDEN);
                 var nextID = lastID + 1;
                 return nextID;            
+            }
+        }
+
+        public static decimal GetNextIDContacto()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var lastID = db.CONTACTO.DefaultIfEmpty().Max(p => p == null ? 0: p.IDCONTACTO); 
+                var nextID = lastID + 1;
+                return nextID;
             }
         }
     }
