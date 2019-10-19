@@ -142,5 +142,13 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return db.PROCESOVENTA.Where(p => p.ORDENID == orden).FirstOrDefault();
             }
         }
+
+        public PRODUCTO GetProductToEdit(decimal id)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.IDPRODUCTO == id).FirstOrDefault();
+            }
+        }
     }
 }

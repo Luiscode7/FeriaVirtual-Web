@@ -20,7 +20,8 @@ namespace FeriaVirtualWeb.Models.DataManager
                     {
                         IDORDEN = DatabaseUtil.GetNextIDOrder(),
                         FECHA = DateTime.Now,
-                        CLIENTE_RUTCLIENTE = usuario.RUTUSUARIO
+                        CLIENTE_RUTCLIENTE = usuario.RUTUSUARIO,
+                        ESTADO = "Pendiente"
                     };
                     db.ORDEN.Add(orden);
                     db.SaveChanges();

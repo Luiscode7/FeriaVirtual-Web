@@ -1,0 +1,74 @@
+﻿@model FeriaVirtualWeb.Models.DataContext.PRODUCTO
+
+@{ 
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddProductoEditado","Productor", FormMethod.Post, new { id = "form-actualizar"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal m-auto">
+        <h5>ACTUALIZAR PRODUCTO</h5>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+          
+        @Html.HiddenFor(model => model.IDPRODUCTO)
+               
+        <div class="form-group">
+            @Html.LabelFor(model => model.DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.DESCRIPCION, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PRECIO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PRECIO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PRECIO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.STOCK, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.STOCK, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.STOCK, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Actualizar" class="btnActualizar btn btn-primary col" />
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+
+        var form = $("#form-actualizar");
+        var botonAgregar = $(".btnActualizar");
+
+        botonAgregar.click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                success: function (response) {
+                    console.log(response);
+                    if (response) {
+                        $("#exampleModalCenter").modal("hide");
+                        location.reload(true);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>

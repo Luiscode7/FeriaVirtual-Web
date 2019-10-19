@@ -21,10 +21,16 @@ namespace FeriaVirtualWeb.Controllers
             var lista = collection.GetMyProductosList(usuario);
             var listaVacia = collection.GetProductosList();
             ViewBag.misproductos = lista;
+            return View(lista);
+        }
+
+        public ActionResult GetListToAddNewProductos()
+        {
+            var listaVacia = collection.GetProductosList();
             return View(listaVacia);
         }
 
-        public JsonResult Listar(List<PRODUCTO> productos)
+        public JsonResult AddNewProductos(List<PRODUCTO> productos)
         {
             var productsSeleted = new List<PRODUCTO>();
 
@@ -44,6 +50,27 @@ namespace FeriaVirtualWeb.Controllers
             }
             
             return Json(productsSeleted);
+        }
+
+        public ActionResult EditProductos(decimal id)
+        {
+            var idEdit = collection.GetProductToEdit(id);
+            return View(idEdit);
+        }
+
+        public JsonResult AddProductoEditado(PRODUCTO producto)
+        {
+            var productoEdit = new ProductorManager();
+            var productoR = productoEdit.UpdateProducto(producto);
+            var productoActualizado = new PRODUCTO
+            {
+                IDPRODUCTO = productoR.IDPRODUCTO,
+                DESCRIPCION = productoR.DESCRIPCION,
+                PRECIO = productoR.PRECIO,
+                STOCK = productoR.STOCK
+            };
+
+            return Json(productoActualizado);
         }
 
         private string ConvertViewToString(string viewName, object model)

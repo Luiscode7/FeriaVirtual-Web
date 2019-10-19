@@ -1,0 +1,78 @@
+﻿@model List<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+
+@{ 
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddNewProductos", "Productor", FormMethod.Post, new { id = "form-productos" }))
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("")
+            </th>
+            <th>
+                @Html.DisplayName("DESCRIPCION")
+            </th>
+            <th>
+                @Html.DisplayName("PRECIO")
+            </th>
+            <th>
+                @Html.DisplayName("STOCK")
+            </th>
+            <th>
+                @Html.DisplayName("TIPO VENTA")
+            </th>
+        </tr>
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { htmlAttributes = new { @class = "check" } })
+                    @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
+                    @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+                <td>
+                    @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value = "Externo" }, new SelectListItem { Text = "Local", Value = "Local" } },
+                 new { @class = "form-control" })
+                </td>
+            </tr>
+
+        }
+    </table>
+    <button type="submit" class="btn btn-primary col" id="btnIngresarP">Agregar</button>
+}
+
+<script>
+    $(document).ready(function () {
+
+        var form = $("#form-productos");
+        var botonAgregar = $("#btnIngresarP");
+
+        $("#btnIngresarP").click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                success: function (response) {
+                    console.log(response);
+                    if (response) {
+                        $("#exampleModalCenter").modal("hide");
+                        location.reload(true);
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>

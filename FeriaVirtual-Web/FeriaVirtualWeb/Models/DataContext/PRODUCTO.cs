@@ -11,12 +11,15 @@ namespace FeriaVirtualWeb.Models.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PRODUCTO
     {
         public decimal IDPRODUCTO { get; set; }
         public string DESCRIPCION { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public Nullable<decimal> PRECIO { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public Nullable<decimal> STOCK { get; set; }
         public Nullable<decimal> ORDEN_IDORDEN { get; set; }
         public string PRODUCTOR_RUTPRODUCTOR { get; set; }

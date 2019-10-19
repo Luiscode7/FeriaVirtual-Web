@@ -39,9 +39,18 @@
                 <a href="#exampleModalCenter3" class="btnVer btn btn-primary" data-toggle="modal" data-id="@Model[i].ORDEN">
                     Ver Productos
                 </a>
-                <a href="#" class="btnPostular btn btn-primary" data-id="@Model[i].ORDEN">
+                @if (Model[i].ESTADO != "Pendiente")
+                {
+                    <a href="#" class="btnPostular btn btn-primary" data-id="@Model[i].ORDEN">
+                        Postular
+                    </a>
+                }
+                else
+                {
+                    <a href="#" class="btnPostular btn btn-primary" style="display:none;" data-id="@Model[i].ORDEN">
                     Postular
-                </a>
+                    </a>
+                }
             </td>
         </tr>
     }

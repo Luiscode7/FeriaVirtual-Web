@@ -34,5 +34,27 @@ namespace FeriaVirtualWeb.Models.DataManager
                 throw;
             }
         }
+
+        public PRODUCTO UpdateProducto(PRODUCTO productoEdit)
+        {
+            try
+            {
+               
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    PRODUCTO producto = db.PRODUCTO.Where(p => p.IDPRODUCTO == productoEdit.IDPRODUCTO).FirstOrDefault();
+                    producto.PRECIO = productoEdit.PRECIO;
+                    producto.STOCK = productoEdit.STOCK;
+                    db.SaveChanges();
+                    return producto;
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

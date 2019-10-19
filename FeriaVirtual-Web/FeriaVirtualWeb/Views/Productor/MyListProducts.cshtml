@@ -1,12 +1,14 @@
 ﻿@model List<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
 
-@{
-    ViewBag.Title = "MyListProducts";
-    List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> misProductos = ViewBag.misproductos;
-    string externo = ViewBag.enumproductos;
-}
 
 <h2>Mis Productos</h2>
+<br />
+
+<a id="btnNuevo" href="#exampleModalCenter" class="btnVer btn btn-primary" data-toggle="modal">
+    Ingresar Productos
+</a>
+<br />
+<br />
 
 <table class="table table-bordered" id="listaProductos">
     <tr>
@@ -27,7 +29,7 @@
         </th>
     </tr>
 
-    @foreach (var item in misProductos)
+    @foreach (var item in Model)
     {
     <tr>
         <td>
@@ -46,8 +48,7 @@
             @Html.DisplayFor(modelItem => item.TIPOVENTA)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            <a href="#exampleModalCenter" class="btnEdit btn btn-primary" data-toggle="modal" data-id="@item.IDPRODUCTO">Actualizar</a>
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
@@ -55,10 +56,6 @@
 
 </table>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Agregar
-</button>
 
 <!-- Modal -->
 <div class="modal fade modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -70,84 +67,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @using (Html.BeginForm("Listar", "Productor", FormMethod.Post, new { id = "form-productos" }))
-            {
-                <div class="modal-body">
-
-                    <table class="table">
-                        <tr>
-                            <th>
-                                @Html.DisplayName("")
-                            </th>
-                            <th>
-                                @Html.DisplayName("DESCRIPCION")
-                            </th>
-                            <th>
-                                @Html.DisplayName("PRECIO")
-                            </th>
-                            <th>
-                                @Html.DisplayName("STOCK")
-                            </th>
-                            <th>
-                                @Html.DisplayName("TIPO VENTA")
-                            </th>
-                        </tr>
-                        @for (var i = 0; i < Model.Count(); i++)
-                        {
-                        <tr>
-                            <td>
-                                @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { htmlAttributes = new { @class = "check" } })
-                                @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
-                                @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
-                            </td>
-                            <td>
-                                @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control" } })
-                            </td>
-                            <td>
-                                @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control" } })
-                            </td>
-                            <td>
-                                @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value ="Externo"}, new SelectListItem { Text = "Local", Value = "Local" } },
-                                    new { @class = "form-control" })
-                            </td>
-                        </tr>
-
-                        }
-                    </table>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary col-12" id="btnAgregar">Agregar</button>
-                </div>
-            }
+            
+            <div class="modal-body">
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function () {
+    $("#btnNuevo").click(function () {
+        $(".modal-body").load("/Productor/GetListToAddNewProductos/");
+    }); 
 
-        var form = $("#form-productos");
-        var botonAgregar = $("#btnAgregar");
-       
-        $("#btnAgregar").click(function () {
-            $.ajax({
-                url: form.attr('action'),
-                type: "POST",
-                dataType: 'html',
-                data: form.serialize(),
-                success: function (response) {
-                    console.log(response);
-                    if (response) {
-                        $("#exampleModalCenter").modal("hide");
-                        location.reload(true);
-                    }
-                }
-            });
-            return false;
-        });
+    $(".btnEdit").click(function () {
+        $(".modal-body").load("/Productor/EditProductos/" + $(this).data("id"));
     });
 </script>
