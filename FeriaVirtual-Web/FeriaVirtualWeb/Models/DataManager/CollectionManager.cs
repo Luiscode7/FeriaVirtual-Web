@@ -94,9 +94,10 @@ namespace FeriaVirtualWeb.Models.DataManager
                                  PROCESO = pv.IDPROCESOVENTA,
                                  ORDEN = pv.ORDENID,
                                  NOMBRECLIENTE = cl.NOMBRE,
-                                 FECHA = pv.FECHA
+                                 FECHA = pv.FECHA,
+                                 ESTADO = pv.ESTADO
                                  
-                             }).ToList();
+                             }).OrderBy(p => p.ORDEN).ToList();
 
                 return query as IEnumerable<ProcesoVentaViewModel>;
             }
@@ -134,18 +135,11 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public ProcesoVentaViewModel GetProcesoByOrden(decimal orden)
+        public PROCESOVENTA GetProcesoByOrden(decimal? orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                var query = (from p in db.PROCESOVENTA
-                             where p.ORDENID == orden
-                             select new ProcesoVentaViewModel
-                             {
-                                 PROCESO = p.IDPROCESOVENTA,
-                                 ORDEN = p.ORDENID
-                             });
-                return query as ProcesoVentaViewModel;
+                return db.PROCESOVENTA.Where(p => p.ORDENID == orden).FirstOrDefault();
             }
         }
     }

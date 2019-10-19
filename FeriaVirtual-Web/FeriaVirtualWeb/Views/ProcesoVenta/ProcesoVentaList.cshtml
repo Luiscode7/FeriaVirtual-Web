@@ -1,10 +1,7 @@
 ﻿@model List<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
 
-@{
-    List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> productos = ViewBag.productos;
-}
-
-
+<h2>Procesos de Venta Externa</h2>
+<br />
 <table class="table table-bordered">
     <tr>
         <th>
@@ -15,6 +12,9 @@
         </th>
         <th>
             @Html.DisplayName("FECHA INICIO")
+        </th>
+        <th>
+            @Html.DisplayName("ESTADO")
         </th>
         <th>
             @Html.DisplayName("ACCION")
@@ -33,17 +33,20 @@
                 @Html.DisplayFor(model => Model[i].FECHA)
             </td>
             <td>
-                <button type="button" class="btn btn-primary" id="btnProductoscli" data-toggle="modal" data-target="#exampleModalCenter3">
+                @Html.DisplayFor(model => Model[i].ESTADO)
+            </td>
+            <td style="white-space:nowrap">
+                <a href="#exampleModalCenter3" class="btnVer btn btn-primary" data-toggle="modal" data-id="@Model[i].ORDEN">
                     Ver Productos
-                </button>
+                </a>
+                <a href="#" class="btnPostular btn btn-primary" data-id="@Model[i].ORDEN">
+                    Postular
+                </a>
             </td>
         </tr>
     }
 
 </table>
-
-
-
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -57,66 +60,35 @@
                 </div>
 
                 <div class="modal-body">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>
-                                @Html.DisplayName("PRODUCTOS")
-                            </th>
-                            <th>
-                                @Html.DisplayName("CANTIDAD")
-                            </th>
-                        </tr>
-
-                        @for (var i = 0; i < productos.Count(); i++)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(model => productos[i].DESCRIPCION)
-                                </td>
-                                <td>
-                                    @("$" + (int)productos[i].CANTIDAD)
-                                </td>
-                            </tr>
-                        }
-                    </table>
+                    <div id="modelcontent"></div>
                 </div>
-                @using (Html.BeginForm("Postular", "ProcesoVenta", FormMethod.Post, new { id = "form-postular" }))
-                {
-                    for (var i = 0; i < Model.Count(); i++)
-                    {
-                        @Html.HiddenFor(model => Model[i].ORDEN)
-                        @Html.HiddenFor(model => Model[i].PROCESO)
-                    }
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary col-12" id="btnEnviar">Postular</button>
-                    </div>
-                    <div class="loader"></div>
-                }
             </div>
         </div>
     </div>
 
-    @*<script>
-    $(document).ready(function () {
+<script>
+    $(document).on('click','.btnVer',(function (e) {
+            e.preventDefault();
+            $("#modelcontent").load("/ProcesoVenta/ProductosListAccordingProcesoVenta/" + $(this).data("id"));
+     }));
 
-        var form = $("#form-postular");
-        var botonAgregar = $("#btnEnviar");
 
-        $("#btnEnviar").click(function () {
-            $.ajax({
-                url: form.attr('action'),
-                type: "POST",
-                dataType: 'html',
-                data: form.serialize(),
-                beforeSend: function () {
-                    $(".loader").fadeOut("slow");
-                },
-                success: function (response) {
-                   
-                }
-            });
-           
+    $(".btnPostular").click(function () {
+        var loader = $(this);
+        $.ajax({
+            url: '@Url.Action("Postular","ProcesoVenta")',
+            type: "POST",
+            dataType: 'html',
+            data: { orden: $(this).data("id") },
+            beforeSend: function () {
+                loader.replaceWith("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+            },
+            success: function (response) {
+                console.log(response);
+                location.reload(true);
+                
+            }
         });
-    });
-    </script>*@
+        return false;
+    }); 
+</script>

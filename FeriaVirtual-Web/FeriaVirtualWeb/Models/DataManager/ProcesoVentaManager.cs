@@ -8,19 +8,38 @@ namespace FeriaVirtualWeb.Models.DataManager
 {
     public class ProcesoVentaManager
     {
-        public void InsertProcesoVentaAccordingToUsuario(List<PRODUCTO> productos, decimal procesoventa)
+        public PRODUCTO InsertProcesoVentaAccordingToUsuario(List<PRODUCTO> productos, decimal procesoventa)
+        {
+            try
+            {
+                var producto = new PRODUCTO();
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    foreach (var item in productos)
+                    {
+                        producto = db.PRODUCTO.Where(p => p.IDPRODUCTO == item.IDPRODUCTO).FirstOrDefault();
+                        producto.IDPROCESOVENTA = procesoventa;
+                        db.SaveChanges();
+                    }
+                    return producto;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void UpdateEstadoProcesoVenta(decimal? procesov)
         {
             try
             {
                 using (FeriaVirtualEntities db = new FeriaVirtualEntities())
                 {
-                    foreach (var item in productos)
-                    {
-                        PRODUCTO producto = db.PRODUCTO.Where(p => p.IDPRODUCTO == item.IDPRODUCTO).FirstOrDefault();
-                        producto.IDPROCESOVENTA = procesoventa;
-                        db.SaveChanges();
-                    }
-                    
+                    PROCESOVENTA proceso = db.PROCESOVENTA.Where(p => p.IDPROCESOVENTA == procesov).FirstOrDefault();
+                    proceso.ESTADO = "Pendiente";
+                    db.SaveChanges();
                 }
             }
             catch (Exception)

@@ -274,6 +274,7 @@
     <Content Include="Views\ProcesoVenta\ProcesoVentaList.cshtml" />
     <Content Include="Views\ProcesoVenta\Postular.cshtml" />
     <Content Include="Views\Login\NewContacto.cshtml" />
+    <Content Include="Views\ProcesoVenta\ProductosListAccordingProcesoVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,6 +13,6 @@ namespace FeriaVirtualWeb.Models.ViewModels
         public string NOMBRECLIENTE { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime FECHA { get; set; }
-        public bool SELECTED { get; set; } 
+        public string ESTADO { get; set; }
     }
 }

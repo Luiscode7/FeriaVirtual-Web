@@ -22,28 +22,40 @@ namespace FeriaVirtualWeb.Controllers
             {
                 productos = collection.GetProductClientByOrder(item.ORDEN);
             }
-            ViewBag.productos = productos;
             return View(lista);
+        }
+
+        public ActionResult ProductosListAccordingProcesoVenta(decimal id)
+        {
+            var productos = new List<PRODUCTO>();
+            productos = collection.GetProductClientByOrder(id);
+            return View(productos);
         }
    
 
-        [HttpPost]
-        public ActionResult Postular(List<ProcesoVentaViewModel> proceso)
+        public JsonResult Postular(decimal orden)
         {
             var procesoManager = new ProcesoVentaManager();
             var productos = new List<PRODUCTO>();
             var pPostulacion = new List<PRODUCTO>();
-            foreach (var item in proceso)
+            var newOrden = orden;
+            var procesoOr = orden;
+            var proceso = new PROCESOVENTA();
+   
+            productos = collection.GetProductClientByOrder(newOrden);
+            proceso = collection.GetProcesoByOrden(procesoOr);
+            var usuario = (USUARIO)Session["usuario"];
+            pPostulacion = collection.GetProductsProductorAccordingToProcesoVenta(productos, usuario);
+            if (pPostulacion != null)
             {
-                productos = collection.GetProductClientByOrder(item.ORDEN);
-                var usuario = (USUARIO)Session["usuario"];
-                pPostulacion = collection.GetProductsProductorAccordingToProcesoVenta(productos, usuario);
-                if (pPostulacion != null)
+                var procesoestado = procesoManager.InsertProcesoVentaAccordingToUsuario(pPostulacion, proceso.IDPROCESOVENTA);
+                if(procesoestado != null)
                 {
-                    procesoManager.InsertProcesoVentaAccordingToUsuario(pPostulacion, item.PROCESO);
+                    procesoManager.UpdateEstadoProcesoVenta(procesoestado.IDPROCESOVENTA);
                 }
             }
-            return View(pPostulacion);
+          
+            return Json(pPostulacion);
         }
 
         // GET: ProcesoVenta/Create
