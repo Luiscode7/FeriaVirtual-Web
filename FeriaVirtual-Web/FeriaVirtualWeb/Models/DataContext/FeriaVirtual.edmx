@@ -106,7 +106,7 @@
           </Key>
           <Property Name="IDSUBASTA" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="FECHA" Type="date" Nullable="false" />
-          <Property Name="PRECIO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PRECIO" Type="number" Precision="38" Scale="0" />
           <Property Name="ORDEN_IDORDEN" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ESTADO" Type="varchar2" MaxLength="20" Nullable="false" />
         </EntityType>

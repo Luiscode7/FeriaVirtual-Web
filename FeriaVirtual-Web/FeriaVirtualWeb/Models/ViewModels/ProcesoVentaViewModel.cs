@@ -9,6 +9,7 @@ namespace FeriaVirtualWeb.Models.ViewModels
     public class ProcesoVentaViewModel
     {
         public decimal PROCESO { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public decimal? ORDEN { get; set; }
         public string NOMBRECLIENTE { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]

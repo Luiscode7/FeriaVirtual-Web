@@ -24,7 +24,9 @@ namespace FeriaVirtualWeb.Models.DataContext
         public Nullable<decimal> ORDEN_IDORDEN { get; set; }
         public string PRODUCTOR_RUTPRODUCTOR { get; set; }
         public Nullable<decimal> IDPROCESOVENTA { get; set; }
+        [Display(Name ="TIPO VENTA")]
         public string TIPOVENTA { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public Nullable<decimal> CANTIDAD { get; set; }
         public bool IsChecked { get; set; }
 

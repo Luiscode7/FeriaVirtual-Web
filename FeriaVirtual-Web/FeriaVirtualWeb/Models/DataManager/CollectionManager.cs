@@ -151,12 +151,12 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public bool GetProductosListIfExternoExist(PRODUCTO producto)
+        public bool GetProductosListIfExternoExist(PRODUCTO producto, USUARIO usuario)
         {
             var newProducto = new PRODUCTO();
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                newProducto = db.PRODUCTO.Where(p => p.DESCRIPCION == producto.DESCRIPCION && p.TIPOVENTA == producto.TIPOVENTA).FirstOrDefault();
+                newProducto = db.PRODUCTO.Where(p => p.DESCRIPCION == producto.DESCRIPCION && p.TIPOVENTA == producto.TIPOVENTA && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO).FirstOrDefault();
                 if(newProducto != null)
                 {
                     return false;

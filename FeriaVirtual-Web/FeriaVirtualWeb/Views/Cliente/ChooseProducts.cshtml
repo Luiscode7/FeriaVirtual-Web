@@ -1,4 +1,4 @@
-﻿@model List<FeriaVirtualWeb.Models.DataContext.ORDEN>
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.ORDEN>
 
 
 <br />
@@ -11,13 +11,13 @@
 <table class="table table-bordered">
     <tr>
         <th>
-            @Html.DisplayName("N° ORDEN")
+            @Html.DisplayNameFor(model => model.IDORDEN)
         </th>
         <th>
-            @Html.DisplayName("FECHA")
+            @Html.DisplayNameFor(model => model.FECHA)
         </th>
         <th>
-            @Html.DisplayName("ESTADO")
+            @Html.DisplayNameFor(model => model.ESTADO)
         </th>
         <th>
             @Html.DisplayName("ACCIONES")
@@ -28,7 +28,7 @@
     {
         <tr>
             <td>
-                @((int)item.IDORDEN)
+                @Html.DisplayFor(modelItem => item.IDORDEN)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FECHA)

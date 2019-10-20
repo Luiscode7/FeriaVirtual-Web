@@ -23,13 +23,12 @@ namespace FeriaVirtualWeb.Models.DataContext
         }
     
         public decimal IDPROCESOVENTA { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
         public string ESTADO { get; set; }
         public string TIPOPROCESO { get; set; }
         public Nullable<decimal> ORDENID { get; set; }
-        public string NOMBRECLIENTE { get; set; }
-        public string PAIS { get; set; }
-
+    
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
         public virtual ICollection<VENTA> VENTA { get; set; }

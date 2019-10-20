@@ -41,7 +41,7 @@ namespace FeriaVirtualWeb.Controllers
                 var usuario = (USUARIO)Session["usuario"];
                 foreach (var item in productsSeleted)
                 {
-                    if (collection.GetProductosListIfExternoExist(item))
+                    if (collection.GetProductosListIfExternoExist(item, usuario))
                     {
                         productor.InsertNewProducto(item, usuario);
                     }

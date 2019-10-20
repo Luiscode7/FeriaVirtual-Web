@@ -22,7 +22,9 @@ namespace FeriaVirtualWeb.Models.DataContext
             this.SUBASTA = new HashSet<SUBASTA>();
             this.PROCESOVENTA = new HashSet<PROCESOVENTA>();
         }
-    
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° ORDEN")]
         public decimal IDORDEN { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }

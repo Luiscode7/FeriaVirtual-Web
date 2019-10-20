@@ -1,4 +1,4 @@
-﻿@model List<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
 
 
 <h2>Mis Productos</h2>
@@ -13,16 +13,16 @@
 <table class="table table-bordered" id="listaProductos">
     <tr>
         <th>
-            @Html.DisplayName("DESCRIPCION")
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
         </th>
         <th>
-            @Html.DisplayName("PRECIO")
+            @Html.DisplayNameFor(model => model.PRECIO)
         </th>
         <th>
-            @Html.DisplayName("STOCK")
+            @Html.DisplayNameFor(model => model.STOCK)
         </th>
         <th>
-            @Html.DisplayName("TIPO VENTA")
+            @Html.DisplayNameFor(model => model.TIPOVENTA)
         </th>
         <th>
             @Html.DisplayName("ACCIONES")
@@ -36,14 +36,11 @@
             @Html.DisplayFor(modelItem => item.DESCRIPCION)
         </td>
         <td>
-            @((int)item.PRECIO)
+            @Html.DisplayFor(modelItem => item.PRECIO)
         </td>
         <td>
-            @((int)item.STOCK)
+            @Html.DisplayFor(modelItem => item.STOCK)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.PRODUCTOR_RUTPRODUCTOR)
-        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.TIPOVENTA)
         </td>
