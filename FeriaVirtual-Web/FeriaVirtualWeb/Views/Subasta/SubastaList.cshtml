@@ -32,7 +32,9 @@
             @Html.DisplayFor(modelItem => item.ESTADO)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            <a href="#exampleModalCenter4" class="btnVerP btn btn-primary" data-toggle="modal" data-id="@item.ORDEN_IDORDEN">
+                Ver Productos
+            </a>
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
@@ -40,3 +42,47 @@
 }
 
 </table>
+
+<div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Productos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).on('click','.btnVerP',(function (e) {
+            e.preventDefault();
+        $(".modal-body").load("/Subasta/ProductsAccordingToOrders/" + $(this).data("id"));
+     }));
+
+
+    $(".btnPostular").click(function () {
+        var loader = $(this);
+        $.ajax({
+            url: '@Url.Action("Postular","ProcesoVenta")',
+            type: "POST",
+            dataType: 'html',
+            data: { orden: $(this).data("id") },
+            beforeSend: function () {
+                loader.replaceWith("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+            },
+            success: function (response) {
+                console.log(response);
+                location.reload(true);
+
+            }
+        });
+        return false;
+    });
+</script>

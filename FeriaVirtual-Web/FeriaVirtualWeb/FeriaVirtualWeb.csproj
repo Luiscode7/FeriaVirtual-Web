@@ -288,6 +288,7 @@
     <Content Include="Views\Cliente\GetListToAddNewOrders.cshtml" />
     <Content Include="Views\Transportista\Transporte.cshtml" />
     <Content Include="Views\Subasta\SubastaList.cshtml" />
+    <Content Include="Views\Subasta\ProductsAccordingToOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

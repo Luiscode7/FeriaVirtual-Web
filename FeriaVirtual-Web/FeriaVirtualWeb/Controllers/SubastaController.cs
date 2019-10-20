@@ -20,10 +20,11 @@ namespace FeriaVirtualWeb.Controllers
             return View(subasta);
         }
 
-        // GET: Subasta/Details/5
-        public ActionResult Details(int id)
+        
+        public ActionResult ProductsAccordingToOrders(decimal id)
         {
-            return View();
+            var productosList = collection.GetProductClientByOrder(id);
+            return View(productosList);
         }
 
         // GET: Subasta/Create
