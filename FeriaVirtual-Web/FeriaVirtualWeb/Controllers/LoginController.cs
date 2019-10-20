@@ -46,6 +46,9 @@ namespace FeriaVirtualWeb.Controllers
                     break;
                 case 5: output = RedirectToAction("ProcesoVentaList", "ProcesoVenta");
                     break;
+                case 4:
+                    output = RedirectToAction("Transporte", "Transportista");
+                    break;
                 default:
                     break;
             }

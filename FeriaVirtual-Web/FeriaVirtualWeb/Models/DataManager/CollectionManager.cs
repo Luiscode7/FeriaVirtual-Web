@@ -167,5 +167,21 @@ namespace FeriaVirtualWeb.Models.DataManager
                 }
             }
         }
+
+        public List<TRANSPORTISTA> GetTransporte(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(t => t.RUTTRANSPORTISTA == usuario.RUTUSUARIO).ToList();
+            }
+        }
+
+        public List<SUBASTA> GetSubasta()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.SUBASTA.ToList();
+            }
+        }
     }
 }

@@ -11,15 +11,19 @@ namespace FeriaVirtualWeb.Models.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TRANSPORTISTA
     {
         public string RUTTRANSPORTISTA { get; set; }
         public string NOMBRE { get; set; }
         public string TELEFONO { get; set; }
+        [Display(Name ="TIPO TRANSPORTE")]
         public string TIPOTRANSPORTE { get; set; }
         public decimal ANCHO { get; set; }
         public decimal ALTO { get; set; }
+        [Display(Name = "CAPACIDAD DE CARGA")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public decimal CAPACIDADCARGA { get; set; }
         public string REFRIGERACION { get; set; }
         public Nullable<decimal> SUBASTAID { get; set; }

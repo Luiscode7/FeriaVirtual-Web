@@ -1,10 +1,10 @@
 ﻿@model List<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
 
-@{ 
+@{
     Layout = null;
 }
 
-@using (Html.BeginForm("AddNewProductos", "Productor", FormMethod.Post, new { id = "form-productos" }))
+@using (Html.BeginForm("AddOrder", "Cliente", FormMethod.Post, new { id = "form-productosOrder" }))
 {
     <table class="table">
         <tr>
@@ -15,13 +15,7 @@
                 @Html.DisplayName("DESCRIPCION")
             </th>
             <th>
-                @Html.DisplayName("PRECIO")
-            </th>
-            <th>
-                @Html.DisplayName("STOCK")
-            </th>
-            <th>
-                @Html.DisplayName("TIPO VENTA")
+                @Html.DisplayName("CANTIDAD")
             </th>
         </tr>
         @for (var i = 0; i < Model.Count(); i++)
@@ -36,29 +30,24 @@
                     @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control" } })
-                </td>
-                <td>
-                    @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control" } })
-                </td>
-                <td>
-                    @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value = "Externo" }, new SelectListItem { Text = "Local", Value = "Local" } },
-                 new { @class = "form-control" })
+                    @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "cantidad form-control" } })
                 </td>
             </tr>
 
         }
     </table>
-    <button type="submit" class="btn btn-primary col" id="btnIngresarP">Agregar</button>
+    <button type="submit" class="btn btn-primary col" id="btnIngresarOr">Agregar</button>
 }
 
 <script>
     $(document).ready(function () {
 
-        var form = $("#form-productos");
-        var botonAgregar = $("#btnIngresarP");
+        var form = $("#form-productosOrder");
+        var botonAgregar = $("#btnIngresarOr");
 
-        $("#btnIngresarP").click(function () {
+        $(".cantidad").val('');
+        
+        botonAgregar.click(function () {
             $.ajax({
                 url: form.attr('action'),
                 type: "POST",
@@ -67,7 +56,7 @@
                 success: function (response) {
                     console.log(response);
                     if (response) {
-                        $("#exampleModalCenter").modal("hide");
+                        $("#exampleModalCenter2").modal("hide");
                         location.reload(true);
                         toastr.options = {
                             "closeButton": false,
@@ -86,7 +75,7 @@
                             "showMethod": "fadeIn",
                             "hideMethod": "fadeOut"
                         }
-                        toastr["success"]("Sus Productos han sido Agregados Exitosamente", "Maipo Grande Dice")
+                        toastr["success"]("Su Orden ha sido Enviada Exitosamente", "Maipo Grande Dice")
                     }
                 }
             });

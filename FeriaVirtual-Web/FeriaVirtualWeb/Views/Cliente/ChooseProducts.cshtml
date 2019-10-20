@@ -1,14 +1,11 @@
-﻿@model List<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+﻿@model List<FeriaVirtualWeb.Models.DataContext.ORDEN>
 
-@{ 
-    List<FeriaVirtualWeb.Models.DataContext.ORDEN> listaOrden = ViewBag.ordenList;
-}
 
 <br />
 <br />
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter2" id="btnModal">
-    Agregar
-</button>
+<a id="btnNuevoOr" href="#exampleModalCenter2" class="btnVer btn btn-primary" data-toggle="modal">
+    Ingresar Productos
+</a>
 <br />
 <br />
 <table class="table table-bordered">
@@ -27,7 +24,7 @@
         </th>
     </tr>
 
-    @foreach (var item in listaOrden)
+    @foreach (var item in Model)
     {
         <tr>
             <td>
@@ -55,69 +52,20 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Productos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            @using (Html.BeginForm("AddOrder", "Cliente", FormMethod.Post, new { id = "form-productosOrder" }))
-            {
-                <div class="modal-body">
-
-                    <table class="table">
-                        @for (var i = 0; i < Model.Count(); i++)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { htmlAttributes = new { @class = "check" } })
-                                    @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
-                                    @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
-                                </td>
-                                <td>
-                                    @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "cantidad form-control" } })
-                                </td>
-                            </tr>
-
-                        }
-                    </table>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary col" id="btnAgregar2">Agregar</button>
-                </div>
-            }
+           
+            <div class="modal-body">
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-
-        var form = $("#form-productosOrder");
-        var botonAgregar = $("#btnAgregar2");
-
-        $("#btnModal").click(function () {
-            $(".cantidad").val('');
-        });
-
-        $("#btnAgregar2").click(function () {
-            $.ajax({
-                url: form.attr('action'),
-                type: "POST",
-                dataType: 'html',
-                data: form.serialize(),
-                success: function (response) {
-                    console.log(response);
-                    if (response) {
-                        $("#exampleModalCenter2").modal("hide");
-                        location.reload(true);
-                    }
-                }
-            });
-            return false;
-        });
-    });
+    $("#btnNuevoOr").click(function () {
+        $(".modal-body").load("/Cliente/GetListToAddNewOrders/");
+    }); 
 </script>

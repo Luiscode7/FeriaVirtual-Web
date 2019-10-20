@@ -9,53 +9,43 @@ using FeriaVirtualWeb.Models.DataManager;
 
 namespace FeriaVirtualWeb.Controllers
 {
-    [UserAuthorization(Rol = 3)]
-    public class ClienteController : Controller
+    [UserAuthorization(Rol = 4)]
+    public class TransportistaController : Controller
     {
         CollectionManager collection = new CollectionManager();
-        public ActionResult ChooseProducts()
+        // GET: Transportista
+        public ActionResult Transporte()
         {
-            var lista = new List<PRODUCTO>();
-            var listaOrdenes = new List<ORDEN>();
+            var newLista = new List<TRANSPORTISTA>();
             var usuario = (USUARIO)Session["usuario"];
-            listaOrdenes = collection.GetMyOrderList(usuario);
-            ViewBag.ordenList = listaOrdenes;
-            lista = (List<PRODUCTO>)collection.GetProductosList();
-            return View(listaOrdenes);
-        }
-
-        public ActionResult GetListToAddNewOrders()
-        {
-            var lista = (List<PRODUCTO>)collection.GetProductosList();
-            return View(lista);
-        }
-
-        public JsonResult AddOrder(List<PRODUCTO> productos)
-        {
-            var productsSeleted = new List<PRODUCTO>();
-
-            if (ModelState.IsValid)
+            var transporte = collection.GetTransporte(usuario);
+            foreach (var item in transporte)
             {
-                productsSeleted = collection.GetProductsSelected(productos);
-                var cliente = new ClienteManager();
-                var usuario = (USUARIO)Session["usuario"];
-                cliente.InsertNewProductoToOrder(productsSeleted, usuario);
+                newLista.Add(new TRANSPORTISTA()
+                {
+                    TIPOTRANSPORTE = item.TIPOTRANSPORTE,
+                    ANCHO = item.ANCHO,
+                    ALTO = item.ALTO,
+                    CAPACIDADCARGA = item.CAPACIDADCARGA,
+                    REFRIGERACION = item.REFRIGERACION == "1" ? "SI" : "NO",
+                });
             }
-            else
-            {
-                return Json(null);
-            }
-
-            return Json(productsSeleted);
+            return View(newLista);
         }
 
-        // GET: Cliente/Create
+        // GET: Transportista/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: Transportista/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Cliente/Create
+        // POST: Transportista/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -71,13 +61,13 @@ namespace FeriaVirtualWeb.Controllers
             }
         }
 
-        // GET: Cliente/Edit/5
+        // GET: Transportista/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Cliente/Edit/5
+        // POST: Transportista/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -93,13 +83,13 @@ namespace FeriaVirtualWeb.Controllers
             }
         }
 
-        // GET: Cliente/Delete/5
+        // GET: Transportista/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Cliente/Delete/5
+        // POST: Transportista/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

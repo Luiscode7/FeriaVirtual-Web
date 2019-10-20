@@ -9,53 +9,30 @@ using FeriaVirtualWeb.Models.DataManager;
 
 namespace FeriaVirtualWeb.Controllers
 {
-    [UserAuthorization(Rol = 3)]
-    public class ClienteController : Controller
+    [UserAuthorization(Rol = 4)]
+    public class SubastaController : Controller
     {
         CollectionManager collection = new CollectionManager();
-        public ActionResult ChooseProducts()
+        // GET: Subasta
+        public ActionResult SubastaList()
         {
-            var lista = new List<PRODUCTO>();
-            var listaOrdenes = new List<ORDEN>();
-            var usuario = (USUARIO)Session["usuario"];
-            listaOrdenes = collection.GetMyOrderList(usuario);
-            ViewBag.ordenList = listaOrdenes;
-            lista = (List<PRODUCTO>)collection.GetProductosList();
-            return View(listaOrdenes);
+            var subasta = collection.GetSubasta();
+            return View(subasta);
         }
 
-        public ActionResult GetListToAddNewOrders()
+        // GET: Subasta/Details/5
+        public ActionResult Details(int id)
         {
-            var lista = (List<PRODUCTO>)collection.GetProductosList();
-            return View(lista);
+            return View();
         }
 
-        public JsonResult AddOrder(List<PRODUCTO> productos)
-        {
-            var productsSeleted = new List<PRODUCTO>();
-
-            if (ModelState.IsValid)
-            {
-                productsSeleted = collection.GetProductsSelected(productos);
-                var cliente = new ClienteManager();
-                var usuario = (USUARIO)Session["usuario"];
-                cliente.InsertNewProductoToOrder(productsSeleted, usuario);
-            }
-            else
-            {
-                return Json(null);
-            }
-
-            return Json(productsSeleted);
-        }
-
-        // GET: Cliente/Create
+        // GET: Subasta/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Cliente/Create
+        // POST: Subasta/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -71,13 +48,13 @@ namespace FeriaVirtualWeb.Controllers
             }
         }
 
-        // GET: Cliente/Edit/5
+        // GET: Subasta/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Cliente/Edit/5
+        // POST: Subasta/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -93,13 +70,13 @@ namespace FeriaVirtualWeb.Controllers
             }
         }
 
-        // GET: Cliente/Delete/5
+        // GET: Subasta/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Cliente/Delete/5
+        // POST: Subasta/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

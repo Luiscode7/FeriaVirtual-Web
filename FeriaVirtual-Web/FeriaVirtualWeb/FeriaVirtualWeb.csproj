@@ -129,6 +129,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProcesoVentaController.cs" />
     <Compile Include="Controllers\ProductorController.cs" />
+    <Compile Include="Controllers\SubastaController.cs" />
+    <Compile Include="Controllers\TransportistaController.cs" />
     <Compile Include="Filter\CheckSession.cs" />
     <Compile Include="Filter\UserAuthorization.cs" />
     <Compile Include="Global.asax.cs">
@@ -193,6 +195,7 @@
     <Compile Include="Models\DataManager\ContactoManager.cs" />
     <Compile Include="Models\DataManager\ProcesoVentaManager.cs" />
     <Compile Include="Models\DataManager\ProductorManager.cs" />
+    <Compile Include="Models\DataManager\TransportistaManager.cs" />
     <Compile Include="Models\DataManager\UsuarioManager.cs" />
     <Compile Include="Models\ViewModels\ProcesoVentaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -282,6 +285,9 @@
     <Content Include="Views\ProcesoVenta\ProductosListAccordingProcesoVenta.cshtml" />
     <Content Include="Views\Productor\GetListToAddNewProductos.cshtml" />
     <Content Include="Views\Productor\EditProductos.cshtml" />
+    <Content Include="Views\Cliente\GetListToAddNewOrders.cshtml" />
+    <Content Include="Views\Transportista\Transporte.cshtml" />
+    <Content Include="Views\Subasta\SubastaList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.SUBASTA>
+
+<br />
+<h4>Subastas</h4>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDSUBASTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ESTADO)
+        </th>
+        <th>
+            @Html.DisplayName("ACCIONES")
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDSUBASTA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FECHA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ESTADO)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

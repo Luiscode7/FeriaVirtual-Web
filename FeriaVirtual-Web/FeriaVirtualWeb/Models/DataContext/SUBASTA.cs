@@ -11,7 +11,8 @@ namespace FeriaVirtualWeb.Models.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class SUBASTA
     {
         public SUBASTA()
@@ -19,8 +20,11 @@ namespace FeriaVirtualWeb.Models.DataContext
             this.TRANSPORTISTA = new HashSet<TRANSPORTISTA>();
         }
     
+        [Display(Name ="N° SUBASTA")]
         public decimal IDSUBASTA { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public decimal PRECIO { get; set; }
         public decimal ORDEN_IDORDEN { get; set; }
         public string ESTADO { get; set; }
