@@ -94,8 +94,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                                  PROCESO = pv.IDPROCESOVENTA,
                                  ORDEN = pv.ORDENID,
                                  NOMBRECLIENTE = cl.NOMBRE,
-                                 FECHA = pv.FECHA,
-                                 ESTADO = pv.ESTADO
+                                 FECHA = pv.FECHA
                                  
                              }).OrderBy(p => p.ORDEN).ToList();
 
@@ -110,6 +109,29 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == orden).ToList();
             }
         }
+
+        //public ProcesoVentaViewModel GetProductClientByProcesoVenta(decimal? proceso)
+        //{
+        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+        //    {
+        //        var query = from cl in db.CLIENTE join or in db.ORDEN on
+        //                    cl.RUTCLIENTE equals or.CLIENTE_RUTCLIENTE join pr in
+        //                    db.PRODUCTO on or.IDORDEN equals pr.ORDEN_IDORDEN join pd
+        //                    in db.PRODUCTOR on pr.PRODUCTOR_RUTPRODUCTOR equals pd.RUTPRODUCTOR join
+        //                    pv in db.PROCESOVENTA on pr.IDPROCESOVENTA equals pv.IDPROCESOVENTA
+        //                    join sb in db.SUBASTA on pv.IDPROCESOVENTA equals sb.PROCESOVENTAID
+        //                    where pv.IDPROCESOVENTA == proceso
+        //                    select new ProcesoVentaViewModel
+        //                    {
+        //                        NOMBRECLIENTE = cl.NOMBRE,
+        //                        PAISCLIENTE = cl.PAIS,
+        //                        TIPOPROCESO = pv.TIPOPROCESO,
+        //                        CLIENTEINICIAL = pd.DIRECCION,
+        //                        CLIENTEFINAL = cl.DIRECCION,
+        //                        FECHA = pv.FECHA,
+        //                    }
+        //    }
+        //}
 
         public List<PRODUCTO> GetProductsProductorAccordingToProcesoVenta(List<PRODUCTO> productos,USUARIO usuario)
         {
@@ -181,6 +203,55 @@ namespace FeriaVirtualWeb.Models.DataManager
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 return db.SUBASTA.ToList();
+            }
+        }
+
+        public IEnumerable<ProcesoVentaViewModel> GetMyPostulaciones(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from pv in db.PROCESOVENTA
+                             join pr in db.PRODUCTO on pv.IDPROCESOVENTA
+                             equals pr.IDPROCESOVENTA
+                             where pr.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                             select new ProcesoVentaViewModel
+                             {
+                                 PROCESO = pr.IDPROCESOVENTA,
+                                 ESTADO = pr.ESTADOPROCESO,
+                                 FECHA = pv.FECHA,
+                                 ORDEN = pv.ORDENID,
+                                 TIPOPROCESO = pv.TIPOPROCESO
+
+                             }).Distinct().ToList();
+
+                return query as IEnumerable<ProcesoVentaViewModel>;
+            }
+        }
+
+        public ProcesoVentaViewModel GetMyPostulacionDetails(decimal? orden)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var lista = new List<PRODUCTO>();
+                var query = (from pr in db.PRODUCTO
+                             join pv in db.PROCESOVENTA on pr.IDPROCESOVENTA
+                             equals pv.IDPROCESOVENTA join or in db.ORDEN
+                             on pv.ORDENID equals or.IDORDEN join cl in db.CLIENTE
+                             on or.CLIENTE_RUTCLIENTE equals cl.RUTCLIENTE
+                             where pr.ORDEN_IDORDEN == orden
+                             select new ProcesoVentaViewModel()
+                             {
+                                 PROCESO = pr.IDPROCESOVENTA,
+                                 ESTADO = pr.ESTADOPROCESO,
+                                 ORDEN = pr.ORDEN_IDORDEN,
+                                 FECHA = pv.FECHA,
+                                 NOMBRECLIENTE = cl.NOMBRE,
+                                 PAISCLIENTE = cl.PAIS,
+                                 TIPOPROCESO = pv.TIPOPROCESO
+                                
+                             }).FirstOrDefault();
+
+                return query as ProcesoVentaViewModel;
             }
         }
     }

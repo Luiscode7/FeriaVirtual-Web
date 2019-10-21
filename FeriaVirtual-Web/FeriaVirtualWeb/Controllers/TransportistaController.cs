@@ -26,6 +26,7 @@ namespace FeriaVirtualWeb.Controllers
                     TIPOTRANSPORTE = item.TIPOTRANSPORTE,
                     ANCHO = item.ANCHO,
                     ALTO = item.ALTO,
+                    LARGO = item.LARGO,
                     CAPACIDADCARGA = item.CAPACIDADCARGA,
                     REFRIGERACION = item.REFRIGERACION == "1" ? "SI" : "NO",
                 });

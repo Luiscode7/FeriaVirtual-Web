@@ -1,0 +1,82 @@
+﻿@model FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel
+
+@{ 
+    Layout = null;
+    List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> listaproductos = ViewBag.productos;
+}
+
+<div>
+    <h4>Detalle Postulacion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PROCESO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PROCESO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ORDEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ORDEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRECLIENTE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PAISCLIENTE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PAISCLIENTE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPOPROCESO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPOPROCESO)
+        </dd>
+    </dl>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayName("PRODUCTO")
+            </th>
+            <th>
+                @Html.DisplayName("CANTIDAD")
+            </th>
+        </tr>
+        @foreach (var item in listaproductos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.DESCRIPCION)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CANTIDAD)
+                </td>
+            </tr>
+        }
+    </table>  
+</div>
+

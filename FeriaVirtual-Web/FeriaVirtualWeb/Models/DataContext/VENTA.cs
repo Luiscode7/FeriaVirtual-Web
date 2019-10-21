@@ -16,14 +16,14 @@ namespace FeriaVirtualWeb.Models.DataContext
     {
         public decimal IDVENTA { get; set; }
         public System.DateTime FECHA { get; set; }
-        public Nullable<short> IMPUESTOADUANA { get; set; }
-        public decimal COSTOTRANSPORTE { get; set; }
-        public decimal COMISIONEMPRESA { get; set; }
-        public decimal GASTOTOTAL { get; set; }
-        public decimal GANANCIA { get; set; }
+        public Nullable<decimal> IMPUESTOADUANA { get; set; }
+        public Nullable<decimal> COSTOTRANSPORTE { get; set; }
+        public Nullable<decimal> COMISIONEMPRESA { get; set; }
+        public Nullable<decimal> COSTOTOTAL { get; set; }
+        public Nullable<decimal> GANANCIA { get; set; }
         public string ESTADO { get; set; }
         public string EMPRESA_RUTEMPRESA { get; set; }
-        public decimal PROCESOVENTA_IDPROCESOVENTA { get; set; }
+        public Nullable<decimal> PROCESOVENTA_IDPROCESOVENTA { get; set; }
     
         public virtual EMPRESA EMPRESA { get; set; }
         public virtual PROCESOVENTA PROCESOVENTA { get; set; }

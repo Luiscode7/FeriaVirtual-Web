@@ -49,19 +49,32 @@ namespace FeriaVirtualWeb.Controllers
             if (pPostulacion != null)
             {
                 var procesoestado = procesoManager.InsertProcesoVentaAccordingToUsuario(pPostulacion, proceso.IDPROCESOVENTA);
-                if(procesoestado != null)
-                {
-                    procesoManager.UpdateEstadoProcesoVenta(procesoestado.IDPROCESOVENTA);
-                }
+                procesoManager.InsertOrderToProceso(productos, proceso.IDPROCESOVENTA);
             }
           
             return Json(pPostulacion);
         }
 
-        // GET: ProcesoVenta/Create
-        public ActionResult Create()
+        public ActionResult MyPostulaciones()
         {
-            return View();
+            var usuario = (USUARIO)Session["usuario"];
+            var listaP = collection.GetMyPostulaciones(usuario);
+            return View(listaP);
+        }
+
+        public ActionResult MyPostulacionesDetails(decimal? id)
+        {
+            var idp = id;
+            var detalle = new ProcesoVentaViewModel();
+            var listaP = new List<PRODUCTO>();
+            if (id != 0)
+            {
+                detalle = collection.GetMyPostulacionDetails(id);
+            }
+
+            listaP = collection.GetProductClientByOrder(idp);
+            ViewBag.productos = listaP;
+            return View(detalle);
         }
 
         // POST: ProcesoVenta/Create

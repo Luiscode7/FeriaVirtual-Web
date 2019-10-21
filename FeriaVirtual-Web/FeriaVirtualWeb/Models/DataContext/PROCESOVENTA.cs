@@ -19,19 +19,23 @@ namespace FeriaVirtualWeb.Models.DataContext
         {
             this.CLIENTE = new HashSet<CLIENTE>();
             this.PRODUCTO = new HashSet<PRODUCTO>();
+            this.SUBASTA = new HashSet<SUBASTA>();
             this.VENTA = new HashSet<VENTA>();
         }
-    
+
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name ="N° PROCESO")]
         public decimal IDPROCESOVENTA { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
-        public string ESTADO { get; set; }
+        [Display(Name = "PROCESO VENTA")]
         public string TIPOPROCESO { get; set; }
         public Nullable<decimal> ORDENID { get; set; }
     
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
-        public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
-        public virtual ICollection<VENTA> VENTA { get; set; }
         public virtual ORDEN ORDEN { get; set; }
+        public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
+        public virtual ICollection<SUBASTA> SUBASTA { get; set; }
+        public virtual ICollection<VENTA> VENTA { get; set; }
     }
 }

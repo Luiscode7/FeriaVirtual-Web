@@ -19,6 +19,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                     {
                         producto = db.PRODUCTO.Where(p => p.IDPRODUCTO == item.IDPRODUCTO).FirstOrDefault();
                         producto.IDPROCESOVENTA = procesoventa;
+                        producto.ESTADOPROCESO = "Pendiente";
                         db.SaveChanges();
                     }
                     return producto;
@@ -31,15 +32,19 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public void UpdateEstadoProcesoVenta(decimal? procesov)
+        //inserta el id proceso de acuerdo al id orden que posee en los productos solicitados por el cliente, en tabla productos
+        public void InsertOrderToProceso(List<PRODUCTO> productos, decimal proceso)
         {
             try
             {
                 using (FeriaVirtualEntities db = new FeriaVirtualEntities())
                 {
-                    PROCESOVENTA proceso = db.PROCESOVENTA.Where(p => p.IDPROCESOVENTA == procesov).FirstOrDefault();
-                    proceso.ESTADO = "Pendiente";
-                    db.SaveChanges();
+                    foreach (var item in productos)
+                    {
+                        PRODUCTO productoOr = db.PRODUCTO.Where(p => p.IDPRODUCTO == item.IDPRODUCTO).FirstOrDefault();
+                        productoOr.IDPROCESOVENTA = proceso;
+                        db.SaveChanges();
+                    }
                 }
             }
             catch (Exception)

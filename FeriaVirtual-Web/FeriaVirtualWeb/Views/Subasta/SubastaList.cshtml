@@ -13,9 +13,6 @@
             @Html.DisplayNameFor(model => model.FECHA)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ESTADO)
-        </th>
-        <th>
             @Html.DisplayName("ACCIONES")
         </th>
     </tr>
@@ -29,14 +26,12 @@
             @Html.DisplayFor(modelItem => item.FECHA)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ESTADO)
-        </td>
-        <td>
-            <a href="#exampleModalCenter4" class="btnVerP btn btn-primary" data-toggle="modal" data-id="@item.ORDEN_IDORDEN">
+            <a href="#exampleModalCenter4" class="btnVerP btn btn-primary" data-toggle="modal" data-id="@item.PROCESOVENTAID">
                 Ver Productos
             </a>
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            <a href="#" class="btnPostularS btn btn-primary" data-id="@item.IDSUBASTA">
+                Subastar
+            </a>
         </td>
     </tr>
 }
@@ -67,13 +62,13 @@
      }));
 
 
-    $(".btnPostular").click(function () {
+    $(".btnPostularS").click(function () {
         var loader = $(this);
         $.ajax({
-            url: '@Url.Action("Postular","ProcesoVenta")',
+            url: '@Url.Action("Postular","Subasta")',
             type: "POST",
             dataType: 'html',
-            data: { orden: $(this).data("id") },
+            data: { subasta: $(this).data("id") },
             beforeSend: function () {
                 loader.replaceWith("<img src='@Url.Content("~/assest/img/loading.gif")'>");
             },

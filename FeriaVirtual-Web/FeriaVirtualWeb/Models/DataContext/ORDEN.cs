@@ -18,14 +18,14 @@ namespace FeriaVirtualWeb.Models.DataContext
         public ORDEN()
         {
             this.PAGO = new HashSet<PAGO>();
-            this.PRODUCTO = new HashSet<PRODUCTO>();
-            this.SUBASTA = new HashSet<SUBASTA>();
             this.PROCESOVENTA = new HashSet<PROCESOVENTA>();
+            this.PRODUCTO = new HashSet<PRODUCTO>();
         }
-
+    
+        [Display(Name ="N° ORDEN")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
-        [Display(Name = "N° ORDEN")]
         public decimal IDORDEN { get; set; }
+        public decimal CANTIDAD { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
         public string CLIENTE_RUTCLIENTE { get; set; }
@@ -33,8 +33,7 @@ namespace FeriaVirtualWeb.Models.DataContext
     
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual ICollection<PAGO> PAGO { get; set; }
-        public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
-        public virtual ICollection<SUBASTA> SUBASTA { get; set; }
         public virtual ICollection<PROCESOVENTA> PROCESOVENTA { get; set; }
+        public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
     }
 }
