@@ -1,0 +1,65 @@
+﻿@model FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel
+
+@{ 
+    Layout = null;
+    List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> listaproductos = ViewBag.productos;
+}
+
+<div>
+    <h4>ProcesoVentaViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDSUBASTA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDSUBASTA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRECLIENTE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PAISCLIENTE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PAISCLIENTE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLIENTEFINAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLIENTEFINAL)
+        </dd>
+    </dl>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayName("DESCRIPCION")
+            </th>
+            <th>
+                @Html.DisplayName("CANTIDAD")
+            </th>
+        </tr>
+        @foreach(var item in listaproductos)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.DESCRIPCION)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CANTIDAD)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

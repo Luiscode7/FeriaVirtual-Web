@@ -21,10 +21,14 @@ namespace FeriaVirtualWeb.Controllers
         }
 
         
-        public ActionResult ProductsAccordingToOrders(decimal id)
+        public ActionResult ProductsAccordingToProcesoVenta(decimal id)
         {
-            var productosList = collection.GetProductClientByOrder(id);
-            return View(productosList);
+            var subastaM = new SubastaManager();
+            var datos = collection.GetDatosClientByProcesoVenta(id);
+            var ordenid = subastaM.GetOrderIdByProcesoVentaId(id);
+            var listaP = collection.GetProductClientByOrder(ordenid);
+            ViewBag.productos = listaP;
+            return View(datos);
         }
 
         public JsonResult Postular(decimal subasta)

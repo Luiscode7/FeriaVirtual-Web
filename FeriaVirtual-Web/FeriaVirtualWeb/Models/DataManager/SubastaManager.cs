@@ -26,5 +26,13 @@ namespace FeriaVirtualWeb.Models.DataManager
                 throw;
             }
         }
+
+        public decimal? GetOrderIdByProcesoVentaId(decimal proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PROCESOVENTA.FirstOrDefault(p => p.IDPROCESOVENTA == proceso).ORDENID;
+            }
+        }
     }
 }

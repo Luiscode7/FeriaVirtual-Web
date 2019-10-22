@@ -89,7 +89,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                              on pv.ORDENID equals or.IDORDEN
                              join cl in db.CLIENTE
                              on or.CLIENTE_RUTCLIENTE equals cl.RUTCLIENTE
-                             select new ProcesoVentaViewModel
+                             select new ProcesoVentaViewModel()
                              {
                                  PROCESO = pv.IDPROCESOVENTA,
                                  ORDEN = pv.ORDENID,
@@ -110,26 +110,23 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        //public ProcesoVentaViewModel GetProductClientByProcesoVenta(decimal? proceso)
+        //public List<ProductosOrdenViewModel> GetProductClientByProcesoVenta(decimal? proceso)
         //{
         //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
         //    {
-        //        var query = from cl in db.CLIENTE join or in db.ORDEN on
-        //                    cl.RUTCLIENTE equals or.CLIENTE_RUTCLIENTE join pr in
-        //                    db.PRODUCTO on or.IDORDEN equals pr.ORDEN_IDORDEN join pd
-        //                    in db.PRODUCTOR on pr.PRODUCTOR_RUTPRODUCTOR equals pd.RUTPRODUCTOR join
-        //                    pv in db.PROCESOVENTA on pr.IDPROCESOVENTA equals pv.IDPROCESOVENTA
-        //                    join sb in db.SUBASTA on pv.IDPROCESOVENTA equals sb.PROCESOVENTAID
-        //                    where pv.IDPROCESOVENTA == proceso
-        //                    select new ProcesoVentaViewModel
-        //                    {
-        //                        NOMBRECLIENTE = cl.NOMBRE,
-        //                        PAISCLIENTE = cl.PAIS,
-        //                        TIPOPROCESO = pv.TIPOPROCESO,
-        //                        CLIENTEINICIAL = pd.DIRECCION,
-        //                        CLIENTEFINAL = cl.DIRECCION,
-        //                        FECHA = pv.FECHA,
-        //                    }
+        //        var query = (from sb in db.SUBASTA
+        //                     join pv in db.PROCESOVENTA on sb.PROCESOVENTAID equals
+        //                     pv.IDPROCESOVENTA join pr in db.PRODUCTO on
+        //                     pv.IDPROCESOVENTA equals pr.IDPROCESOVENTA
+        //                     where pv.IDPROCESOVENTA == proceso
+        //                     select new ProductosOrdenViewModel()
+        //                     {
+        //                         DESCRIPCION = pr.DESCRIPCION,
+        //                         CANTIDAD = pr.CANTIDAD
+
+        //                     }).ToList();
+
+        //        return query;
         //    }
         //}
 
@@ -249,6 +246,29 @@ namespace FeriaVirtualWeb.Models.DataManager
                                  PAISCLIENTE = cl.PAIS,
                                  TIPOPROCESO = pv.TIPOPROCESO
                                 
+                             }).FirstOrDefault();
+
+                return query as ProcesoVentaViewModel;
+            }
+        }
+
+        public ProcesoVentaViewModel GetDatosClientByProcesoVenta(decimal proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from sb in db.SUBASTA join pv in db.PROCESOVENTA
+                             on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+                             join or in db.ORDEN on pv.ORDENID equals or.IDORDEN
+                             join cl in db.CLIENTE on or.CLIENTE_RUTCLIENTE equals
+                             cl.RUTCLIENTE where pv.IDPROCESOVENTA == proceso
+                             select new ProcesoVentaViewModel()
+                             {
+                                 IDSUBASTA = sb.IDSUBASTA,
+                                 NOMBRECLIENTE = cl.NOMBRE,
+                                 PAISCLIENTE = cl.PAIS,
+                                 CLIENTEFINAL = cl.DIRECCION,
+                                 FECHA = pv.FECHA
+
                              }).FirstOrDefault();
 
                 return query as ProcesoVentaViewModel;

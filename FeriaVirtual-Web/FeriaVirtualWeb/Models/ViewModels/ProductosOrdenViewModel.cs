@@ -5,8 +5,9 @@ using System.Web;
 
 namespace FeriaVirtualWeb.Models.ViewModels
 {
-    public class SubastaViewModel
+    public class ProductosOrdenViewModel
     {
-        public int MyProperty { get; set; }
+        public string DESCRIPCION { get; set; }
+        public decimal? CANTIDAD { get; set; }
     }
 }
