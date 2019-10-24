@@ -1,6 +1,6 @@
 ﻿@model List<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
 
-@{ 
+@{
     Layout = null;
 }
 
@@ -50,6 +50,7 @@
         }
     </table>
     <button type="submit" class="btn btn-primary col" id="btnIngresarP">Agregar</button>
+    <div class="loadbutton d-flex justify-content-center"></div>
 }
 
 <script>
@@ -64,11 +65,15 @@
                 type: "POST",
                 dataType: 'html',
                 data: form.serialize(),
+                beforeSend: function () {
+                    botonAgregar.replaceWith($(".loadbutton"));
+                    $(".loadbutton").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+                },
                 success: function (response) {
                     console.log(response);
                     if (response) {
-                        $("#exampleModalCenter").modal("hide");
                         location.reload(true);
+                        $("#exampleModalCenter").modal("hide");
                         toastr.options = {
                             "closeButton": false,
                             "debug": false,

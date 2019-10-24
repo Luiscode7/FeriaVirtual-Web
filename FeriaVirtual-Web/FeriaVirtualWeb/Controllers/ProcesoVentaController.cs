@@ -46,7 +46,7 @@ namespace FeriaVirtualWeb.Controllers
             proceso = collection.GetProcesoByOrden(procesoOr);
             var usuario = (USUARIO)Session["usuario"];
             pPostulacion = collection.GetProductsProductorAccordingToProcesoVenta(productos, usuario);
-            if (pPostulacion != null)
+            if (pPostulacion.Count() != 0)
             {
                 var procesoestado = procesoManager.InsertProcesoVentaAccordingToUsuario(pPostulacion, proceso.IDPROCESOVENTA);
                 procesoManager.InsertOrderToProceso(productos, proceso.IDPROCESOVENTA);
