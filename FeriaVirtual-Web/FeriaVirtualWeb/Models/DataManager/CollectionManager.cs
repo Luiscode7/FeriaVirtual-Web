@@ -22,7 +22,7 @@ namespace FeriaVirtualWeb.Models.DataManager
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO).OrderBy(p => p.IDPRODUCTO).ToList();
+                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == null).OrderBy(p => p.IDPRODUCTO).ToList();
             }
 
         }
@@ -145,6 +145,8 @@ namespace FeriaVirtualWeb.Models.DataManager
                         {
                             IDPRODUCTO = productosP.IDPRODUCTO,
                             DESCRIPCION = productosP.DESCRIPCION,
+                            PRECIO = productosP.PRECIO,
+                            STOCK = productosP.STOCK,
                             PRODUCTOR_RUTPRODUCTOR = productosP.PRODUCTOR_RUTPRODUCTOR
                         });
                     }

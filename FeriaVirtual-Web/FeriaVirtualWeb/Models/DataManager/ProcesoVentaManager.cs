@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using FeriaVirtualWeb.Models.DataContext;
+using FeriaVirtualWeb.Utils;
 
 namespace FeriaVirtualWeb.Models.DataManager
 {
@@ -18,8 +19,20 @@ namespace FeriaVirtualWeb.Models.DataManager
                     foreach (var item in productos)
                     {
                         producto = db.PRODUCTO.Where(p => p.IDPRODUCTO == item.IDPRODUCTO).FirstOrDefault();
-                        producto.IDPROCESOVENTA = procesoventa;
-                        producto.ESTADOPROCESO = "Pendiente";
+                        PRODUCTO newProducto = new PRODUCTO
+                        {
+                            IDPRODUCTO = DatabaseUtil.GetNextIDProducto(),
+                            DESCRIPCION = producto.DESCRIPCION,
+                            PRECIO = producto.PRECIO,
+                            STOCK = producto.STOCK,
+                            PRODUCTOR_RUTPRODUCTOR = producto.PRODUCTOR_RUTPRODUCTOR,
+                            TIPOVENTA = producto.TIPOVENTA,
+                            IDPROCESOVENTA = procesoventa,
+                            ESTADOPROCESO = "Pendiente"
+                        };
+                        db.PRODUCTO.Add(newProducto);
+                        //producto.IDPROCESOVENTA = procesoventa;
+                        //producto.ESTADOPROCESO = "Pendiente";
                         db.SaveChanges();
                     }
                     return producto;
