@@ -19,8 +19,6 @@ namespace FeriaVirtualWeb.Controllers
         {
             var usuario = (USUARIO)Session["usuario"];
             var lista = collection.GetMyProductosList(usuario);
-            var listaVacia = collection.GetProductosList();
-            ViewBag.misproductos = lista;
             return View(lista);
         }
 

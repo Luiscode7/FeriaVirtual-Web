@@ -71,12 +71,13 @@ namespace FeriaVirtualWeb.Controllers
             var idp = id;
             var detalle = new ProcesoVentaViewModel();
             var listaP = new List<PRODUCTO>();
+            var usuario = (USUARIO)Session["usuario"];
             if (id != 0)
             {
                 detalle = collection.GetMyPostulacionDetails(id);
             }
 
-            listaP = collection.GetProductClientByOrderAndProductorNull(idp);
+            listaP = collection.GetProductsListAccordingToPostulacion(idp, usuario);
             ViewBag.productos = listaP;
             return View(detalle);
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using FeriaVirtualWeb.Models.DataContext;
 using FeriaVirtualWeb.Models.ViewModels;
+using FeriaVirtualWeb.Models.DataManager;
 
 namespace FeriaVirtualWeb.Models.DataManager
 {
@@ -22,9 +23,25 @@ namespace FeriaVirtualWeb.Models.DataManager
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
+                var listaRechazados = GetProductsRejected(usuario);
+                var producto = new List<PRODUCTO>();
+                var updateStockP = new ProductorManager();
+                if(listaRechazados.Count()!= 0)
+                {
+                    updateStockP.UpdateProductosWhenHasBeedRejected(listaRechazados);
+                }
+
                 return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == null).OrderBy(p => p.IDPRODUCTO).ToList();
             }
 
+        }
+
+        private List<PRODUCTO> GetProductsRejected(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.ESTADOPROCESO == "Rechazado").ToList();
+            }
         }
 
         public List<PRODUCTO> GetProductsSelected(List<PRODUCTO> products)
@@ -110,25 +127,13 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        //public List<ProductosOrdenViewModel> GetProductClientByProcesoVenta(decimal? proceso)
-        //{
-        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
-        //    {
-        //        var query = (from sb in db.SUBASTA
-        //                     join pv in db.PROCESOVENTA on sb.PROCESOVENTAID equals
-        //                     pv.IDPROCESOVENTA join pr in db.PRODUCTO on
-        //                     pv.IDPROCESOVENTA equals pr.IDPROCESOVENTA
-        //                     where pv.IDPROCESOVENTA == proceso
-        //                     select new ProductosOrdenViewModel()
-        //                     {
-        //                         DESCRIPCION = pr.DESCRIPCION,
-        //                         CANTIDAD = pr.CANTIDAD
-
-        //                     }).ToList();
-
-        //        return query;
-        //    }
-        //}
+        public List<PRODUCTO> GetProductsListAccordingToPostulacion(decimal? orden, USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == orden && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO).ToList();
+            }
+        }
 
         public List<PRODUCTO> GetProductsProductorAccordingToProcesoVenta(List<PRODUCTO> productos,USUARIO usuario)
         {

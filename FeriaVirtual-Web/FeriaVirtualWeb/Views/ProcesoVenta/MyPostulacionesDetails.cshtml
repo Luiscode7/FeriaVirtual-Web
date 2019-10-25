@@ -8,62 +8,71 @@
 <div>
     <h4>Detalle Postulacion</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PROCESO)
-        </dt>
+    <table class="table table-bordered">
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.PROCESO)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.PROCESO)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.PROCESO)
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ORDEN)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.NOMBRECLIENTE)
+            </td>
+        </tr>
+       
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.FECHA)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.ORDEN)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.FECHA)
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.PAISCLIENTE)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.PAISCLIENTE)
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.TIPOPROCESO)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.NOMBRECLIENTE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FECHA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FECHA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PAISCLIENTE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PAISCLIENTE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TIPOPROCESO)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TIPOPROCESO)
-        </dd>
-    </dl>
+            <td>
+                @Html.DisplayFor(model => model.TIPOPROCESO)
+            </td>
+        </tr>
+        
+    </table>
     <table class="table table-bordered">
         <tr>
             <th>
                 @Html.DisplayName("PRODUCTO")
             </th>
             <th>
-                @Html.DisplayName("CANTIDAD")
+                @Html.DisplayName("CANTIDAD SOLICITADA")
+            </th>
+            <th>
+                @Html.DisplayName("CANTIDAD ENVIADA")
+            </th>
+            <th>
+                @Html.DisplayName("ESTADO")
             </th>
         </tr>
         @foreach (var item in listaproductos)
@@ -74,6 +83,12 @@
                 </td>
                 <td>
                     @Html.DisplayFor(model => item.CANTIDAD)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.STOCK)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ESTADOPROCESO)
                 </td>
             </tr>
         }
