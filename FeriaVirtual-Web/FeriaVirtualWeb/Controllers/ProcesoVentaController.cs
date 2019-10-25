@@ -16,19 +16,14 @@ namespace FeriaVirtualWeb.Controllers
         CollectionManager collection = new CollectionManager();
         public ActionResult ProcesoVentaList()
         {
-            var productos = new List<PRODUCTO>();
             var lista = collection.GetClientListProcesoVenta();
-            foreach (var item in lista)
-            {
-                productos = collection.GetProductClientByOrder(item.ORDEN);
-            }
             return View(lista);
         }
 
         public ActionResult ProductosListAccordingProcesoVenta(decimal id)
         {
             var productos = new List<PRODUCTO>();
-            productos = collection.GetProductClientByOrder(id);
+            productos = collection.GetProductClientByOrderAndProductorNull(id);
             return View(productos);
         }
    
@@ -42,14 +37,23 @@ namespace FeriaVirtualWeb.Controllers
             var procesoOr = orden;
             var proceso = new PROCESOVENTA();
    
-            productos = collection.GetProductClientByOrder(newOrden);
+            productos = collection.GetProductClientByOrderAndProductorNull(newOrden);
             proceso = collection.GetProcesoByOrden(procesoOr);
             var usuario = (USUARIO)Session["usuario"];
             pPostulacion = collection.GetProductsProductorAccordingToProcesoVenta(productos, usuario);
             if (pPostulacion.Count() != 0)
             {
-                procesoManager.InsertProcesoVentaAccordingToUsuario(pPostulacion, proceso.IDPROCESOVENTA);
-                procesoManager.InsertOrderToProceso(productos, proceso.IDPROCESOVENTA);
+                var productsInserted = procesoManager.InsertProcesoVentaAccordingToUsuario(pPostulacion, proceso.IDPROCESOVENTA, newOrden);
+                var productosfull = procesoManager.UpdateCantidadProductsToProductsPostulados(productos, usuario);
+                foreach (var item in productos)
+                {
+                    if (item.IDPROCESOVENTA == null)
+                    {
+                        procesoManager.InsertOrderToProceso(productos, proceso.IDPROCESOVENTA);
+                    }
+                }
+                
+                procesoManager.UpdateStockProductsAfterPostular(productosfull);
             }
           
             return Json(pPostulacion);
@@ -72,7 +76,7 @@ namespace FeriaVirtualWeb.Controllers
                 detalle = collection.GetMyPostulacionDetails(id);
             }
 
-            listaP = collection.GetProductClientByOrder(idp);
+            listaP = collection.GetProductClientByOrderAndProductorNull(idp);
             ViewBag.productos = listaP;
             return View(detalle);
         }

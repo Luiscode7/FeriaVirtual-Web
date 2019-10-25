@@ -26,7 +26,7 @@ namespace FeriaVirtualWeb.Controllers
             var subastaM = new SubastaManager();
             var datos = collection.GetDatosClientByProcesoVenta(id);
             var ordenid = subastaM.GetOrderIdByProcesoVentaId(id);
-            var listaP = collection.GetProductClientByOrder(ordenid);
+            var listaP = collection.GetProductClientByOrderAndProductorNull(ordenid);
             ViewBag.productos = listaP;
             return View(datos);
         }

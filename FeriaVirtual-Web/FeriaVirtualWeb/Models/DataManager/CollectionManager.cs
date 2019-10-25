@@ -102,11 +102,11 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public List<PRODUCTO> GetProductClientByOrder(decimal? orden)
+        public List<PRODUCTO> GetProductClientByOrderAndProductorNull(decimal? orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == orden).ToList();
+                return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == orden && p.PRODUCTOR_RUTPRODUCTOR == null).ToList();
             }
         }
 
