@@ -31,17 +31,30 @@ namespace FeriaVirtualWeb.Controllers
             return View(datos);
         }
 
-        public JsonResult Postular(decimal subasta)
+        public ActionResult AddTransportAndPrecioToSubasta(decimal id)
         {
             var usuario = (USUARIO)Session["usuario"];
-            var idsubasta = subasta;
+            var tipotransporte = collection.GetTransporte(usuario);
+            var transportista = new TRANSPORTISTA();
+            transportista = new TRANSPORTISTA
+            {
+                SUBASTAID = id,
+                TRANSPORTELISTA = tipotransporte
+            };
+            return View(transportista);
+        }
+
+        public JsonResult Postular(TRANSPORTISTA trans)
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            var transIns = trans;
             var subastaIn = new SubastaManager();
             var transportista = new TRANSPORTISTA();
-            if (subasta != 0)
+            if (trans != null)
             {
-                transportista = subastaIn.InsertSubastaAccordingTransportista(usuario, subasta);
+                transportista = subastaIn.InsertSubastaAccordingTransportista(usuario, transIns);
             }
-            return Json(idsubasta);
+            return Json(transportista);
         }
 
         // POST: Subasta/Create

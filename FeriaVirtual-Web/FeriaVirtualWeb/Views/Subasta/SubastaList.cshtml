@@ -29,7 +29,7 @@
             <a href="#exampleModalCenter4" class="btnVerP btn btn-primary" data-toggle="modal" data-id="@item.PROCESOVENTAID">
                 Ver Productos
             </a>
-            <a href="#" class="btnPostularS btn btn-primary" data-id="@item.IDSUBASTA">
+            <a href="#exampleModalCenter4" class="btnPostularS btn btn-primary" data-toggle="modal" data-id="@item.IDSUBASTA">
                 Subastar
             </a>
         </td>
@@ -59,10 +59,15 @@
     $(document).on('click','.btnVerP',(function (e) {
             e.preventDefault();
         $(".modal-body").load("/Subasta/ProductsAccordingToProcesoVenta/" + $(this).data("id"));
-     }));
+    }));
+
+    $(document).on('click', '.btnPostularS', (function (e) {
+        e.preventDefault();
+        $(".modal-body").load("/Subasta/AddTransportAndPrecioToSubasta/" + $(this).data("id"));
+    }));
 
 
-    $(".btnPostularS").click(function () {
+    @*$(".btnPostularS").click(function () {
         var loader = $(this);
         $.ajax({
             url: '@Url.Action("Postular","Subasta")',
@@ -99,5 +104,5 @@
             }
         });
         return false;
-    });
+    });*@
 </script>

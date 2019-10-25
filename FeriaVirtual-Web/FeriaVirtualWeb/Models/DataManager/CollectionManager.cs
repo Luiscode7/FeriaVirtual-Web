@@ -193,7 +193,7 @@ namespace FeriaVirtualWeb.Models.DataManager
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.TRANSPORTISTA.Where(t => t.RUTTRANSPORTISTA == usuario.RUTUSUARIO).ToList();
+                return db.TRANSPORTISTA.Where(t => t.RUTTRANSPORTISTA == usuario.RUTUSUARIO && t.SUBASTAID == null).ToList();
             }
         }
 

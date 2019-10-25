@@ -37,5 +37,15 @@ namespace FeriaVirtualWeb.Utils
                 return nextID;
             }
         }
+
+        public static decimal GetNextIDTransportista()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var lastID = db.TRANSPORTISTA.DefaultIfEmpty().Max(p => p == null ? 0 : p.IDTRANSPORTISTA);
+                var nextID = lastID + 1;
+                return nextID;
+            }
+        }
     }
 }
