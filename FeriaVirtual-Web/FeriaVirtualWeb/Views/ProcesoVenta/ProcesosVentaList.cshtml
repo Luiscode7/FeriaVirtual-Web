@@ -1,0 +1,101 @@
+﻿@model List<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
+
+@{ 
+    Layout = null;
+}
+<table class="table table-bordered" id="tableP">
+    <tr>
+        <th>
+            @Html.DisplayName("N° ORDEN")
+        </th>
+        <th>
+            @Html.DisplayName("CLIENTE")
+        </th>
+        <th>
+            @Html.DisplayName("FECHA INICIO")
+        </th>
+        <th>
+            @Html.DisplayName("ACCION")
+        </th>
+    </tr>
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => Model[i].ORDEN)
+            </td>
+            <td>
+                @Html.DisplayFor(model => Model[i].NOMBRECLIENTE)
+            </td>
+            <td>
+                @Html.DisplayFor(model => Model[i].FECHA)
+            </td>
+            <td>
+                <a href="#exampleModalCenter3" class="btnVer btn btn-primary" data-toggle="modal" data-id="@Model[i].ORDEN">
+                    Ver Productos
+                </a>
+
+                <a href="#" class="btnPostular btn btn-primary" data-id="@Model[i].ORDEN">
+                    Postular
+                </a>
+
+                <a href="#" class="btnPostular btn btn-primary" style="display:none;" data-id="@Model[i].ORDEN">
+                    Postular
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+    $(document).on('click','.btnVer',(function (e) {
+            e.preventDefault();
+            $("#modelcontent").load("/ProcesoVenta/ProductosListAccordingProcesoVenta/" + $(this).data("id"));
+     }));
+
+
+    $(".btnPostular").click(function () {
+        var loader = $(this);
+        $.ajax({
+            url: '@Url.Action("Postular","ProcesoVenta")',
+            type: "POST",
+            dataType: 'html',
+            data: { orden: $(this).data("id") },
+            beforeSend: function () {
+                loader.replaceWith("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+            },
+            success: function (response) {
+                console.log(response);
+                if (response != "[]") {
+                    toastr.options = {
+                        "positionClass": "toast-top-center",
+                        "timeOut": "4000",
+                    }
+                    toastr["success"]("Su Postulacion ha sido Enviada Exitosamente", "Maipo Grande Dice")
+
+                    if ($("#pexternoid").hasClass("active")) {
+                        $("#pexternoid").trigger("click");
+                    } else {
+                        $("#plocalid").trigger("click");
+                    }
+
+                } else {
+                    toastr.options = {
+                        "positionClass": "toast-top-center",
+                        "timeOut": "4000",
+                    }
+                    toastr["error"]("No Tiene los Productos Necesarios o su Stock es Insuficiente", "Maipo Grande Dice")
+
+                    if ($("#pexternoid").hasClass("active")) {
+                        $("#pexternoid").trigger("click");
+                    } else {
+                        $("#plocalid").trigger("click");
+                    }
+                }
+
+            }
+        });
+        return false;
+    });
+</script>

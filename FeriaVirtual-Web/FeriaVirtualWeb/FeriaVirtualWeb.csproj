@@ -297,6 +297,7 @@
     <Content Include="Views\Cliente\MyOrdersList.cshtml" />
     <Content Include="Views\Transportista\MyTransportes.cshtml" />
     <Content Include="Views\Subasta\SubastasList.cshtml" />
+    <Content Include="Views\ProcesoVenta\ProcesosVentaList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

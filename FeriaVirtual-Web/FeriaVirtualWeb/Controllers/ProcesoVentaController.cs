@@ -16,6 +16,11 @@ namespace FeriaVirtualWeb.Controllers
         CollectionManager collection = new CollectionManager();
         public ActionResult ProcesoVentaList()
         {
+            return View();
+        }
+
+        public ActionResult ProcesosVentaList()
+        {
             var lista = collection.GetClientListProcesoVenta();
             return View(lista);
         }

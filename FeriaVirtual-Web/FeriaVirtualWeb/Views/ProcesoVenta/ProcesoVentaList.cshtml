@@ -1,112 +1,61 @@
-﻿@model List<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
+﻿
 
-<h2>Procesos de Venta Externa</h2>
+<h2>Procesos de Venta</h2>
 <br />
-<table class="table table-bordered" id="tableP">
-    <tr>
-        <th>
-            @Html.DisplayName("N° ORDEN")
-        </th>
-        <th>
-            @Html.DisplayName("CLIENTE")
-        </th>
-        <th>
-            @Html.DisplayName("FECHA INICIO")
-        </th>
-        <th>
-            @Html.DisplayName("ACCION")
-        </th>
-    </tr>
-    @for (var i = 0; i < Model.Count(); i++)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => Model[i].ORDEN)
-            </td>
-            <td>
-                @Html.DisplayFor(model => Model[i].NOMBRECLIENTE)
-            </td>
-            <td>
-                @Html.DisplayFor(model => Model[i].FECHA)
-            </td>
-            <td>
-                <a href="#exampleModalCenter3" class="btnVer btn btn-primary" data-toggle="modal" data-id="@Model[i].ORDEN">
-                    Ver Productos
-                </a>
-               
-                <a href="#" class="btnPostular btn btn-primary" data-id="@Model[i].ORDEN">
-                    Postular
-                </a>
-              
-                <a href="#" class="btnPostular btn btn-primary" style="display:none;" data-id="@Model[i].ORDEN">
-                Postular
-                </a>
-               
-            </td>
-        </tr>
-    }
 
-</table>
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a id="pexternoid" class="nav-link" href="#card-procesos">PROCESOS EXTERNOS</a>
+            </li>
+            <li class="nav-item">
+                <a id="plocalid" class="nav-link" href="#card-procesos">PROCESOS LOCALES</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body" id="card-procesos">
+    </div>
+</div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Productos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+<div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Productos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-                <div class="modal-body">
-                    <div id="modelcontent"></div>
-                </div>
+            <div class="modal-body">
+                <div id="modelcontent"></div>
             </div>
         </div>
     </div>
+</div>
 
 <script>
-    $(document).on('click','.btnVer',(function (e) {
-            e.preventDefault();
-            $("#modelcontent").load("/ProcesoVenta/ProductosListAccordingProcesoVenta/" + $(this).data("id"));
-     }));
+    $(document).ready(function () {
 
+        var externo = $("#pexternoid");
+        var local = $("#plocalid");
 
-    $(".btnPostular").click(function () {
-        var loader = $(this);
-        $.ajax({
-            url: '@Url.Action("Postular","ProcesoVenta")',
-            type: "POST",
-            dataType: 'html',
-            data: { orden: $(this).data("id") },
-            beforeSend: function () {
-                loader.replaceWith("<img src='@Url.Content("~/assest/img/loading.gif")'>");
-            },
-            success: function (response) {
-                console.log(response);
-                if (response != "[]") {
-                    toastr.options = {
-                        "positionClass": "toast-top-center",
-                        "timeOut": "3500",
-                    }
-                    toastr["success"]("Su Postulacion ha sido Enviada Exitosamente", "Maipo Grande Dice")
-                    setTimeout(reload, 4000);
-                } else {
-                    toastr.options = {
-                        "positionClass": "toast-top-center",
-                        "timeOut": "3500",
-                    }
-                    toastr["error"]("No Tiene los Productos Necesarios o su Stock es Insuficiente", "Maipo Grande Dice")
-                    setTimeout(reload, 4000);
-                }
-                   
-            }
+        $("#pexternoid").click(function () {
+            $(this).addClass("active");
+            local.removeClass("active");
+            $("#card-procesos").load("/ProcesoVenta/ProcesosVentaList/");
         });
-        return false;
-    }); 
 
-    function reload() {
-        location.reload(true);
-    }
+        $("#plocalid").click(function () {
+            $(this).addClass("active");
+            externo.removeClass("active");
+            //$("#card-procesos").load("/Productor/MyProductsListProcesoLocal/");
+        });
+
+        $("#pexternoid").trigger("click");
+    });
+
+
 </script>
