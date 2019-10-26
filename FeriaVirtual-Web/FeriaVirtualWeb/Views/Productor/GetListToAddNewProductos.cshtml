@@ -9,9 +9,6 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayName("")
-            </th>
-            <th>
                 @Html.DisplayName("DESCRIPCION")
             </th>
             <th>
@@ -26,12 +23,9 @@
         </tr>
         @for (var i = 0; i < Model.Count(); i++)
         {
+            @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
+            @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
             <tr>
-                <td>
-                    @Html.CheckBoxFor(modelItem => Model[i].IsChecked, new { htmlAttributes = new { @class = "check" } })
-                    @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
-                    @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
                 </td>
@@ -72,26 +66,17 @@
                 success: function (response) {
                     console.log(response);
                     if (response) {
-                        location.reload(true);
                         $("#exampleModalCenter").modal("hide");
                         toastr.options = {
-                            "closeButton": false,
-                            "debug": false,
-                            "newestOnTop": false,
-                            "progressBar": false,
                             "positionClass": "toast-top-center",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "300",
-                            "hideDuration": "1000",
-                            "timeOut": "5000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
+                            "timeOut": "4000",
                         }
                         toastr["success"]("Sus Productos han sido Agregados Exitosamente", "Maipo Grande Dice")
+                        if ($("#externoid").hasClass("active")) {
+                            $("#externoid").trigger("click");
+                        } else {
+                            $("#localid").trigger("click");
+                        }
                     }
                 }
             });

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+
+@{ 
+    Layout = null;
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDPRODUCTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PRECIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STOCK)
+        </th>
+        <th>
+            @Html.DisplayName("ACCIONES")
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDPRODUCTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPCION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRECIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STOCK)
+        </td>
+        <td>
+            <a href="#exampleModalCenter" class="btnEdit btn btn-primary" data-toggle="modal" data-id="@item.IDPRODUCTO">Actualizar</a>
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
+
+<script>
+    $(".btnEdit").click(function () {
+        $(".modal-body").load("/Productor/EditProductos/" + $(this).data("id"));
+    });
+</script>

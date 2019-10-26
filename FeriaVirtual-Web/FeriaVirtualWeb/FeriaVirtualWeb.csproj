@@ -292,6 +292,8 @@
     <Content Include="Views\ProcesoVenta\MyPostulacionesDetails.cshtml" />
     <Content Include="Views\Subasta\ProductsAccordingToProcesoVenta.cshtml" />
     <Content Include="Views\Subasta\AddTransportAndPrecioToSubasta.cshtml" />
+    <Content Include="Views\Productor\MyProductsListProcesoLocal.cshtml" />
+    <Content Include="Views\Productor\MyProductsListProcesoExterno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

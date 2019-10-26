@@ -31,9 +31,17 @@ namespace FeriaVirtualWeb.Models.DataManager
                     updateStockP.UpdateProductosWhenHasBeedRejected(listaRechazados);
                 }
 
-                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == null).OrderBy(p => p.IDPRODUCTO).ToList();
+                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == null && p.TIPOVENTA == "Externo").OrderBy(p => p.IDPRODUCTO).ToList();
             }
 
+        }
+
+        public IEnumerable<PRODUCTO> GetMyProductListProcesoLocal(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == null && p.TIPOVENTA == "Local").OrderBy(p => p.IDPRODUCTO).ToList();
+            }
         }
 
         private List<PRODUCTO> GetProductsRejected(USUARIO usuario)
@@ -49,11 +57,11 @@ namespace FeriaVirtualWeb.Models.DataManager
             return products.Where(p => p.IsChecked == true).ToList();
         }
 
-        public IEnumerable<PRODUCTO> GetProductosListSelected(int id)
+        public List<PRODUCTO> GetProductosListSelected(List<PRODUCTO> products)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PRODUCTO.Where(p => p.IDPRODUCTO == id).ToList();
+                return products.Where(p => p.PRECIO != null && p.STOCK != null).ToList();
             }
         }
 
@@ -144,7 +152,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                 foreach (var item in productos)
                 {
                     productosP = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.TIPOVENTA == "Externo").FirstOrDefault();
-                    if(productosP != null)
+                    if(productosP != null && productosP.STOCK >= 1)
                     {
                         newList.Add(new PRODUCTO
                         {

@@ -3,55 +3,25 @@
 
 <h2>Mis Productos</h2>
 <br />
-
 <a id="btnNuevo" href="#exampleModalCenter" class="btnVer btn btn-primary" data-toggle="modal">
     Ingresar Productos
 </a>
 <br />
 <br />
-
-<table class="table table-bordered" id="listaProductos">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DESCRIPCION)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PRECIO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.STOCK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TIPOVENTA)
-        </th>
-        <th>
-            @Html.DisplayName("ACCIONES")
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DESCRIPCION)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PRECIO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.STOCK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TIPOVENTA)
-        </td>
-        <td>
-            <a href="#exampleModalCenter" class="btnEdit btn btn-primary" data-toggle="modal" data-id="@item.IDPRODUCTO">Actualizar</a>
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-    }
-
-</table>
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a id="externoid" class="nav-link" href="#card-procesos">Externo</a>
+            </li>
+            <li class="nav-item">
+                <a id="localid" class="nav-link" href="#card-procesos">Local</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body" id="card-procesos">
+    </div>
+</div>
 
 
 <!-- Modal -->
@@ -72,11 +42,27 @@
 </div>
 
 <script>
-    $("#btnNuevo").click(function () {
-        $(".modal-body").load("/Productor/GetListToAddNewProductos/");
-    }); 
+    $(document).ready(function () {
 
-    $(".btnEdit").click(function () {
-        $(".modal-body").load("/Productor/EditProductos/" + $(this).data("id"));
-    });
+        var externo = $("#externoid");
+        var local = $("#localid");
+
+        $("#externoid").click(function () {
+            $(this).addClass("active");
+            local.removeClass("active");
+            $("#card-procesos").load("/Productor/MyProductsListProcesoExterno/");
+        });
+
+        $("#localid").click(function () {
+            $(this).addClass("active");
+            externo.removeClass("active");
+            $("#card-procesos").load("/Productor/MyProductsListProcesoLocal/");
+        });
+
+        $("#btnNuevo").click(function () {
+            $(".modal-body").load("/Productor/GetListToAddNewProductos/");
+        }); 
+
+        $("#externoid").trigger("click");     
+    });    
 </script>

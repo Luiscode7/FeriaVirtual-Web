@@ -81,22 +81,7 @@ namespace FeriaVirtualWeb.Controllers
             ViewBag.productos = listaP;
             return View(detalle);
         }
-
-        // POST: ProcesoVenta/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
 
         // GET: ProcesoVenta/Edit/5
         public ActionResult Edit(int id)

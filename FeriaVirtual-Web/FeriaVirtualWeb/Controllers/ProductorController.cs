@@ -22,6 +22,20 @@ namespace FeriaVirtualWeb.Controllers
             return View(lista);
         }
 
+        public ActionResult MyProductsListProcesoExterno()
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            var lista = collection.GetMyProductosList(usuario);
+            return View(lista);
+        }
+
+        public ActionResult MyProductsListProcesoLocal()
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            var listaPLocal = collection.GetMyProductListProcesoLocal(usuario);
+            return View(listaPLocal);
+        }
+
         public ActionResult GetListToAddNewProductos()
         {
             var listaVacia = collection.GetProductosList();
@@ -31,21 +45,25 @@ namespace FeriaVirtualWeb.Controllers
         public JsonResult AddNewProductos(List<PRODUCTO> productos)
         {
             var productsSeleted = new List<PRODUCTO>();
+            var productosList = new List<PRODUCTO>();
+            var newProducto = new PRODUCTO();
 
             if (ModelState.IsValid)
             {
-                productsSeleted = collection.GetProductsSelected(productos);
+                productsSeleted = collection.GetProductosListSelected(productos);
                 var productor = new ProductorManager();
                 var usuario = (USUARIO)Session["usuario"];
                 foreach (var item in productsSeleted)
                 {
                     if (collection.GetProductosListIfExternoExist(item, usuario))
                     {
-                        productor.InsertNewProducto(item, usuario);
+                        newProducto = productor.InsertNewProducto(item, usuario);
+                        productosList.Add(newProducto);
                     }
                     else
                     {
-                        productor.UpdateProducto(item, usuario);
+                        newProducto = productor.UpdateProducto(item, usuario);
+                        productosList.Add(newProducto);
                     }
                     
                 }
@@ -55,7 +73,7 @@ namespace FeriaVirtualWeb.Controllers
                 return Json(null);
             }
             
-            return Json(productsSeleted);
+            return Json(productosList);
         }
 
         public ActionResult EditProductos(decimal id)

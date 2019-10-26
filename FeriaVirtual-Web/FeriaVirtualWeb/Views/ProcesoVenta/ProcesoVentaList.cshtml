@@ -2,7 +2,7 @@
 
 <h2>Procesos de Venta Externa</h2>
 <br />
-<table class="table table-bordered">
+<table class="table table-bordered" id="tableP">
     <tr>
         <th>
             @Html.DisplayName("N° ORDEN")
@@ -85,28 +85,28 @@
             },
             success: function (response) {
                 console.log(response);
-                location.reload(true);
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-center",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
+                if (response != "[]") {
+                    toastr.options = {
+                        "positionClass": "toast-top-center",
+                        "timeOut": "3500",
+                    }
+                    toastr["success"]("Su Postulacion ha sido Enviada Exitosamente", "Maipo Grande Dice")
+                    setTimeout(reload, 4000);
+                } else {
+                    toastr.options = {
+                        "positionClass": "toast-top-center",
+                        "timeOut": "3500",
+                    }
+                    toastr["error"]("No Tiene los Productos Necesarios o su Stock es Insuficiente", "Maipo Grande Dice")
+                    setTimeout(reload, 4000);
                 }
-                toastr["success"]("Su Postulacion ha sido Enviada Exitosamente", "Maipo Grande Dice")
-                
+                   
             }
         });
         return false;
     }); 
+
+    function reload() {
+        location.reload(true);
+    }
 </script>

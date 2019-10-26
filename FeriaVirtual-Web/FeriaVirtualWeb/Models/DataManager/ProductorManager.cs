@@ -9,7 +9,7 @@ namespace FeriaVirtualWeb.Models.DataManager
 {
     public class ProductorManager
     {
-        public void InsertNewProducto(PRODUCTO newProducto, USUARIO usuario)
+        public PRODUCTO InsertNewProducto(PRODUCTO newProducto, USUARIO usuario)
         {
             try
             {
@@ -26,6 +26,8 @@ namespace FeriaVirtualWeb.Models.DataManager
                     };
                     db.PRODUCTO.Add(producto);
                     db.SaveChanges();
+
+                    return producto;
                 }
             }
             catch (Exception)
