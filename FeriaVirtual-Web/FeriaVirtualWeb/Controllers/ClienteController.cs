@@ -15,6 +15,11 @@ namespace FeriaVirtualWeb.Controllers
         CollectionManager collection = new CollectionManager();
         public ActionResult ChooseProducts()
         {
+            return View();
+        }
+
+        public ActionResult MyOrdersList()
+        {
             var lista = new List<PRODUCTO>();
             var listaOrdenes = new List<ORDEN>();
             var usuario = (USUARIO)Session["usuario"];

@@ -17,9 +17,7 @@ namespace FeriaVirtualWeb.Controllers
         
         public ActionResult MyListProducts()
         {
-            var usuario = (USUARIO)Session["usuario"];
-            var lista = collection.GetMyProductosList(usuario);
-            return View(lista);
+            return View();
         }
 
         public ActionResult MyProductsListProcesoExterno()

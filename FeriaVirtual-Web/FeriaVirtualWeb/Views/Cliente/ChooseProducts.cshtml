@@ -1,6 +1,4 @@
-﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.ORDEN>
-
-
+﻿
 <br />
 <br />
 <a id="btnNuevoOr" href="#exampleModalCenter2" class="btnVer btn btn-primary" data-toggle="modal">
@@ -8,43 +6,18 @@
 </a>
 <br />
 <br />
-<table class="table table-bordered">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IDORDEN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FECHA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ESTADO)
-        </th>
-        <th>
-            @Html.DisplayName("ACCIONES")
-        </th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDORDEN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FECHA)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ESTADO)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
-
-</table>
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a id="ordenesid" class="nav-link active" href="#card-ordenes">ORDENES</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body" id="card-ordenes">
+    </div>
+</div>
 
 
 <!-- Modal -->
@@ -65,6 +38,14 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $("#ordenesid").click(function () {
+            $("#card-ordenes").load("/Cliente/MyOrdersList/");
+        });
+
+        $("#ordenesid").trigger("click");
+    });
+
     $("#btnNuevoOr").click(function () {
         $(".modal-body").load("/Cliente/GetListToAddNewOrders/");
     }); 

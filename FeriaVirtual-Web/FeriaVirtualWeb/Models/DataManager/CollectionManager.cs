@@ -54,7 +54,7 @@ namespace FeriaVirtualWeb.Models.DataManager
 
         public List<PRODUCTO> GetProductsSelected(List<PRODUCTO> products)
         {
-            return products.Where(p => p.IsChecked == true).ToList();
+            return products.Where(p => p.CANTIDAD != null).ToList();
         }
 
         public List<PRODUCTO> GetProductosListSelected(List<PRODUCTO> products)
