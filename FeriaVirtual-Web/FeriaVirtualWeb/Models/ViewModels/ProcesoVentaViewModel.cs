@@ -26,11 +26,13 @@ namespace FeriaVirtualWeb.Models.ViewModels
         [Display(Name = "PROCESO")]
         public string TIPOPROCESO { get; set; }
         public string CLIENTEINICIAL { get; set; }
+        [Display(Name = "CLIENTE")]
         public string CLIENTEFINAL { get; set; }
         public string DIRECCIONCLINICIAL { get; set; }
         public string DIRECCIONCLIFINAL { get; set; }
         public string CIUDADCLIENTE { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "SUBASTA")]
         public decimal IDSUBASTA { get; set; }
 
     }

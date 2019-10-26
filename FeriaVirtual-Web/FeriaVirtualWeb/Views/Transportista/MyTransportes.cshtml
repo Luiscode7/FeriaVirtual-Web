@@ -1,0 +1,60 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.TRANSPORTISTA>
+
+@{ 
+    Layout = null;
+}
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TIPOTRANSPORTE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ANCHO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ALTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LARGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CAPACIDADCARGA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.REFRIGERACION)
+        </th>
+        <th>
+            @Html.DisplayName("ACCIONES")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TIPOTRANSPORTE)
+            </td>
+            <td>
+                @(item.ANCHO + " " + "m")
+            </td>
+            <td>
+                @(item.ALTO + " " + "m")
+            </td>
+            <td>
+                @(item.LARGO + " " + "m")
+            </td>
+            <td>
+                @(item.CAPACIDADCARGA + " " + "kg")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.REFRIGERACION)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,42 +1,20 @@
-﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.SUBASTA>
+﻿
 
 <br />
 <h4>Subastas</h4>
 <br />
 
-<table class="table table-bordered">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IDSUBASTA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FECHA)
-        </th>
-        <th>
-            @Html.DisplayName("ACCIONES")
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IDSUBASTA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FECHA)
-        </td>
-        <td>
-            <a href="#exampleModalCenter4" class="btnVerP btn btn-primary" data-toggle="modal" data-id="@item.PROCESOVENTAID">
-                Ver Productos
-            </a>
-            <a href="#exampleModalCenter4" class="btnPostularS btn btn-primary" data-toggle="modal" data-id="@item.IDSUBASTA">
-                Subastar
-            </a>
-        </td>
-    </tr>
-}
-
-</table>
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a id="subastaid" class="nav-link active" href="#card-subasta">SUBASTAS</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body" id="card-subasta">
+    </div>
+</div>
 
 <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -56,53 +34,11 @@
 
 
 <script>
-    $(document).on('click','.btnVerP',(function (e) {
-            e.preventDefault();
-        $(".modal-body").load("/Subasta/ProductsAccordingToProcesoVenta/" + $(this).data("id"));
-    }));
-
-    $(document).on('click', '.btnPostularS', (function (e) {
-        e.preventDefault();
-        $(".modal-body").load("/Subasta/AddTransportAndPrecioToSubasta/" + $(this).data("id"));
-    }));
-
-
-    @*$(".btnPostularS").click(function () {
-        var loader = $(this);
-        $.ajax({
-            url: '@Url.Action("Postular","Subasta")',
-            type: "POST",
-            dataType: 'html',
-            data: { subasta: $(this).data("id") },
-            beforeSend: function () {
-                loader.replaceWith("<img src='@Url.Content("~/assest/img/loading.gif")'>");
-            },
-            success: function (response) {
-                if (response) {
-                    //location.reload(true);
-                    toastr.options = {
-                        "closeButton": false,
-                        "debug": false,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-center",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": "5000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    }
-                    toastr["success"]("Sus Postulacion ha sido Enviada Exitosamente", "Maipo Grande Dice")
-                }
-                
-
-            }
+    $(document).ready(function () {
+        $("#subastaid").click(function () {
+            $("#card-subasta").load("/Subasta/SubastasList/");
         });
-        return false;
-    });*@
+
+        $("#subastaid").trigger("click");
+    });
 </script>

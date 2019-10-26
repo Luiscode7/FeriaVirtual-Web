@@ -16,11 +16,16 @@ namespace FeriaVirtualWeb.Controllers
         // GET: Subasta
         public ActionResult SubastaList()
         {
+            return View();
+        }
+
+        public ActionResult SubastasList()
+        {
             var subasta = collection.GetSubasta();
             return View(subasta);
         }
 
-        
+
         public ActionResult ProductsAccordingToProcesoVenta(decimal id)
         {
             var subastaM = new SubastaManager();

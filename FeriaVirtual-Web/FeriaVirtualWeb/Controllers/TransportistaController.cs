@@ -16,6 +16,11 @@ namespace FeriaVirtualWeb.Controllers
         // GET: Transportista
         public ActionResult Transporte()
         {
+            return View();
+        }
+
+        public ActionResult MyTransportes()
+        {
             var newLista = new List<TRANSPORTISTA>();
             var usuario = (USUARIO)Session["usuario"];
             var transporte = collection.GetTransporte(usuario);
@@ -28,7 +33,7 @@ namespace FeriaVirtualWeb.Controllers
                     ALTO = item.ALTO,
                     LARGO = item.LARGO,
                     CAPACIDADCARGA = item.CAPACIDADCARGA,
-                    REFRIGERACION = item.REFRIGERACION == "1" ? "SI" : "NO",
+                    REFRIGERACION = item.REFRIGERACION == "1" ? "Si" : "No",
                 });
             }
             return View(newLista);

@@ -295,6 +295,8 @@
     <Content Include="Views\Productor\MyProductsListProcesoLocal.cshtml" />
     <Content Include="Views\Productor\MyProductsListProcesoExterno.cshtml" />
     <Content Include="Views\Cliente\MyOrdersList.cshtml" />
+    <Content Include="Views\Transportista\MyTransportes.cshtml" />
+    <Content Include="Views\Subasta\SubastasList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

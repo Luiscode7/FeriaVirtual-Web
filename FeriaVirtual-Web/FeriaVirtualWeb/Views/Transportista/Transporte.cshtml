@@ -1,60 +1,27 @@
-﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.TRANSPORTISTA>
+﻿
 
 <br />
 <h4>Transporte</h4>
 <br />
 
-<table class="table table-bordered">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TIPOTRANSPORTE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ANCHO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ALTO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LARGO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CAPACIDADCARGA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.REFRIGERACION)
-        </th>
-        <th>
-            @Html.DisplayName("ACCIONES")
-        </th>
-    </tr>
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a id="transporteid" class="nav-link active" href="#card-transporte">TRANSPORTES</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body" id="card-transporte">
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TIPOTRANSPORTE)
-        </td>
-        <td>
-            @(item.ANCHO + " " + "m")
-        </td>
-        <td>
-            @(item.ALTO + " " + "m")
-        </td>
-        <td>
-            @(item.LARGO + " " + "m")
-        </td>
-        <td>
-            @(item.CAPACIDADCARGA + " " + "kg")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.REFRIGERACION)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+<script>
+    $(document).ready(function () {
+        $("#transporteid").click(function () {
+            $("#card-transporte").load("/Transportista/MyTransportes/");
+        });
 
-</table>
+        $("#transporteid").trigger("click");
+    });
+</script>

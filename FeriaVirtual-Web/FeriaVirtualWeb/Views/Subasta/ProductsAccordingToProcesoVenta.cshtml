@@ -6,41 +6,48 @@
 }
 
 <div>
-    <h4>ProcesoVentaViewModel</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.IDSUBASTA)
-        </dt>
+    <table class="table table-bordered">
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.IDSUBASTA)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.IDSUBASTA)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.IDSUBASTA)
+            </td>
+        </tr>
+       
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.NOMBRECLIENTE)
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.PAISCLIENTE)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.NOMBRECLIENTE)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.PAISCLIENTE)
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.CLIENTEFINAL)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PAISCLIENTE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PAISCLIENTE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CLIENTEFINAL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLIENTEFINAL)
-        </dd>
-    </dl>
+            <td>
+                @Html.DisplayFor(model => model.CLIENTEFINAL)
+            </td>
+        </tr>      
+    </table>
     <table class="table table-bordered">
         <tr>
             <th>
