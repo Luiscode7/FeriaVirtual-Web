@@ -67,7 +67,7 @@ namespace FeriaVirtualWeb.Models.DataManager
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PRODUCTO.Where(p => p.IDPROCESOVENTA == proceso).ToList();
+                return db.PRODUCTO.Where(p => p.IDPROCESOVENTA == proceso && p.CANTIDAD == null && p.CLIENTEINTERNO == null).ToList();
             }
         }
 

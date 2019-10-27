@@ -29,10 +29,12 @@ namespace FeriaVirtualWeb.Controllers
         {
             var usuario = (USUARIO)Session["usuario"];
             var insertCompra = new ClienteInternoManager();
+            var updateLocal = new ProductorManager();
             var listaInsertar = collection.GetProcesoLocalProductsListFilterByCantidad(productos);
             if(listaInsertar.Count() != 0)
             {
                 insertCompra.InsertCompra(listaInsertar, usuario);
+                updateLocal.UpdateStockProcesoLocalProductsIfCompra(listaInsertar);
             }
 
             return Json(insertCompra);

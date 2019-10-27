@@ -81,19 +81,6 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        //public void UpdateProductosWhenHasBeedRejectedToLocal(List<PRODUCTO> productos)
-        //{
-        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
-        //    {
-        //        foreach (var item in productos)
-        //        {
-        //            PRODUCTO producto = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION && p.PRECIO == item.PRECIO && p.TIPOVENTA == item.TIPOVENTA && p.IDPROCESOVENTA == null).FirstOrDefault();
-        //            producto.STOCK = producto.STOCK + item.STOCK;
-        //            db.SaveChanges();
-        //        }
-        //    }
-        //}
-
         public void InsertProductosWhenHasBeedRejectedToLocal(List<PRODUCTO> productos)
         {
             try
@@ -134,6 +121,29 @@ namespace FeriaVirtualWeb.Models.DataManager
                         PRODUCTO producto = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION &&
                         p.IDPROCESOVENTA == null && p.TIPOVENTA == "Local" && p.PRODUCTOR_RUTPRODUCTOR == item.PRODUCTOR_RUTPRODUCTOR).FirstOrDefault();
                         producto.STOCK = producto.STOCK + item.STOCK;
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void UpdateStockProcesoLocalProductsIfCompra(List<PRODUCTO> productos)
+        {
+            try
+            {
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    foreach (var item in productos)
+                    {
+                        PRODUCTO producto = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION && p.TIPOVENTA == item.TIPOVENTA
+                                            && p.IDPROCESOVENTA == item.IDPROCESOVENTA &&
+                                            p.PRODUCTOR_RUTPRODUCTOR == item.PRODUCTOR_RUTPRODUCTOR && p.CANTIDAD == null && p.CLIENTEINTERNO == null).FirstOrDefault();
+                        producto.STOCK = producto.STOCK - item.CANTIDAD;
                         db.SaveChanges();
                     }
                 }
