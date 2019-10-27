@@ -81,16 +81,67 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public void UpdateProductosWhenHasBeedRejected(List<PRODUCTO> productos)
+        //public void UpdateProductosWhenHasBeedRejectedToLocal(List<PRODUCTO> productos)
+        //{
+        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+        //    {
+        //        foreach (var item in productos)
+        //        {
+        //            PRODUCTO producto = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION && p.PRECIO == item.PRECIO && p.TIPOVENTA == item.TIPOVENTA && p.IDPROCESOVENTA == null).FirstOrDefault();
+        //            producto.STOCK = producto.STOCK + item.STOCK;
+        //            db.SaveChanges();
+        //        }
+        //    }
+        //}
+
+        public void InsertProductosWhenHasBeedRejectedToLocal(List<PRODUCTO> productos)
         {
-            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            try
             {
-                foreach (var item in productos)
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
                 {
-                    PRODUCTO producto = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION && p.PRECIO == item.PRECIO && p.TIPOVENTA == item.TIPOVENTA && p.IDPROCESOVENTA == null).FirstOrDefault();
-                    producto.STOCK = producto.STOCK + item.STOCK;
-                    db.SaveChanges();
+                    foreach (var item in productos)
+                    {
+                        PRODUCTO producto = new PRODUCTO
+                        {
+                            IDPRODUCTO = DatabaseUtil.GetNextIDProducto(),
+                            DESCRIPCION = item.DESCRIPCION,
+                            PRECIO = item.PRECIO,
+                            STOCK = item.STOCK,
+                            PRODUCTOR_RUTPRODUCTOR = item.PRODUCTOR_RUTPRODUCTOR,
+                            TIPOVENTA = "Local"
+                        };
+                        db.PRODUCTO.Add(producto);
+                        db.SaveChanges();
+                    }
                 }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public void UpdateProductosWhenHasBeedRejectedToLocal(List<PRODUCTO> productos)
+        {
+            try
+            {
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    foreach (var item in productos)
+                    {
+                        PRODUCTO producto = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION &&
+                        p.IDPROCESOVENTA == null && p.TIPOVENTA == "Local" && p.PRODUCTOR_RUTPRODUCTOR == item.PRODUCTOR_RUTPRODUCTOR).FirstOrDefault();
+                        producto.STOCK = producto.STOCK + item.STOCK;
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

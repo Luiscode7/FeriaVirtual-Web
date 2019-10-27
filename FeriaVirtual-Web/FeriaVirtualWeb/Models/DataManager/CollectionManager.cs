@@ -25,10 +25,16 @@ namespace FeriaVirtualWeb.Models.DataManager
             {
                 var listaRechazados = GetProductsRejected(usuario);
                 var producto = new List<PRODUCTO>();
-                var updateStockP = new ProductorManager();
-                if(listaRechazados.Count()!= 0)
+                var alocal = new ProductorManager();
+                if (GetProductProcesoLocalEqualsToRejected(listaRechazados).Count() == 0)
                 {
-                    updateStockP.UpdateProductosWhenHasBeedRejected(listaRechazados);
+                    alocal.InsertProductosWhenHasBeedRejectedToLocal(listaRechazados);
+                    ChangeRechazadosToMovidos(listaRechazados);
+                }
+                else
+                {
+                    alocal.UpdateProductosWhenHasBeedRejectedToLocal(listaRechazados);
+                    ChangeRechazadosToMovidos(listaRechazados);
                 }
 
                 return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == null && p.TIPOVENTA == "Externo").OrderBy(p => p.IDPRODUCTO).ToList();
@@ -49,6 +55,41 @@ namespace FeriaVirtualWeb.Models.DataManager
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.ESTADOPROCESO == "Rechazado").ToList();
+            }
+        }
+
+        private List<PRODUCTO> GetProductProcesoLocalEqualsToRejected(List<PRODUCTO> productos)
+        {
+            var lista = new List<PRODUCTO>();
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                foreach (var item in productos)
+                {
+                    lista = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION && p.TIPOVENTA == "Local" &&
+                    p.PRODUCTOR_RUTPRODUCTOR == item.PRODUCTOR_RUTPRODUCTOR && p.IDPROCESOVENTA == null).ToList();
+                }
+                return lista;
+            }
+        }
+
+        private void ChangeRechazadosToMovidos(List<PRODUCTO> rechazados)
+        {
+            try
+            {
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    foreach (var item in rechazados)
+                    {
+                        PRODUCTO producto = db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == item.PRODUCTOR_RUTPRODUCTOR && p.ESTADOPROCESO == item.ESTADOPROCESO).FirstOrDefault();
+                        producto.ESTADOPROCESO = "Movido";
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
