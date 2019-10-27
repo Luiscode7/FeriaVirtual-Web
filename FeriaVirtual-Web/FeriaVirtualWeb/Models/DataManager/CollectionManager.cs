@@ -42,6 +42,43 @@ namespace FeriaVirtualWeb.Models.DataManager
 
         }
 
+        public List<ProcesoVentaViewModel> GetProcesoVentaLocalList()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from pd in db.PRODUCTOR join pr in db.PRODUCTO
+                            on pd.RUTPRODUCTOR equals pr.PRODUCTOR_RUTPRODUCTOR
+                            join pv in db.PROCESOVENTA on pr.IDPROCESOVENTA equals
+                            pv.IDPROCESOVENTA where pv.TIPOPROCESO == "Local"
+                            select new ProcesoVentaViewModel
+                            {
+                                PROCESO = pv.IDPROCESOVENTA,
+                                NOMBREPRODUCTOR = pd.NOMBRE,
+                                CLIENTEINICIAL = pr.PRODUCTOR_RUTPRODUCTOR,
+                                FECHA = pv.FECHA
+
+                            }).Distinct().ToList();
+
+                return query;
+            }
+        }
+
+        public List<PRODUCTO> GetProcesoLocalProductsListOfProductor(decimal proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.IDPROCESOVENTA == proceso).ToList();
+            }
+        }
+
+        public List<PRODUCTO> GetProcesoLocalProductsListFilterByCantidad(List<PRODUCTO> productos)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return  productos.Where(p => p.CANTIDAD != null).ToList(); 
+            }
+        }
+
         public IEnumerable<PRODUCTO> GetMyProductListProcesoLocal(USUARIO usuario)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())

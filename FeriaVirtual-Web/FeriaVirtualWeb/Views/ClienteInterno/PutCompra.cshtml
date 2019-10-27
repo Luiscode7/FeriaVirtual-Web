@@ -1,0 +1,86 @@
+﻿@model List<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("Comprar", "ClienteInterno", FormMethod.Post, new { id = "form-comprar" }))
+{
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayName("PRODUCTO")
+            </th>
+            <th>
+                @Html.DisplayName("PRECIO")
+            </th>
+            <th>
+                @Html.DisplayName("STOCK")
+            </th>
+            <th>
+                @Html.DisplayName("CANTIDAD A COMPRAR")
+            </th>
+        </tr>
+
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO)
+                @Html.HiddenFor(modelItem => Model[i].DESCRIPCION)
+                @Html.HiddenFor(modelItem => Model[i].PRECIO)
+                @Html.HiddenFor(modelItem => Model[i].STOCK)
+                @Html.HiddenFor(modelItem => Model[i].PRODUCTOR_RUTPRODUCTOR)
+                @Html.HiddenFor(modelItem => Model[i].IDPROCESOVENTA)
+                @Html.HiddenFor(modelItem => Model[i].TIPOVENTA)
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].DESCRIPCION)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].PRECIO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].STOCK)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "form-control" } })
+                </td>
+            </tr>
+        }
+
+    </table>
+    <input type="submit" class="btn btn-primary col" value="Comprar" id="btnComprar" />
+    <div class="loadcomprar d-flex justify-content-center"></div>
+}
+
+<script>
+    $(document).ready(function () {
+
+        var form = $("#form-comprar");
+        var botonAgregar = $("#btnComprar");
+
+        botonAgregar.click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                beforeSend: function () {
+                    botonAgregar.replaceWith($(".loadcomprar"));
+                    $(".loadcomprar").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+                },
+                success: function (response) {
+                    console.log(response);
+                    if (response) {
+                        toastr.options = {
+                            "positionClass": "toast-top-center",
+                            "timeOut": "4000",
+                        }
+                        toastr["success"]("Sus Compra ha sido Generada Exitosamente", "Maipo Grande Dice")
+                        $(window).load("/ClienteInterno/ListsProcesoVentaLocal/");
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>

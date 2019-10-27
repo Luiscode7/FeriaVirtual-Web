@@ -15,22 +15,26 @@ namespace FeriaVirtualWeb.Models.DataContext
 
     public partial class TRANSPORTISTA
     {
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public decimal IDTRANSPORTISTA { get; set; }
         public string RUTTRANSPORTISTA { get; set; }
         public string NOMBRE { get; set; }
         public string TELEFONO { get; set; }
+        [Display(Name = "TRANSPORTE")]
         public string TIPOTRANSPORTE { get; set; }
         public decimal ANCHO { get; set; }
         public decimal ALTO { get; set; }
         public decimal LARGO { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name ="CAPACIDAD")]
         public decimal CAPACIDADCARGA { get; set; }
         public string REFRIGERACION { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° SUBASTA")]
         public Nullable<decimal> SUBASTAID { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public Nullable<decimal> PRECIO { get; set; }
         public string ESTADOSUBASTA { get; set; }
-        [Display(Name = "TRANSPORTE")]
         public List<TRANSPORTISTA> TRANSPORTELISTA { get; set; }
 
         public virtual SUBASTA SUBASTA { get; set; }

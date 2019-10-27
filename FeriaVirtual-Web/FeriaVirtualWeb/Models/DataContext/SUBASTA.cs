@@ -21,10 +21,12 @@ namespace FeriaVirtualWeb.Models.DataContext
         }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° SUBASTA")]
         public decimal IDSUBASTA { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° PROCESO")]
         public Nullable<decimal> PROCESOVENTAID { get; set; }
     
         public virtual PROCESOVENTA PROCESOVENTA { get; set; }

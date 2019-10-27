@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CLIENTE">
           <Key>
             <PropertyRef Name="RUTCLIENTE" />
@@ -85,6 +85,7 @@
           <Property Name="ESTADOPROCESO" Type="varchar2" MaxLength="20" />
           <Property Name="TIPOVENTA" Type="varchar2" MaxLength="10" />
           <Property Name="CANTIDAD" Type="number" Precision="38" Scale="0" />
+          <Property Name="CLIENTEINTERNO" Type="varchar2" MaxLength="12" />
         </EntityType>
         <EntityType Name="PRODUCTOR">
           <Key>
@@ -358,8 +359,7 @@
             <End Role="VENTA" EntitySet="VENTA" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -460,6 +460,7 @@
           <NavigationProperty Name="ORDEN" Relationship="Self.PRODUCTO_ORDEN_FK" FromRole="PRODUCTO" ToRole="ORDEN" />
           <NavigationProperty Name="PROCESOVENTA" Relationship="Self.PRODUCTO_VENTA_FK" FromRole="PRODUCTO" ToRole="PROCESOVENTA" />
           <NavigationProperty Name="PRODUCTOR" Relationship="Self.PRODUCTO_PRODUCTOR_FK" FromRole="PRODUCTO" ToRole="PRODUCTOR" />
+          <Property Name="CLIENTEINTERNO" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="PRODUCTOR">
           <Key>
@@ -822,6 +823,7 @@
           <EntitySetMapping Name="PRODUCTO">
             <EntityTypeMapping TypeName="Model.PRODUCTO">
               <MappingFragment StoreEntitySet="PRODUCTO">
+                <ScalarProperty Name="CLIENTEINTERNO" ColumnName="CLIENTEINTERNO" />
                 <ScalarProperty Name="IDPRODUCTO" ColumnName="IDPRODUCTO" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />

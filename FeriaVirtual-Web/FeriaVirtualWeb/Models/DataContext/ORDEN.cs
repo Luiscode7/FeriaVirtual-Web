@@ -21,13 +21,15 @@ namespace FeriaVirtualWeb.Models.DataContext
             this.PROCESOVENTA = new HashSet<PROCESOVENTA>();
             this.PRODUCTO = new HashSet<PRODUCTO>();
         }
-    
-        [Display(Name ="N° ORDEN")]
+
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name ="N° ORDEN")]
         public decimal IDORDEN { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public decimal CANTIDAD { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
+        [Display(Name = "CLIENTE")]
         public string CLIENTE_RUTCLIENTE { get; set; }
         public string ESTADO { get; set; }
     

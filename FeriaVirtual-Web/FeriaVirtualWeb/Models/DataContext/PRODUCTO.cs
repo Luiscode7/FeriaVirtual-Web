@@ -15,21 +15,30 @@ namespace FeriaVirtualWeb.Models.DataContext
 
     public partial class PRODUCTO
     {
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name ="N° PRODUCTO")]
         public decimal IDPRODUCTO { get; set; }
+        [Display(Name = "PRODUCTO")]
         public string DESCRIPCION { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public Nullable<decimal> PRECIO { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public Nullable<decimal> STOCK { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° ORDEN")]
         public Nullable<decimal> ORDEN_IDORDEN { get; set; }
         public string PRODUCTOR_RUTPRODUCTOR { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° PROCESO")]
         public Nullable<decimal> IDPROCESOVENTA { get; set; }
+        [Display(Name = "ESTADO")]
         public string ESTADOPROCESO { get; set; }
+        [Display(Name = "PROCESO")]
         public string TIPOVENTA { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public Nullable<decimal> CANTIDAD { get; set; }
-        public bool IsChecked { get; set; }
-
+        public string CLIENTEINTERNO { get; set; }
+    
         public virtual ORDEN ORDEN { get; set; }
         public virtual PROCESOVENTA PROCESOVENTA { get; set; }
         public virtual PRODUCTOR PRODUCTOR { get; set; }

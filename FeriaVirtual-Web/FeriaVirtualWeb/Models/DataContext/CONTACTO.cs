@@ -11,9 +11,11 @@ namespace FeriaVirtualWeb.Models.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class CONTACTO
     {
+        [Display(Name = "N° CONTACTO")]
         public decimal IDCONTACTO { get; set; }
         public string EMPRESA { get; set; }
         public string CORREO { get; set; }

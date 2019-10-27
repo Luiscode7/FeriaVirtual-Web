@@ -17,6 +17,7 @@ namespace FeriaVirtualWeb.Models.ViewModels
         [Display(Name = "CLIENTE")]
         public string NOMBRECLIENTE { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(Name = "PRODUCTOR")]
         public string NOMBREPRODUCTOR { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime FECHA { get; set; }

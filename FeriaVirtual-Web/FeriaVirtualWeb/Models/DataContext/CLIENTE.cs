@@ -11,7 +11,8 @@ namespace FeriaVirtualWeb.Models.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class CLIENTE
     {
         public CLIENTE()
@@ -25,7 +26,10 @@ namespace FeriaVirtualWeb.Models.DataContext
         public string CORREO { get; set; }
         public string DIRECCION { get; set; }
         public string PAIS { get; set; }
+        [Display(Name = "CLIENTE")]
         public string TIPOCLIENTE { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° PROCESO")]
         public Nullable<decimal> PROCESOVENTA { get; set; }
     
         public virtual ICollection<ORDEN> ORDEN { get; set; }

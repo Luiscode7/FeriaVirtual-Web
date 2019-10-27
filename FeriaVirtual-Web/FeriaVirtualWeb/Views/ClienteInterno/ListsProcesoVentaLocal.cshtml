@@ -1,0 +1,129 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
+
+<div class="d-flex">
+    <div class="card text-center col-6 pr-0 pl-0">
+        <div class="card-header pr-0 pl-0">
+            PRODUCTOR
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tr>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.PROCESO)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ORDEN)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.NOMBREPRODUCTOR)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FECHA)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.ESTADO)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PAISCLIENTE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TIPOPROCESO)
+                        </th>*@
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.CLIENTEINICIAL)
+                    </th>*@
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.CLIENTEFINAL)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DIRECCIONCLINICIAL)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DIRECCIONCLIFINAL)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CIUDADCLIENTE)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IDSUBASTA)
+                        </th>*@
+                    <th>
+                        @Html.DisplayName("ACCIONES")
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.PROCESO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ORDEN)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NOMBRECLIENTE)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NOMBREPRODUCTOR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FECHA)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.ESTADO)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PAISCLIENTE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TIPOPROCESO)
+                            </td>*@
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.CLIENTEINICIAL)
+                        </td>*@
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.CLIENTEFINAL)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DIRECCIONCLINICIAL)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DIRECCIONCLIFINAL)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CIUDADCLIENTE)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IDSUBASTA)
+                            </td>*@
+                        <td>
+                            <a href="#card-comprar" class="btncomprar btn btn-primary" data-id="@item.PROCESO">Productos</a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+
+    <div class="card text-center col-6 pr-0 pl-0">
+        <div class="card-header pr-0 pl-0">
+            <a id="comprarid" class="nav-link active pt-0 pb-0" href="#card-comprar">COMPRAR PRODUCTOS</a>
+        </div>
+        <div class="card-body" id="card-comprar">
+            
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(".btncomprar").click(function () {
+        $("#card-comprar").load("/ClienteInterno/PutCompra/" + $(this).data("id"));
+    });
+</script>

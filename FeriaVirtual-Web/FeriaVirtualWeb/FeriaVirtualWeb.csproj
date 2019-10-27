@@ -126,6 +126,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ClienteInternoController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProcesoVentaController.cs" />
     <Compile Include="Controllers\ProductorController.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="Models\DataContext\VENTA.cs">
       <DependentUpon>FeriaVirtual.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataManager\ClienteInternoManager.cs" />
     <Compile Include="Models\DataManager\ClienteManager.cs" />
     <Compile Include="Models\DataManager\CollectionManager.cs" />
     <Compile Include="Models\DataManager\ContactoManager.cs" />
@@ -298,6 +300,8 @@
     <Content Include="Views\Transportista\MyTransportes.cshtml" />
     <Content Include="Views\Subasta\SubastasList.cshtml" />
     <Content Include="Views\ProcesoVenta\ProcesosVentaList.cshtml" />
+    <Content Include="Views\ClienteInterno\ListsProcesoVentaLocal.cshtml" />
+    <Content Include="Views\ClienteInterno\PutCompra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

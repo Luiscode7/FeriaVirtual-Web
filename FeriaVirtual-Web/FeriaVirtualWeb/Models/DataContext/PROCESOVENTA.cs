@@ -28,8 +28,10 @@ namespace FeriaVirtualWeb.Models.DataContext
         public decimal IDPROCESOVENTA { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
-        [Display(Name = "PROCESO VENTA")]
+        [Display(Name = "PROCESO")]
         public string TIPOPROCESO { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° ORDEN")]
         public Nullable<decimal> ORDENID { get; set; }
     
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
