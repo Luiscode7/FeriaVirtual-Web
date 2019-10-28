@@ -36,10 +36,22 @@ namespace FeriaVirtualWeb.Controllers
         {
             var usuario = (USUARIO)Session["usuario"];
             var listaT = collection.GetTransportistaDetailsBySubasta(id, usuario);
+            var trans = new TRANSPORTISTA
+            {
+                TIPOTRANSPORTE = listaT.TIPOTRANSPORTE,
+                ANCHO = listaT.ANCHO,
+                ALTO = listaT.ALTO,
+                LARGO = listaT.LARGO,
+                CAPACIDADCARGA = listaT.CAPACIDADCARGA,
+                REFRIGERACION = listaT.REFRIGERACION == "1" ? "Si" : "No",
+                SUBASTAID = listaT.SUBASTAID,
+                ESTADOSUBASTA = listaT.ESTADOSUBASTA,
+                PRECIO = listaT.PRECIO
+            };
             var proceso = collection.GetProcesoIdBySubastaId(id);
             var detallesCli = collection.GetDatosClientByProcesoVenta(proceso);
             ViewBag.datoscliente = detallesCli;
-            return View(listaT);
+            return View(trans);
         }
 
         public ActionResult ProductsAccordingToProcesoVenta(decimal id)

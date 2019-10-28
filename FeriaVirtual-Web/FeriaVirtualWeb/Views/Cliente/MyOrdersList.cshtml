@@ -32,11 +32,15 @@
                 @Html.DisplayFor(modelItem => item.ESTADO)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a href="#exampleModalCenter2" class="btnDetalles btn btn-primary" data-toggle="modal" data-id="@item.IDORDEN">Detalles</a>
             </td>
         </tr>
     }
 
 </table>
+
+<script>
+    $(".btnDetalles").click(function () {
+        $(".modal-body").load("/Cliente/GetProductOfMyOrders/" + $(this).data("id"));
+    });
+</script>

@@ -38,7 +38,7 @@ namespace FeriaVirtualWeb.Models.ViewModels
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Display(Name = "FECHA")]
         public DateTime FECHASUBASTA { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
         public decimal? PRECIO { get; set; }
         public string TIPOTRANSPORTE { get; set; }
         [Display(Name = "ESTADO")]

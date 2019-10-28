@@ -29,6 +29,12 @@ namespace FeriaVirtualWeb.Controllers
             return View(listaOrdenes);
         }
 
+        public ActionResult GetProductOfMyOrders(decimal id)
+        {
+            var detalles = collection.GetMyProductsByOrders(id); 
+            return View(detalles);
+        }
+
         public ActionResult GetListToAddNewOrders()
         {
             var lista = (List<PRODUCTO>)collection.GetProductosList();

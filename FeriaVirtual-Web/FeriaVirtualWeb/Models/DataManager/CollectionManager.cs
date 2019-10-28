@@ -143,24 +143,6 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public List<PRODUCTO> GetProductosListToOrders()
-        {
-            var nuevaLista = new List<PRODUCTO>();
-            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
-            {
-                foreach (var item in GetProductosList())
-                {
-                    nuevaLista.Add(new PRODUCTO()
-                    {
-                        IDPRODUCTO = item.IDPRODUCTO,
-                        DESCRIPCION = item.DESCRIPCION
-                    });
-                }
-
-                return nuevaLista;
-            }
-        }
-
         public List<ORDEN> GetMyOrderList(USUARIO usuario)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -169,17 +151,11 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public CLIENTE GetClienteToProcesoVenta(decimal orden)
+        public List<PRODUCTO> GetMyProductsByOrders(decimal orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                var query = (from or in db.ORDEN
-                             join cl in db.CLIENTE
-                             on or.CLIENTE_RUTCLIENTE equals cl.RUTCLIENTE
-                             where or.IDORDEN == orden
-                             select cl.NOMBRE);
-
-                return query as CLIENTE;
+                return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == orden && p.CANTIDAD != null && p.STOCK == null).ToList();
             }
         }
 
@@ -285,6 +261,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 return db.TRANSPORTISTA.Where(t => t.RUTTRANSPORTISTA == usuario.RUTUSUARIO && t.SUBASTAID == null).ToList();
+            }
+        }
+
+        public TRANSPORTISTA GetMyTransporteById(decimal idtrans)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(t => t.IDTRANSPORTISTA == idtrans).FirstOrDefault();
             }
         }
 

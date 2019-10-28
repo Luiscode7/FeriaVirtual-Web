@@ -28,6 +28,7 @@ namespace FeriaVirtualWeb.Controllers
             {
                 newLista.Add(new TRANSPORTISTA()
                 {
+                    IDTRANSPORTISTA = item.IDTRANSPORTISTA,
                     TIPOTRANSPORTE = item.TIPOTRANSPORTE,
                     ANCHO = item.ANCHO,
                     ALTO = item.ALTO,
@@ -37,6 +38,23 @@ namespace FeriaVirtualWeb.Controllers
                 });
             }
             return View(newLista);
+        }
+
+        public ActionResult EditMyTransportes(decimal id)
+        {
+            var updateTrans = collection.GetMyTransporteById(id);
+            return View(updateTrans);
+        }
+
+        public JsonResult EditMyTransporte(TRANSPORTISTA transp)
+        {
+            var updateTrans = new TRANSPORTISTA();
+            var transM = new TransportistaManager();
+            if(transp != null)
+            {
+                updateTrans = transM.UpdateTransporte(transp);
+            }
+            return Json(updateTrans);
         }
 
         // GET: Transportista/Details/5

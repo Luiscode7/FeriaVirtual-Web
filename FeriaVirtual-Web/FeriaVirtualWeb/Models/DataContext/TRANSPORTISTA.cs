@@ -20,7 +20,7 @@ namespace FeriaVirtualWeb.Models.DataContext
         public string RUTTRANSPORTISTA { get; set; }
         public string NOMBRE { get; set; }
         public string TELEFONO { get; set; }
-        [Display(Name = "TRANSPORTE")]
+        [Display(Name = "TIPO TRANSPORTE")]
         public string TIPOTRANSPORTE { get; set; }
         public decimal ANCHO { get; set; }
         public decimal ALTO { get; set; }
@@ -32,7 +32,7 @@ namespace FeriaVirtualWeb.Models.DataContext
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         [Display(Name = "N° SUBASTA")]
         public Nullable<decimal> SUBASTAID { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
         public Nullable<decimal> PRECIO { get; set; }
         public string ESTADOSUBASTA { get; set; }
         [Display(Name = "TRANSPORTE")]
