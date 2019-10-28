@@ -69,14 +69,24 @@
                     $(".loadcomprar").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
                 },
                 success: function (response) {
-                    console.log(response);
                     if (response) {
                         toastr.options = {
                             "positionClass": "toast-top-center",
                             "timeOut": "4000",
                         }
                         toastr["success"]("Sus Compra ha sido Generada Exitosamente", "Maipo Grande Dice")
-                        $(window).load("/ClienteInterno/ListsProcesoVentaLocal/");
+                        form[0].reset();
+                        var data = JSON.parse(response);
+                        var proceso;
+                        for (var item of data) {
+                            proceso = item.IDPROCESOVENTA;    
+                        }
+
+                        $(".btncomprar").click(function () {
+                            $("#card-comprar").load("/ClienteInterno/PutCompra/" + proceso);
+                        });
+
+                        $(".btncomprar").trigger("click");
                     }
                 }
             });

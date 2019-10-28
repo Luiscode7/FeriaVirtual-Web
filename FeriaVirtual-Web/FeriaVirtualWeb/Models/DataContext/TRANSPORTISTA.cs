@@ -35,8 +35,9 @@ namespace FeriaVirtualWeb.Models.DataContext
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public Nullable<decimal> PRECIO { get; set; }
         public string ESTADOSUBASTA { get; set; }
+        [Display(Name = "TRANSPORTE")]
         public List<TRANSPORTISTA> TRANSPORTELISTA { get; set; }
-
+        
         public virtual SUBASTA SUBASTA { get; set; }
     }
 }

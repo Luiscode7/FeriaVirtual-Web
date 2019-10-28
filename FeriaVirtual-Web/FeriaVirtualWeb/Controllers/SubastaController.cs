@@ -25,6 +25,22 @@ namespace FeriaVirtualWeb.Controllers
             return View(subasta);
         }
 
+        public ActionResult MySubastas()
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            var listaSu = collection.GetMySubastasList(usuario);
+            return View(listaSu);
+        }
+
+        public ActionResult GetDetailsMySubastas(decimal id)
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            var listaT = collection.GetTransportistaDetailsBySubasta(id, usuario);
+            var proceso = collection.GetProcesoIdBySubastaId(id);
+            var detallesCli = collection.GetDatosClientByProcesoVenta(proceso);
+            ViewBag.datoscliente = detallesCli;
+            return View(listaT);
+        }
 
         public ActionResult ProductsAccordingToProcesoVenta(decimal id)
         {

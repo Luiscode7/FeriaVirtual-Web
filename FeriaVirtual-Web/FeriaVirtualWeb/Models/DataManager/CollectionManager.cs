@@ -296,6 +296,34 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public IEnumerable<ProcesoVentaViewModel> GetMySubastasList(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from t in db.TRANSPORTISTA join s in db.SUBASTA
+                             on t.SUBASTAID equals s.IDSUBASTA
+                             where t.RUTTRANSPORTISTA == usuario.RUTUSUARIO
+                             && t.ESTADOSUBASTA != null
+                             select new ProcesoVentaViewModel
+                             {
+                                 IDSUBASTA = s.IDSUBASTA,
+                                 ESTADOSUBASTA = t.ESTADOSUBASTA,
+                                 FECHASUBASTA = s.FECHA
+
+                             }).ToList();
+
+                return query;
+            }
+        }
+
+        public TRANSPORTISTA GetTransportistaDetailsBySubasta(decimal subasta, USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(t => t.SUBASTAID == subasta && t.RUTTRANSPORTISTA == usuario.RUTUSUARIO).FirstOrDefault();
+            }
+        }
+
         public IEnumerable<ProcesoVentaViewModel> GetMyPostulaciones(USUARIO usuario)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -317,6 +345,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return query as IEnumerable<ProcesoVentaViewModel>;
             }
         }
+
 
         public ProcesoVentaViewModel GetMyPostulacionDetails(decimal? orden)
         {
@@ -345,7 +374,15 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public ProcesoVentaViewModel GetDatosClientByProcesoVenta(decimal proceso)
+        public decimal? GetProcesoIdBySubastaId(decimal subasta)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.SUBASTA.Where(s => s.IDSUBASTA == subasta).FirstOrDefault().PROCESOVENTAID;
+            }
+        }
+
+        public ProcesoVentaViewModel GetDatosClientByProcesoVenta(decimal? proceso)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {

@@ -302,6 +302,8 @@
     <Content Include="Views\ProcesoVenta\ProcesosVentaList.cshtml" />
     <Content Include="Views\ClienteInterno\ListsProcesoVentaLocal.cshtml" />
     <Content Include="Views\ClienteInterno\PutCompra.cshtml" />
+    <Content Include="Views\Subasta\MySubastas.cshtml" />
+    <Content Include="Views\Subasta\GetDetailsMySubastas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,128 @@
+﻿@model FeriaVirtualWeb.Models.DataContext.TRANSPORTISTA
+
+@{ 
+    Layout = null;
+    FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel clientes = ViewBag.datoscliente;
+}
+
+<div>
+    <div>@Html.DisplayName("Datos de Transporte")</div>
+    <hr />
+    <table class="table table-bordered table-sm">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.TIPOTRANSPORTE)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.TIPOTRANSPORTE)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ANCHO)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ANCHO)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ALTO)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ALTO)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LARGO)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.LARGO)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CAPACIDADCARGA)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.CAPACIDADCARGA)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.REFRIGERACION)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.REFRIGERACION)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PRECIO)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.PRECIO)
+            </td>
+        </tr>
+
+    </table>
+    <div>@Html.DisplayName("Datos de Subasta")</div>
+    <hr />
+    <table class="table table-bordered table-sm">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.SUBASTAID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.SUBASTAID)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ESTADOSUBASTA)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ESTADOSUBASTA)
+            </td>
+        </tr>
+    </table>
+    <div>@Html.DisplayName("Datos de Cliente")</div>
+    <hr />
+    <table class="table table-bordered table-sm">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => clientes.NOMBRECLIENTE)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => clientes.NOMBRECLIENTE)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => clientes.PAISCLIENTE)
+            </td>
+            <td>
+                @Html.DisplayFor(model => clientes.PAISCLIENTE)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => clientes.CLIENTEFINAL)
+            </td>
+            <td>
+                @Html.DisplayFor(model => clientes.CLIENTEFINAL)
+            </td>
+        </tr>
+    </table>
+</div>

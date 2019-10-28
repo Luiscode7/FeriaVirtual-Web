@@ -1,18 +1,22 @@
 ﻿@model IEnumerable<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
 
+
 <div class="d-flex">
     <div class="card text-center col-6 pr-0 pl-0 mr-2">
         <div class="card-header pr-0 pl-0">
-            PRODUCTOR
+            SUBASTAS
         </div>
         <div class="card-body">
             <table class="table table-bordered">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.NOMBREPRODUCTOR)
+                        @Html.DisplayNameFor(model => model.IDSUBASTA)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FECHA)
+                        @Html.DisplayNameFor(model => model.FECHASUBASTA)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ESTADOSUBASTA)
                     </th>
                     <th>
                         @Html.DisplayName("ACCIONES")
@@ -23,35 +27,36 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.NOMBREPRODUCTOR)
+                            @Html.DisplayFor(modelItem => item.IDSUBASTA)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FECHA)
+                            @Html.DisplayFor(modelItem => item.FECHASUBASTA)
                         </td>
                         <td>
-                            <a href="#card-comprar" class="btncomprar btn btn-primary" data-id="@item.PROCESO">Productos</a>
+                            @Html.DisplayFor(modelItem => item.ESTADOSUBASTA)
+                        </td>
+                        <td>
+                            <a href="#card-subasta" class="btnsubasta btn btn-primary" data-id="@item.IDSUBASTA">Detalles</a>
                         </td>
                     </tr>
                 }
 
             </table>
-
         </div>
     </div>
 
-    <div class="card text-center col-6 pr-0 pl-0 ml-2">
+    <div class="card col-6 pr-0 pl-0 ml-2">
         <div class="card-header pr-0 pl-0">
-            COMPRAR PRODUCTOS
+            DETALLES
         </div>
-        <div class="card-body" id="card-comprar">
+        <div class="card-body" id="card-subasta">
             
         </div>
     </div>
-
 </div>
 
 <script>
-    $(".btncomprar").click(function () {
-        $("#card-comprar").load("/ClienteInterno/PutCompra/" + $(this).data("id"));
+    $(".btnsubasta").click(function () {
+        $("#card-subasta").load("/Subasta/GetDetailsMySubastas/" + $(this).data("id"));
     });
 </script>

@@ -9,10 +9,11 @@ namespace FeriaVirtualWeb.Models.DataManager
 {
     public class ClienteInternoManager
     {
-        public void InsertCompra(List<PRODUCTO> listaproductos, USUARIO usuario)
+        public List<PRODUCTO> InsertCompra(List<PRODUCTO> listaproductos, USUARIO usuario)
         {
             try
             {
+                var lista = new List<PRODUCTO>();
                 using (FeriaVirtualEntities db = new FeriaVirtualEntities())
                 {
                     foreach (var item in listaproductos)
@@ -30,8 +31,10 @@ namespace FeriaVirtualWeb.Models.DataManager
                             CLIENTEINTERNO = usuario.RUTUSUARIO
                         };
                         db.PRODUCTO.Add(producto);
+                        lista.Add(producto);
                         db.SaveChanges();
                     }
+                    return lista;
                 }
             }
             catch (Exception)
