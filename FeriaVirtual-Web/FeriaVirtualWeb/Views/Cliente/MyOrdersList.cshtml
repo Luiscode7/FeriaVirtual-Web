@@ -39,9 +39,8 @@
                     <a href="#exampleModalCenter2" class="btnRecepcion btn btn-primary" data-toggle="modal" data-id="@item.IDORDEN">Recepcion</a>
                 }
                 else
-                {
-                    <a href="#body" class="btnRecepcionado" id="btnRecepcionado" data-id="@item.IDORDEN">Recepcionado</a>
-                    <div class="loadrecepcionado d-flex justify-content-center"></div>
+                { 
+                    @Html.ActionLink("Recepcionado", "RecepcionDetails", new { id = item.IDORDEN})
                 }
             </td>
         </tr>
@@ -56,9 +55,5 @@
 
     $(".btnRecepcion").click(function () {
         $(".modal-body").load("/Cliente/GetRecepcion/" + $(this).data("id"));
-    });
-
-    $("#btnRecepcionado").click(function () {
-        $(".body-content").load("/Cliente/RecepcionDetails/" + $(this).data("id"));
     });
 </script>
