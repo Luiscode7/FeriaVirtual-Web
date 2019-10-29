@@ -43,7 +43,7 @@
 
         }
     </table>
-    <button type="submit" class="btn btn-primary col" id="btnIngresarP">Agregar</button>
+    <button type="submit" class="btnIngresarP btn btn-primary col" id="btnIngresarP">Agregar</button>
     <div class="loadbutton d-flex justify-content-center"></div>
 }
 
@@ -51,7 +51,7 @@
     $(document).ready(function () {
 
         var form = $("#form-productos");
-        var botonAgregar = $("#btnIngresarP");
+        var botonAgregar = $(".btnIngresarP");
 
         $("#btnIngresarP").click(function () {
             $.ajax({

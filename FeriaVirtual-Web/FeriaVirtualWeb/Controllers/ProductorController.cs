@@ -44,6 +44,7 @@ namespace FeriaVirtualWeb.Controllers
         {
             var productsSeleted = new List<PRODUCTO>();
             var productosList = new List<PRODUCTO>();
+            var productosListNoDiposable = new List<PRODUCTO>();
             var newProducto = new PRODUCTO();
 
             if (ModelState.IsValid)
@@ -70,8 +71,20 @@ namespace FeriaVirtualWeb.Controllers
             {
                 return Json(null);
             }
+
+            foreach (var item in productosList)
+            {
+                productosListNoDiposable.Add(new PRODUCTO()
+                {
+                    IDPRODUCTO = item.IDPRODUCTO,
+                    DESCRIPCION = item.DESCRIPCION,
+                    PRECIO = item.PRECIO,
+                    STOCK = item.STOCK,
+                    TIPOVENTA = item.TIPOVENTA
+                });
+            }
             
-            return Json(productosList);
+            return Json(productosListNoDiposable);
         }
 
         public ActionResult EditProductos(decimal id)
@@ -95,22 +108,26 @@ namespace FeriaVirtualWeb.Controllers
             return Json(productoActualizado);
         }
 
-        private string ConvertViewToString(string viewName, object model)
+        public ActionResult DeleteProduct(decimal id)
         {
-            ViewData.Model = model;
-            using (StringWriter writer = new StringWriter())
+            var productoDel = new PRODUCTO();
+            if (id != 0)
             {
-                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer);
-                vResult.View.Render(vContext, writer);
-                return writer.ToString();
+                productoDel = collection.GetProductByIdProducto(id);
             }
+            return View(productoDel);
         }
 
-        // GET: Productor/Edit/5
-        public ActionResult Edit(int id)
+        public JsonResult DeleteMyProduct(PRODUCTO producto)
         {
-            return View();
+            var productorM = new ProductorManager();
+            var productoDelete = new PRODUCTO();
+            if (producto != null)
+            {
+                productoDelete = productorM.DeleteProduct(producto);
+            }
+
+            return Json(productoDelete);
         }
 
         // POST: Productor/Edit/5

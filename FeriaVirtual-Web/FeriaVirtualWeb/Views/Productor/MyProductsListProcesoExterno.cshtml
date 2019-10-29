@@ -38,7 +38,7 @@
         </td>
         <td>
             <a href="#exampleModalCenter" class="btnEdit btn btn-primary" data-toggle="modal" data-id="@item.IDPRODUCTO">Actualizar</a>
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            <a href="#exampleModalCenter" class="btnDelete btn btn-danger" data-toggle="modal" data-id="@item.IDPRODUCTO">Eliminar</a>
         </td>
     </tr>
 }
@@ -48,5 +48,9 @@
 <script>
     $(".btnEdit").click(function () {
         $(".modal-body").load("/Productor/EditProductos/" + $(this).data("id"));
+    });
+
+    $(".btnDelete").click(function () {
+        $(".modal-body").load("/Productor/DeleteProduct/" + $(this).data("id"));
     });
 </script>

@@ -42,6 +42,14 @@ namespace FeriaVirtualWeb.Models.DataManager
 
         }
 
+        public PRODUCTO GetProductByIdProducto(decimal id)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.IDPRODUCTO == id).FirstOrDefault();
+            }
+        }
+
         public List<ProcesoVentaViewModel> GetProcesoVentaLocalList()
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -244,7 +252,8 @@ namespace FeriaVirtualWeb.Models.DataManager
             var newProducto = new PRODUCTO();
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                newProducto = db.PRODUCTO.Where(p => p.DESCRIPCION == producto.DESCRIPCION && p.TIPOVENTA == producto.TIPOVENTA && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO).FirstOrDefault();
+                newProducto = db.PRODUCTO.Where(p => p.DESCRIPCION == producto.DESCRIPCION && p.TIPOVENTA == producto.TIPOVENTA
+                && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == null).FirstOrDefault();
                 if(newProducto != null)
                 {
                     return false;

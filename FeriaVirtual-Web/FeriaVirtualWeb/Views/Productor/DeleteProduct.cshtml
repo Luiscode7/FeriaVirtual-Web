@@ -1,0 +1,61 @@
+﻿@model FeriaVirtualWeb.Models.DataContext.PRODUCTO
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("DeleteMyProduct", "Productor", FormMethod.Post, new { id = "form-eliminar" }))
+{
+    <div>
+        @Html.HiddenFor(model => model.IDPRODUCTO)
+        <div>
+            <p>
+                ¿Esta Seguro de Eliminar el Producto?
+            </p>
+        </div>
+
+        <div>
+            <input type="submit" value="Eliminar" class="btnEliminar btn btn-primary"/>
+            <div class="loaddelete d-flex justify-content-center"></div>
+        </div>
+    </div>
+
+}
+
+<script>
+    $(document).ready(function () {
+
+        var form = $("#form-eliminar");
+        var botonDelete = $(".btnEliminar");
+
+        botonDelete.click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                beforeSend: function () {
+                    botonDelete.replaceWith($(".loaddelete"));
+                    $(".loaddelete").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+                },
+                success: function (response) {
+                    if (response) {
+                        $("#exampleModalCenter").modal("hide");
+                        toastr.options = {
+                            "positionClass": "toast-top-center",
+                            "timeOut": "4000",
+                        }
+                        toastr["success"]("El Producto ha sido Eliminado Exitosamente", "Maipo Grande Dice")
+                        if ($("#externoid").hasClass("active")) {
+                            $("#externoid").trigger("click");
+                        } else {
+                            $("#localid").trigger("click");
+                        }
+                        
+                    }
+                }
+            });
+            return false;                 
+        });
+    });
+</script>

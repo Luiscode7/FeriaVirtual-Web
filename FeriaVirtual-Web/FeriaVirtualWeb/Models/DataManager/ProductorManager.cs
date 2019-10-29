@@ -66,9 +66,10 @@ namespace FeriaVirtualWeb.Models.DataManager
 
                 using (FeriaVirtualEntities db = new FeriaVirtualEntities())
                 {
-                    PRODUCTO producto = db.PRODUCTO.Where(p => p.DESCRIPCION == productoEdit.DESCRIPCION && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO).FirstOrDefault();
+                    PRODUCTO producto = db.PRODUCTO.Where(p => p.DESCRIPCION == productoEdit.DESCRIPCION &&
+                    p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.TIPOVENTA == productoEdit.TIPOVENTA).FirstOrDefault();
                     producto.PRECIO = productoEdit.PRECIO;
-                    producto.STOCK = productoEdit.STOCK;
+                    producto.STOCK = producto.STOCK + productoEdit.STOCK;
                     db.SaveChanges();
                     return producto;
                 }
@@ -146,6 +147,25 @@ namespace FeriaVirtualWeb.Models.DataManager
                         producto.STOCK = producto.STOCK - item.CANTIDAD;
                         db.SaveChanges();
                     }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public PRODUCTO DeleteProduct(PRODUCTO productoDel)
+        {
+            try
+            {
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    PRODUCTO producto = db.PRODUCTO.Where(p => p.IDPRODUCTO == productoDel.IDPRODUCTO).FirstOrDefault();
+                    db.PRODUCTO.Remove(producto);
+                    db.SaveChanges();
+                    return producto;
                 }
             }
             catch (Exception)
