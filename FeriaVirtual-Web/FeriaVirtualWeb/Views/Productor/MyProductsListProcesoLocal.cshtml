@@ -3,7 +3,7 @@
 @{ 
     Layout = null;
 }
-<table class="table">
+<table class="table table-condensed">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.IDPRODUCTO)
@@ -37,9 +37,8 @@
             @Html.DisplayFor(modelItem => item.STOCK)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            <a href="#exampleModalCenter" class="btnEdit btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.IDPRODUCTO">Actualizar</a>
+            <a href="#exampleModalCenter" class="btnDelete btn btn-danger notika-btn-danger" data-toggle="modal" data-id="@item.IDPRODUCTO">Eliminar</a>
         </td>
     </tr>
 }

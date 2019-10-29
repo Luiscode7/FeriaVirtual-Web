@@ -3,50 +3,49 @@
 @{ 
     Layout = null;
 }
-<table class="table table-bordered" id="tableP">
-    <tr>
-        <th>
-            @Html.DisplayName("N° ORDEN")
-        </th>
-        <th>
-            @Html.DisplayName("CLIENTE")
-        </th>
-        <th>
-            @Html.DisplayName("FECHA INICIO")
-        </th>
-        <th>
-            @Html.DisplayName("ACCION")
-        </th>
-    </tr>
-    @for (var i = 0; i < Model.Count(); i++)
-    {
+<div class="bsc-tbl">
+    <table class="table table-condensed" id="tableP">
         <tr>
-            <td>
-                @Html.DisplayFor(model => Model[i].ORDEN)
-            </td>
-            <td>
-                @Html.DisplayFor(model => Model[i].NOMBRECLIENTE)
-            </td>
-            <td>
-                @Html.DisplayFor(model => Model[i].FECHA)
-            </td>
-            <td>
-                <a href="#exampleModalCenter3" class="btnVer btn btn-primary" data-toggle="modal" data-id="@Model[i].ORDEN">
-                    Ver Productos
-                </a>
-
-                <a href="#" class="btnPostular btn btn-primary" data-id="@Model[i].ORDEN">
-                    Postular
-                </a>
-
-                <a href="#" class="btnPostular btn btn-primary" style="display:none;" data-id="@Model[i].ORDEN">
-                    Postular
-                </a>
-            </td>
+            <th>
+                @Html.DisplayName("N° ORDEN")
+            </th>
+            <th>
+                @Html.DisplayName("CLIENTE")
+            </th>
+            <th>
+                @Html.DisplayName("FECHA INICIO")
+            </th>
+            <th>
+                @Html.DisplayName("ACCION")
+            </th>
         </tr>
-    }
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => Model[i].ORDEN)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => Model[i].NOMBRECLIENTE)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => Model[i].FECHA)
+                </td>
+                <td>
+                    <a href="#exampleModalCenter3" class="btnVer btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@Model[i].ORDEN">
+                        Ver Productos
+                    </a>
 
-</table>
+                    <a href="#" class="btnPostular btn btn-primary notika-btn-primary" data-id="@Model[i].ORDEN">
+                        Postular
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
 
 <script>
     $(document).on('click','.btnVer',(function (e) {
