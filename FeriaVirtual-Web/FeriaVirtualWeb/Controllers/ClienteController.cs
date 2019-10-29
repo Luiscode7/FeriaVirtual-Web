@@ -35,6 +35,13 @@ namespace FeriaVirtualWeb.Controllers
             return View(detalles);
         }
 
+        public ActionResult RecepcionDetails(decimal id)
+        {
+            var procesoByorden = collection.GetProcesoDecimalByOrden(id);
+            var listadoDetails = collection.GetDatosClientByProcesoVenta(procesoByorden);
+            return View(listadoDetails);
+        }
+
         public ActionResult GetListToAddNewOrders()
         {
             var lista = (List<PRODUCTO>)collection.GetProductosList();
@@ -58,6 +65,37 @@ namespace FeriaVirtualWeb.Controllers
             }
 
             return Json(productsSeleted);
+        }
+
+
+        public ActionResult GetRecepcion(decimal id)
+        {
+            var ordenEstado = new ORDEN();
+            if(id != 0)
+            {
+                ordenEstado = collection.GetEstadoOrden(id);
+            }
+            var ordenEnvio = new ORDEN
+            {
+                IDORDEN = ordenEstado.IDORDEN,
+                ESTADO = "Recepcionado"
+            };
+            return View(ordenEnvio);
+        }
+
+        public JsonResult EditEstadoOrden(ORDEN orden)
+        {
+            var estado = new ClienteManager();
+            var updateEstado = estado.UpdateEstadoOrden(orden);
+            var updateNoDisposable = new ORDEN
+            {
+                IDORDEN = updateEstado.IDORDEN,
+                CANTIDAD = updateEstado.CANTIDAD,
+                FECHA = updateEstado.FECHA,
+                CLIENTE_RUTCLIENTE = updateEstado.CLIENTE_RUTCLIENTE,
+                ESTADO = updateEstado.ESTADO
+            };
+            return Json(updateNoDisposable);
         }
 
         // GET: Cliente/Create

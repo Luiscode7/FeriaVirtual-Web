@@ -56,5 +56,24 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return lastID;
             }
         }
+
+        public ORDEN UpdateEstadoOrden(ORDEN estadoOr)
+        {
+            try
+            {
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    ORDEN orden = db.ORDEN.Where(or => or.IDORDEN == estadoOr.IDORDEN).FirstOrDefault();
+                    orden.ESTADO = estadoOr.ESTADO;
+                    db.SaveChanges();
+                    return orden;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

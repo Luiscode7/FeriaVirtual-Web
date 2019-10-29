@@ -1,0 +1,47 @@
+﻿@model FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel
+
+@{ 
+    Layout = null;
+}
+
+<div>
+    <h4>ProcesoVentaViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRECLIENTE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PAISCLIENTE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PAISCLIENTE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLIENTEFINAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLIENTEFINAL)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

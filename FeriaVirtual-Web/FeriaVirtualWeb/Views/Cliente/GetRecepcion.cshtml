@@ -1,0 +1,67 @@
+﻿@model FeriaVirtualWeb.Models.DataContext.ORDEN
+
+@{ 
+    Layout = null;
+}
+
+@using (Html.BeginForm("EditEstadoOrden","Cliente", FormMethod.Post, new { id ="form-recepcion"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ORDEN</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IDORDEN)
+        @Html.HiddenFor(model => model.ESTADO)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ESTADO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ESTADO, new { htmlAttributes = new { @class = "form-control", disabled ="disabled" } })
+                @Html.ValidationMessageFor(model => model.ESTADO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Confirmar Recepcion" class="btn btn-primary col" id="btnRecepcion" />
+                <div class="loadrecepcion d-flex justify-content-center"></div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+
+        var form = $("#form-recepcion");
+        var botonRecepcion = $("#btnRecepcion");
+
+        botonRecepcion.click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                beforeSend: function () {
+                    botonRecepcion.replaceWith($(".loadrecepcion"));
+                    $(".loadrecepcion").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+                },
+                success: function (response) {
+                    if (response) {
+                        $("#exampleModalCenter2").modal("hide");
+                        toastr.options = {
+                            "positionClass": "toast-top-center",
+                            "timeOut": "4000",
+                        }
+                        toastr["success"]("Su Recepcion ha sido Confirmada Exitosamente", "Maipo Grande Dice")
+                        $("#ordenesid").trigger("click");
+                        
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>

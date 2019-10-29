@@ -306,6 +306,8 @@
     <Content Include="Views\Transportista\EditMyTransportes.cshtml" />
     <Content Include="Views\Cliente\GetProductOfMyOrders.cshtml" />
     <Content Include="Views\Productor\DeleteProduct.cshtml" />
+    <Content Include="Views\Cliente\GetRecepcion.cshtml" />
+    <Content Include="Views\Cliente\RecepcionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

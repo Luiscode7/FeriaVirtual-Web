@@ -159,6 +159,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public ORDEN GetEstadoOrden(decimal orden)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.ORDEN.Where(or => or.IDORDEN == orden).FirstOrDefault();
+            }
+        }
+
         public List<PRODUCTO> GetMyProductsByOrders(decimal orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -236,6 +244,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 return db.PROCESOVENTA.Where(p => p.ORDENID == orden).FirstOrDefault();
+            }
+        }
+
+        public decimal? GetProcesoDecimalByOrden(decimal? orden)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PROCESOVENTA.Where(p => p.ORDENID == orden).FirstOrDefault().IDPROCESOVENTA;
             }
         }
 

@@ -15,7 +15,7 @@
         </div>
 
         <div>
-            <input type="submit" value="Eliminar" class="btnEliminar btn btn-primary"/>
+            <input type="submit" value="Eliminar" class="btn btn-primary" id="btnEliminar"/>
             <div class="loaddelete d-flex justify-content-center"></div>
         </div>
     </div>
@@ -26,7 +26,7 @@
     $(document).ready(function () {
 
         var form = $("#form-eliminar");
-        var botonDelete = $(".btnEliminar");
+        var botonDelete = $("#btnEliminar");
 
         botonDelete.click(function () {
             $.ajax({

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using FeriaVirtualWeb.Models.DataManager;
 using FeriaVirtualWeb.Models.DataContext;
 using FeriaVirtualWeb.Filter;
-using System.IO;
+
 
 namespace FeriaVirtualWeb.Controllers
 {
@@ -128,44 +128,6 @@ namespace FeriaVirtualWeb.Controllers
             }
 
             return Json(productoDelete);
-        }
-
-        // POST: Productor/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Productor/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Productor/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
