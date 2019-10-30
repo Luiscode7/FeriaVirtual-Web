@@ -6,10 +6,10 @@
 
 @using (Html.BeginForm("AddOrder", "Cliente", FormMethod.Post, new { id = "form-productosOrder" }))
 {
-    <table class="table">
+    <table class="table table-condensed">
         <tr>
             <th>
-                @Html.DisplayName("DESCRIPCION")
+                @Html.DisplayName("PRODUCTO")
             </th>
             <th>
                 @Html.DisplayName("CANTIDAD")
@@ -24,7 +24,9 @@
                     @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "cantidad form-control" } })
+                    <div class="nk-int-st">
+                        @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "cantidad form-control" } })
+                    </div> 
                 </td>
             </tr>
 
@@ -34,6 +36,26 @@
     <div class="loadorden d-flex justify-content-center"></div>
 }
 
+<script src="~/assest/js/wow.min.js"></script>
+<script src="~/assest/js/jquery-price-slider.js"></script>
+<script src="~/assest/js/owl.carousel.min.js"></script>
+<script src="~/assest/js/jquery.scrollUp.min.js"></script>
+<script src="~/assest/js/jquery.meanmenu.js"></script>
+<script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/assest/js/jquery.sparkline.min.js"></script>
+<script src="~/assest/js/sparkline-active.js"></script>
+<script src="~/assest/js/jquery.flot.js"></script>
+<script src="~/assest/js/jquery.flot.resize.js"></script>
+<script src="~/assest/js/flot-active.js"></script>
+<script src="~/assest/js/jquery.knob.js"></script>
+<script src="~/assest/js/jquery.appear.js"></script>
+<script src="~/assest/js/knob-active.js"></script>
+<script src="~/assest/js/jquery.todo.js"></script>
+@*<script src="~/assest/js/waves.min.js"></script>
+    <script src="~/assest/js/wave-active.js"></script>*@
+<script src="~/assest/js/plugins.js"></script>
+<script src="~/assest/js/main.js"></script>
+
 <script>
     $(document).ready(function () {
 
@@ -41,6 +63,7 @@
         var botonAgregar = $("#btnIngresarOr");
 
         $(".cantidad").val('');
+        $(".cantidad").attr("autocomplete","off");
 
         botonAgregar.click(function () {
             $.ajax({
@@ -69,3 +92,4 @@
         });
     });
 </script>
+

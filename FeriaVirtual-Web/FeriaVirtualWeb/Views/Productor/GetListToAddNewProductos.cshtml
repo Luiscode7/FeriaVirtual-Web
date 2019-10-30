@@ -4,9 +4,10 @@
     Layout = null;
 }
 
+
 @using (Html.BeginForm("AddNewProductos", "Productor", FormMethod.Post, new { id = "form-productos" }))
 {
-    <table class="table">
+    <table class="table table-condensed">
         <tr>
             <th>
                 @Html.DisplayName("DESCRIPCION")
@@ -30,14 +31,18 @@
                     @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="nk-int-st">
+                        @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="nk-int-st">
+                        @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                    </div>
                 </td>
                 <td>
                     @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value = "Externo" }, new SelectListItem { Text = "Local", Value = "Local" } },
-                 new { @class = "form-control" })
+                    new { @class = "form-control" })
                 </td>
             </tr>
 
@@ -46,6 +51,28 @@
     <button type="submit" class="btnIngresarP btn btn-primary notika-btn-primary col" id="btnIngresarP">Agregar</button>
     <div class="loadbutton d-flex justify-content-center"></div>
 }
+
+
+<script src="~/assest/js/wow.min.js"></script>
+<script src="~/assest/js/jquery-price-slider.js"></script>
+<script src="~/assest/js/owl.carousel.min.js"></script>
+<script src="~/assest/js/jquery.scrollUp.min.js"></script>
+<script src="~/assest/js/bootstrap-select.js"></script>
+<script src="~/assest/js/jquery.meanmenu.js"></script>
+<script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/assest/js/jquery.sparkline.min.js"></script>
+<script src="~/assest/js/sparkline-active.js"></script>
+<script src="~/assest/js/jquery.flot.js"></script>
+<script src="~/assest/js/jquery.flot.resize.js"></script>
+<script src="~/assest/js/flot-active.js"></script>
+<script src="~/assest/js/jquery.knob.js"></script>
+<script src="~/assest/js/jquery.appear.js"></script>
+<script src="~/assest/js/knob-active.js"></script>
+<script src="~/assest/js/jquery.todo.js"></script>
+@*<script src="~/assest/js/waves.min.js"></script>
+    <script src="~/assest/js/wave-active.js"></script>*@
+<script src="~/assest/js/plugins.js"></script>
+<script src="~/assest/js/main.js"></script>
 
 <script>
     $(document).ready(function () {
