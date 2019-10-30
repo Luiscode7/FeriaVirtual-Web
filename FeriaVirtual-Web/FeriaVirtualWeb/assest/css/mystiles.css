@@ -15,14 +15,14 @@
 .panel-right {
     height: 100vh;
     width: 50%;
-    background-color: #FFFFFF;
+    background-color: #00c292;
     opacity: 0.9;
 }
 
 .panel-left {
     height: 100vh;
     width: 50%;
-    background-color: #6CF9CE;
+    background-color: #FFFFFF;
     opacity: 0.9;
 }
 
