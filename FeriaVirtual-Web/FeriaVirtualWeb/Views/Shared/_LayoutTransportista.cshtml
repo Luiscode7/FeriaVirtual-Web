@@ -1,0 +1,131 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/assest/img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <link href="~/assest/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/assest/css/bootstrap2.min.css" rel="stylesheet" />*@
+    <link href="~/assest/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/assest/css/owl.carousel.css" rel="stylesheet" />
+    <link href="~/assest/css/owl.theme.css" rel="stylesheet" />
+    <link href="~/assest/css/owl.transitions.css" rel="stylesheet" />
+    <link href="~/assest/css/meanmenu.min.css" rel="stylesheet" />
+    <link href="~/assest/css/animate.css" rel="stylesheet" />
+    <link href="~/assest/css/normalize.css" rel="stylesheet" />
+    <link href="~/assest/css/waves.min.css" rel="stylesheet" />
+    <link href="~/assest/css/button.css" rel="stylesheet" />
+    <link href="~/assest/css/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+    <link href="~/assest/css/notika-custom-icon.css" rel="stylesheet" />
+    <link href="~/assest/css/main.css" rel="stylesheet" />
+    <link href="~/assest/css/style.css" rel="stylesheet" />
+    <link href="~/assest/css/responsive.css" rel="stylesheet" />
+    <link href="~/assest/css/mystiles.css" rel="stylesheet" />
+    <script src="~/assest/js/jquery-3.3.1.min.js"></script>
+    <link href="~/assest/css/toastr.min.css" rel="stylesheet" />
+    <script src="~/assest/js/modernizr-2.8.3.js"></script>
+</head>
+<body>
+    <div class="header-top-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="logo-area">
+                        <a href="#"><img src="~/assest/img/logo.png" alt="" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div class="header-top-menu">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Top Area -->
+    <!-- Main Menu area start-->
+    <div class="main-menu-area mg-tb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                        <li>
+                            <a href="@Url.Action("Transporte","Transportista")">Inicio</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("SubastaList","Subasta")">Subastas</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("MySubastas","Subasta")">Historial de Subastas</a>
+                        </li>
+                        @*<li>
+                                <a data-toggle="tab" href="#Charts"><i class="notika-icon notika-bar-chart"></i> Charts</a>
+                            </li>
+                            <li class="active">
+                                <a data-toggle="tab" href="#Tables"><i class="notika-icon notika-windows"></i> Tables</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Forms</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#Appviews"><i class="notika-icon notika-app"></i> App views</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Pages</a>
+                            </li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" id="container" style="height:100vh">
+        <br />
+        @RenderBody()
+        <hr />
+    </div>
+    <div class="footer-copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="footer-copy-right">
+                        <p>
+                            &copy; @DateTime.Now.Year - Mi aplicación Web ALTO MAIPO
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/assest/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assest/js/modernizr-2.8.3.js"></script>
+    @*<script src="~/assest/js/jquery.validate.js"></script>
+        <script src="~/assest/js/jquery.validate.unobtrusive.js"></script>*@
+    <script src="~/assest/js/jquery.validate.min.js"></script>
+    <script src="~/assest/js/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assest/js/bootstrap.min.js"></script>
+    <script src="~/assest/js/toastr.min.js"></script>
+    <script src="~/assest/js/wow.min.js"></script>
+    <script src="~/assest/js/jquery-price-slider.js"></script>
+    <script src="~/assest/js/owl.carousel.min.js"></script>
+    <script src="~/assest/js/jquery.scrollUp.min.js"></script>
+    <script src="~/assest/js/jquery.meanmenu.js"></script>
+    <script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/assest/js/jquery.sparkline.min.js"></script>
+    <script src="~/assest/js/sparkline-active.js"></script>
+    <script src="~/assest/js/jquery.flot.js"></script>
+    <script src="~/assest/js/jquery.flot.resize.js"></script>
+    <script src="~/assest/js/flot-active.js"></script>
+    <script src="~/assest/js/jquery.knob.js"></script>
+    <script src="~/assest/js/jquery.appear.js"></script>
+    <script src="~/assest/js/knob-active.js"></script>
+    <script src="~/assest/js/jquery.todo.js"></script>
+    <script src="~/assest/js/waves.min.js"></script>
+    <script src="~/assest/js/wave-active.js"></script>
+    <script src="~/assest/js/plugins.js"></script>
+    <script src="~/assest/js/main.js"></script>
+</body>
+</html>

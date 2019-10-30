@@ -1,12 +1,16 @@
 ﻿@model IEnumerable<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
 
+@{
+    Layout = "~/Views/Shared/_LayoutClienteInterno.cshtml";
+}
+
 <div class="d-flex">
     <div class="card text-center col-6 pr-0 pl-0 mr-2">
         <div class="card-header pr-0 pl-0">
             PRODUCTOR
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
+            <table class="table table-condensed">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.NOMBREPRODUCTOR)
@@ -29,7 +33,7 @@
                             @Html.DisplayFor(modelItem => item.FECHA)
                         </td>
                         <td>
-                            <a href="#card-comprar" class="btncomprar btn btn-primary" data-id="@item.PROCESO">Productos</a>
+                            <a href="#card-comprar" class="btncomprar btn btn-primary notika-btn-primary" data-id="@item.PROCESO">Productos</a>
                         </td>
                     </tr>
                 }
@@ -44,7 +48,7 @@
             COMPRAR PRODUCTOS
         </div>
         <div class="card-body" id="card-comprar">
-            
+
         </div>
     </div>
 

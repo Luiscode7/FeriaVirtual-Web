@@ -6,7 +6,7 @@
 
 @using (Html.BeginForm("Comprar", "ClienteInterno", FormMethod.Post, new { id = "form-comprar" }))
 {
-    <table class="table table-bordered">
+    <table class="table table-condensed">
         <tr>
             <th>
                 @Html.DisplayName("PRODUCTO")
@@ -48,7 +48,7 @@
         }
 
     </table>
-    <input type="submit" class="btn btn-primary col" value="Comprar" id="btnComprar" />
+    <input type="submit" class="btn btn-primary notika-btn-primary col" value="Comprar" id="btnComprar" />
     <div class="loadcomprar d-flex justify-content-center"></div>
 }
 

@@ -3,7 +3,7 @@
 @{ 
     Layout = null;
 }
-<table class="table table-bordered">
+<table class="table table-condensed">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.IDORDEN)
@@ -32,11 +32,11 @@
                 @Html.DisplayFor(modelItem => item.ESTADO)
             </td>
             <td>
-                <a href="#exampleModalCenter2" class="btnDetalles btn btn-primary" data-toggle="modal" data-id="@item.IDORDEN">Detalles</a>
+                <a href="#exampleModalCenter2" class="btnDetalles btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.IDORDEN">Detalles</a>
 
                 @if (item.ESTADO != "Recepcionado")
                 {
-                    <a href="#exampleModalCenter2" class="btnRecepcion btn btn-primary" data-toggle="modal" data-id="@item.IDORDEN">Recepcion</a>
+                    <a href="#exampleModalCenter2" class="btnRecepcion btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.IDORDEN">Recepcion</a>
                 }
                 else
                 { 

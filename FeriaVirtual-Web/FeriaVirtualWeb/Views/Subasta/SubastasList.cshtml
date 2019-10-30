@@ -3,7 +3,7 @@
 @{ 
     Layout = null;
 }
-<table class="table table-bordered">
+<table class="table table-condensed">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.IDSUBASTA)
@@ -26,10 +26,10 @@
                 @Html.DisplayFor(modelItem => item.FECHA)
             </td>
             <td>
-                <a href="#exampleModalCenter4" class="btnVerP btn btn-primary" data-toggle="modal" data-id="@item.PROCESOVENTAID">
+                <a href="#exampleModalCenter4" class="btnVerP btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.PROCESOVENTAID">
                     Ver Productos
                 </a>
-                <a href="#exampleModalCenter4" class="btnPostularS btn btn-primary" data-toggle="modal" data-id="@item.IDSUBASTA">
+                <a href="#exampleModalCenter4" class="btnPostularS btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.IDSUBASTA">
                     Subastar
                 </a>
             </td>

@@ -26,7 +26,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <table class="table table-bordered">
+            <table class="table table-condensed">
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.PROCESO)
@@ -61,7 +61,7 @@
                             @Html.DisplayFor(modelItem => item.ESTADO)
                         </td>
                         <td>
-                            <a href="#exampleModalCenter5" class="btnDetails btn btn-primary" data-toggle="modal" data-id="@item.ORDEN">Detalles</a>
+                            <a href="#exampleModalCenter5" class="btnDetails btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.ORDEN">Detalles</a>
                         </td>
                     </tr>
                 }
