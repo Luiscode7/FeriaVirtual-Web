@@ -29,9 +29,11 @@ namespace FeriaVirtualWeb.Controllers
             return View(lista);
         }
 
-        public ActionResult GetMyVenta()
+        public ActionResult GetMyVenta(decimal id)
         {
-            return View();
+            var proceso = collection.GetProcesoByOrden(id);
+            var venta = collection.GetMyVenta(proceso.IDPROCESOVENTA);
+            return View(venta);
         }
 
         public ActionResult MyProductsListProcesoLocal()

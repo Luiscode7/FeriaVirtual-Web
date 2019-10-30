@@ -42,7 +42,13 @@ namespace FeriaVirtualWeb.Models.DataManager
 
         }
 
-        //public List<VENTA> GetMyVenta()
+        public VENTA GetMyVenta(decimal idprocesoventa)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.VENTA.Where(v => v.PROCESOVENTA_IDPROCESOVENTA == idprocesoventa).FirstOrDefault();
+            }
+        }
 
         public PRODUCTO GetProductByIdProducto(decimal id)
         {

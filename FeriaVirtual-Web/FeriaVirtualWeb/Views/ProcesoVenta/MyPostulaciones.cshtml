@@ -49,6 +49,14 @@
                     </td>
                     <td>
                         <a href="#exampleModalCenter5" class="btnDetails btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.ORDEN">Detalles</a>
+                        @if (item.ESTADO == "Aceptado")
+                        {
+                            <a href="#exampleModalCenter5" class="btnVenta btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.ORDEN">Detalle Venta</a>
+                        }
+                        else
+                        {
+                            <a href="#exampleModalCenter5" class="btnVenta btn btn-primary notika-btn-primary" style="display:none" data-toggle="modal" data-id="@item.ORDEN">Venta</a>
+                        }
                     </td>
                 </tr>
             }
@@ -77,5 +85,9 @@
 <script>
     $(".btnDetails").click(function () {
         $(".modal-body").load("/ProcesoVenta/MyPostulacionesDetails/" + $(this).data("id"));
+    });
+
+    $(".btnVenta").click(function () {
+        $(".modal-body").load("/Productor/GetMyVenta/" + $(this).data("id"));
     });
 </script>

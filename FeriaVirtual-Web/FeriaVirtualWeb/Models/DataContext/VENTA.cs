@@ -11,18 +11,34 @@ namespace FeriaVirtualWeb.Models.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class VENTA
     {
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name ="N° VENTA")]
         public decimal IDVENTA { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
+        [Display(Name = "COSTO ADUANA")]
         public Nullable<decimal> IMPUESTOADUANA { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
+        [Display(Name = "COSTO TRANSPORTE")]
         public Nullable<decimal> COSTOTRANSPORTE { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}%")]
+        [Display(Name = "COMISION EMPRESA")]
         public Nullable<decimal> COMISIONEMPRESA { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
+        [Display(Name = "COSTO TOTAL")]
         public Nullable<decimal> COSTOTOTAL { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
+        [Display(Name = "GANANCIA TOTAL")]
         public Nullable<decimal> GANANCIA { get; set; }
         public string ESTADO { get; set; }
         public string EMPRESA_RUTEMPRESA { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° PROCESO VENTA")]
         public Nullable<decimal> PROCESOVENTA_IDPROCESOVENTA { get; set; }
     
         public virtual EMPRESA EMPRESA { get; set; }
