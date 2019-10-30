@@ -13,61 +13,61 @@
         </ul>
     </div>
     <div class="card-body">
-        
+        <table class="table table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PROCESO)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FECHA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TIPOPROCESO)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ESTADO)
+                </th>
+                <th>
+                    @Html.DisplayName("ACCIONES")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PROCESO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FECHA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TIPOPROCESO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ESTADO)
+                    </td>
+                    <td>
+                        <a href="#exampleModalCenter5" class="btnDetails btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.ORDEN">Detalles</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
     </div>
 </div>
 
 <div class="modal fade modal fade bd-example-modal-lg" id="exampleModalCenter5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Productos</h5>
+            <div class="modal-header" style="background-color: #00c292">
+                <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <table class="table table-condensed">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PROCESO)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FECHA)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TIPOPROCESO)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ESTADO)
-                    </th>
-                    <th>
-                        @Html.DisplayName("ACCIONES")
-                    </th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PROCESO)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FECHA)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TIPOPROCESO)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ESTADO)
-                        </td>
-                        <td>
-                            <a href="#exampleModalCenter5" class="btnDetails btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.ORDEN">Detalles</a>
-                        </td>
-                    </tr>
-                }
-
-            </table>
-
             <div class="modal-body">
             </div>
         </div>

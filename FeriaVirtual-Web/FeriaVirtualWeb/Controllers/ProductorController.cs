@@ -29,6 +29,11 @@ namespace FeriaVirtualWeb.Controllers
             return View(lista);
         }
 
+        public ActionResult GetMyVenta()
+        {
+            return View();
+        }
+
         public ActionResult MyProductsListProcesoLocal()
         {
             var usuario = (USUARIO)Session["usuario"];

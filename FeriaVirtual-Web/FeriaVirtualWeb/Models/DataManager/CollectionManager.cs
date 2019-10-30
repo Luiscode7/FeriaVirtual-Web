@@ -42,6 +42,8 @@ namespace FeriaVirtualWeb.Models.DataManager
 
         }
 
+        //public List<VENTA> GetMyVenta()
+
         public PRODUCTO GetProductByIdProducto(decimal id)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -341,6 +343,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                              join pr in db.PRODUCTO on pv.IDPROCESOVENTA
                              equals pr.IDPROCESOVENTA
                              where pr.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                             && pr.TIPOVENTA == "Externo"
                              select new ProcesoVentaViewModel
                              {
                                  PROCESO = pr.IDPROCESOVENTA,
