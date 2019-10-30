@@ -1,53 +1,82 @@
 ﻿@model FeriaVirtualWeb.Models.DataContext.PRODUCTO
 
-@{ 
+@{
     Layout = null;
 }
 
-@using (Html.BeginForm("AddProductoEditado","Productor", FormMethod.Post, new { id = "form-actualizar"}))
+@using (Html.BeginForm("AddProductoEditado", "Productor", FormMethod.Post, new { id = "form-actualizar" }))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal m-auto">
-        <h5>ACTUALIZAR PRODUCTO</h5>
-        <hr />
+
+    <div class="form-horizontal col-md-7 m-auto">
+        <h5 class="d-flex justify-content-center">ACTUALIZAR PRODUCTO</h5>
+        <br />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-          
+
         @Html.HiddenFor(model => model.IDPRODUCTO)
-               
+
         <div class="form-group">
             @Html.LabelFor(model => model.DESCRIPCION, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-                @Html.ValidationMessageFor(model => model.DESCRIPCION, "", new { @class = "text-danger" })
+            <div class="nk-int-st">
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.DESCRIPCION, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.DESCRIPCION, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PRECIO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PRECIO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PRECIO, "", new { @class = "text-danger" })
+            <div class="nk-int-st">
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.PRECIO, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PRECIO, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.STOCK, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.STOCK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.STOCK, "", new { @class = "text-danger" })
+            <div class="nk-int-st">
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.STOCK, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.STOCK, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        
+
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-12">
                 <input type="submit" value="Actualizar" class="btn btn-primary notika-btn-primary col" id="btnActualizar" />
                 <div class="loadbutton d-flex justify-content-center"></div>
             </div>
         </div>
     </div>
 }
+
+
+<script src="~/assest/js/bootstrap-select.js"></script>
+<script src="~/assest/js/wow.min.js"></script>
+<script src="~/assest/js/jquery-price-slider.js"></script>
+<script src="~/assest/js/owl.carousel.min.js"></script>
+<script src="~/assest/js/jquery.scrollUp.min.js"></script>
+<script src="~/assest/js/jquery.meanmenu.js"></script>
+<script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/assest/js/jquery.sparkline.min.js"></script>
+<script src="~/assest/js/sparkline-active.js"></script>
+<script src="~/assest/js/jquery.flot.js"></script>
+<script src="~/assest/js/jquery.flot.resize.js"></script>
+<script src="~/assest/js/flot-active.js"></script>
+<script src="~/assest/js/jquery.knob.js"></script>
+<script src="~/assest/js/jquery.appear.js"></script>
+<script src="~/assest/js/knob-active.js"></script>
+<script src="~/assest/js/jquery.todo.js"></script>
+@*<script src="~/assest/js/waves.min.js"></script>
+    <script src="~/assest/js/wave-active.js"></script>*@
+<script src="~/assest/js/plugins.js"></script>
+<script src="~/assest/js/main.js"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -78,7 +107,7 @@
                         } else {
                             $("#localid").trigger("click");
                         }
-                        
+
                     }
                 }
             });

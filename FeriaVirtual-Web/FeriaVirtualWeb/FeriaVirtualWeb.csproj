@@ -217,6 +217,10 @@
     <Content Include="assest\css\bootstrap2.min.css" />
     <Content Include="assest\css\brands.min.css" />
     <Content Include="assest\css\button.css" />
+    <Content Include="assest\css\chosen-sprite.png" />
+    <Content Include="assest\css\chosen\chosen-sprite%402x.png" />
+    <Content Include="assest\css\chosen\chosen-sprite.png" />
+    <Content Include="assest\css\chosen\chosen.css" />
     <Content Include="assest\css\fontawesome.min.css" />
     <Content Include="assest\css\jquery.mCustomScrollbar.min.css" />
     <Content Include="assest\css\main.css" />
@@ -234,6 +238,12 @@
     <Content Include="assest\css\svg-with-js.min.css" />
     <Content Include="assest\css\toastr.min.css" />
     <Content Include="assest\css\waves.min.css" />
+    <Content Include="assest\css\images\select.png" />
+    <Content Include="assest\css\images\sort_asc.png" />
+    <Content Include="assest\css\images\sort_asc_disabled.png" />
+    <Content Include="assest\css\images\sort_both.png" />
+    <Content Include="assest\css\images\sort_desc.png" />
+    <Content Include="assest\css\images\sort_desc_disabled.png" />
     <Content Include="assest\img\circulo.gif" />
     <Content Include="assest\img\engra.gif" />
     <Content Include="assest\img\engra2.gif" />
@@ -247,6 +257,7 @@
     <Content Include="assest\js\bootstrap.bundle.min.js" />
     <Content Include="assest\js\bootstrap.js" />
     <Content Include="assest\js\bootstrap.min.js" />
+    <Content Include="assest\js\chosen.jquery.js" />
     <Content Include="assest\js\flot-active.js" />
     <Content Include="assest\js\jquery-price-slider.js" />
     <Content Include="assest\js\jquery.appear.js" />
@@ -273,9 +284,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\notika-icon.svg" />
+    <Content Include="assest\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="assest\css\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assest\css\fonts\notika-icon.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="assest\css\bootstrap-grid.css.map" />
@@ -355,10 +366,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assest\css\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="assest\css\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assest\css\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assest\css\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <EntityDeploy Include="Models\DataContext\FeriaVirtual.edmx">
@@ -368,14 +379,14 @@
     <Content Include="Models\DataContext\FeriaVirtual.edmx.diagram">
       <DependentUpon>FeriaVirtual.edmx</DependentUpon>
     </Content>
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\notika-icon.eot" />
-    <Content Include="fonts\notika-icon.ttf" />
-    <Content Include="fonts\notika-icon.woff" />
+    <Content Include="assest\css\fonts\fontawesome-webfont.eot" />
+    <Content Include="assest\css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assest\css\fonts\fontawesome-webfont.woff" />
+    <Content Include="assest\css\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assest\css\fonts\FontAwesome.otf" />
+    <Content Include="assest\css\fonts\notika-icon.eot" />
+    <Content Include="assest\css\fonts\notika-icon.ttf" />
+    <Content Include="assest\css\fonts\notika-icon.woff" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

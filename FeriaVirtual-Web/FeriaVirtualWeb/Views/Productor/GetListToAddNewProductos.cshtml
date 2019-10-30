@@ -33,7 +33,7 @@
                 <td>
                     <div class="nk-int-st">
                         @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
-                    </div>
+                    </div> 
                 </td>
                 <td>
                     <div class="nk-int-st">
@@ -41,8 +41,10 @@
                     </div>
                 </td>
                 <td>
-                    @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value = "Externo" }, new SelectListItem { Text = "Local", Value = "Local" } },
-                    new { @class = "form-control" })
+                    <div class="chosen-select-act fm-cmp-mg">
+                        @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value = "Externo" }, new SelectListItem { Text = "Local", Value = "Local" } },
+                        new { @class = "chosen form-control" })
+                    </div>
                 </td>
             </tr>
 
@@ -57,7 +59,7 @@
 <script src="~/assest/js/jquery-price-slider.js"></script>
 <script src="~/assest/js/owl.carousel.min.js"></script>
 <script src="~/assest/js/jquery.scrollUp.min.js"></script>
-<script src="~/assest/js/bootstrap-select.js"></script>
+<script src="~/assest/js/chosen.jquery.js"></script>
 <script src="~/assest/js/jquery.meanmenu.js"></script>
 <script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="~/assest/js/jquery.sparkline.min.js"></script>

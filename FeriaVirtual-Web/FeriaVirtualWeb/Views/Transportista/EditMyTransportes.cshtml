@@ -1,13 +1,13 @@
 ﻿@model FeriaVirtualWeb.Models.DataContext.TRANSPORTISTA
 
-@{ 
+@{
     Layout = null;
 }
 
-@using (Html.BeginForm("EditMyTransporte","Transportista", FormMethod.Post, new { id ="form-editTrans"}))
+@using (Html.BeginForm("EditMyTransporte", "Transportista", FormMethod.Post, new { id = "form-editTrans" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>TRANSPORTISTA</h4>
         <hr />
@@ -15,41 +15,51 @@
         @Html.HiddenFor(model => model.IDTRANSPORTISTA)
         <div class="form-group">
             @Html.LabelFor(model => model.TIPOTRANSPORTE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TIPOTRANSPORTE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TIPOTRANSPORTE, "", new { @class = "text-danger" })
+            <div class="nk-int-st">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TIPOTRANSPORTE, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TIPOTRANSPORTE, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ANCHO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ANCHO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ANCHO, "", new { @class = "text-danger" })
+            <div class="nk-int-st">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ANCHO, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ANCHO, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ALTO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ALTO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ALTO, "", new { @class = "text-danger" })
+            <div class="nk-int-st">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ALTO, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ALTO, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.LARGO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LARGO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LARGO, "", new { @class = "text-danger" })
+            <div class="nk-int-st">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LARGO, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LARGO, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.CAPACIDADCARGA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CAPACIDADCARGA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CAPACIDADCARGA, "", new { @class = "text-danger" })
+            <div class="nk-int-st">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CAPACIDADCARGA, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CAPACIDADCARGA, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
@@ -61,6 +71,28 @@
         </div>
     </div>
 }
+
+
+<script src="~/assest/js/bootstrap-select.js"></script>
+<script src="~/assest/js/wow.min.js"></script>
+<script src="~/assest/js/jquery-price-slider.js"></script>
+<script src="~/assest/js/owl.carousel.min.js"></script>
+<script src="~/assest/js/jquery.scrollUp.min.js"></script>
+<script src="~/assest/js/jquery.meanmenu.js"></script>
+<script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/assest/js/jquery.sparkline.min.js"></script>
+<script src="~/assest/js/sparkline-active.js"></script>
+<script src="~/assest/js/jquery.flot.js"></script>
+<script src="~/assest/js/jquery.flot.resize.js"></script>
+<script src="~/assest/js/flot-active.js"></script>
+<script src="~/assest/js/jquery.knob.js"></script>
+<script src="~/assest/js/jquery.appear.js"></script>
+<script src="~/assest/js/knob-active.js"></script>
+<script src="~/assest/js/jquery.todo.js"></script>
+@*<script src="~/assest/js/waves.min.js"></script>
+<script src="~/assest/js/wave-active.js"></script>*@
+<script src="~/assest/js/plugins.js"></script>
+<script src="~/assest/js/main.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -87,7 +119,7 @@
                         }
                         toastr["success"]("Su Transporte ha sido Actualizado Exitosamente", "Maipo Grande Dice")
                         $("#transporteid").trigger("click");
-                        
+
                     }
                 }
             });

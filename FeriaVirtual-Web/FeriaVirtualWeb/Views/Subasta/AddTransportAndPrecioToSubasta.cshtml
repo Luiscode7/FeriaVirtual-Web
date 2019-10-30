@@ -13,19 +13,24 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.SUBASTAID)
-        <div class="form-group">
+        <div class="form-group pb-3">
             @Html.LabelFor(model => model.TRANSPORTELISTA, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.IDTRANSPORTISTA, new SelectList(Model.TRANSPORTELISTA, "IDTRANSPORTISTA", "TIPOTRANSPORTE"), "Seleccione Transporte", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TIPOTRANSPORTE, "", new { @class = "text-danger" })
-            </div>
+                <div class="chosen-select-act fm-cmp-mg">
+                    @Html.DropDownListFor(model => model.IDTRANSPORTISTA, new SelectList(Model.TRANSPORTELISTA, "IDTRANSPORTISTA", "TIPOTRANSPORTE"), "Seleccione Transporte", new { @class = "chosen form-control" })
+                    @Html.ValidationMessageFor(model => model.TIPOTRANSPORTE, "", new { @class = "text-danger" })
+                </div>
+            </div>     
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PRECIO, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group float-lb floating-lb pb-2">
+            @*@Html.LabelFor(model => model.PRECIO, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PRECIO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PRECIO, "", new { @class = "text-danger" })
+                <div class="nk-int-st">
+                    @Html.EditorFor(model => model.PRECIO, new { htmlAttributes = new { @class = "form-control" } })
+                    <label class="nk-label">PRECIO</label>
+                    @Html.ValidationMessageFor(model => model.PRECIO, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
@@ -43,6 +48,7 @@
 <script src="~/assest/js/owl.carousel.min.js"></script>
 <script src="~/assest/js/jquery.scrollUp.min.js"></script>
 <script src="~/assest/js/bootstrap-select.js"></script>
+<script src="~/assest/js/chosen.jquery.js"></script>
 <script src="~/assest/js/jquery.meanmenu.js"></script>
 <script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="~/assest/js/jquery.sparkline.min.js"></script>
