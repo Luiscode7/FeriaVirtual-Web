@@ -15,6 +15,8 @@ namespace FeriaVirtualWeb.Controllers
         CollectionManager collection = new CollectionManager();
         public ActionResult ChooseProducts()
         {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             return View();
         }
 
@@ -37,6 +39,8 @@ namespace FeriaVirtualWeb.Controllers
 
         public ActionResult RecepcionDetails(decimal id)
         {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             var procesoByorden = collection.GetProcesoDecimalByOrden(id);
             var listadoDetails = collection.GetDatosClientByProcesoVenta(procesoByorden);
             return View(listadoDetails);

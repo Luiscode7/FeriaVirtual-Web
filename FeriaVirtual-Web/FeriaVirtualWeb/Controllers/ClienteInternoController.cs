@@ -15,6 +15,8 @@ namespace FeriaVirtualWeb.Controllers
         CollectionManager collection = new CollectionManager();
         public ActionResult ListsProcesoVentaLocal()
         {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             var lista = collection.GetProcesoVentaLocalList();
             return View(lista);
         }

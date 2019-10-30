@@ -16,6 +16,8 @@ namespace FeriaVirtualWeb.Controllers
         CollectionManager collection = new CollectionManager();
         public ActionResult ProcesoVentaList()
         {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             return View();
         }
 
@@ -67,6 +69,7 @@ namespace FeriaVirtualWeb.Controllers
         public ActionResult MyPostulaciones()
         {
             var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             var listaP = collection.GetMyPostulaciones(usuario);
             return View(listaP);
         }

@@ -37,7 +37,11 @@
                         <a href="#"><img src="~/assest/img/logo.png" alt="" /></a>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 d-flex align-items-center justify-content-end">
+                    @{
+                        var session = ViewBag.session;
+                    }
+                    <div class="d-flex justify-content-end" style="color:#ffffff"><strong>Bienvenido(a)</strong>&nbsp;&nbsp;@session</div>
                     <div class="header-top-menu">
 
                     </div>

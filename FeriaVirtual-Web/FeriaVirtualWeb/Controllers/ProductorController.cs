@@ -17,6 +17,8 @@ namespace FeriaVirtualWeb.Controllers
         
         public ActionResult MyListProducts()
         {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             return View();
         }
 

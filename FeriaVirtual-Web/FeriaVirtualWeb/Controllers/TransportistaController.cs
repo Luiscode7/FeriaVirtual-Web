@@ -16,6 +16,8 @@ namespace FeriaVirtualWeb.Controllers
         // GET: Transportista
         public ActionResult Transporte()
         {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             return View();
         }
 

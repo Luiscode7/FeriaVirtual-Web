@@ -16,6 +16,8 @@ namespace FeriaVirtualWeb.Controllers
         // GET: Subasta
         public ActionResult SubastaList()
         {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             return View();
         }
 
@@ -28,6 +30,7 @@ namespace FeriaVirtualWeb.Controllers
         public ActionResult MySubastas()
         {
             var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             var listaSu = collection.GetMySubastasList(usuario);
             return View(listaSu);
         }
