@@ -219,6 +219,7 @@
     <Content Include="assest\css\chosen\chosen-sprite%402x.png" />
     <Content Include="assest\css\chosen\chosen-sprite.png" />
     <Content Include="assest\css\chosen\chosen.css" />
+    <Content Include="assest\css\images\user1.png" />
     <Content Include="assest\css\jquery.mCustomScrollbar.min.css" />
     <Content Include="assest\css\main.css" />
     <Content Include="assest\css\meanmenu.min.css" />
@@ -249,7 +250,6 @@
     <Content Include="assest\img\loading.gif" />
     <Content Include="assest\img\logo.png" />
     <Content Include="assest\img\transporte6.jpg" />
-    <Content Include="assest\js\bootstrap-select.js" />
     <Content Include="assest\js\bootstrap.bundle.js" />
     <Content Include="assest\js\bootstrap.bundle.min.js" />
     <Content Include="assest\js\bootstrap.js" />
