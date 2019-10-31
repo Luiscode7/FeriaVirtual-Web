@@ -66,14 +66,15 @@
                         @Html.DisplayFor(modelItem => item.ESTADO)
                     </td>
                     <td>
-                        <a href="#exampleModalCenter5" class="btnDetails btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.ORDEN">Detalles</a>
+                        <a href="#exampleModalCenter5" class="btnDetails btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.ORDEN"><i class="fas fa-info-circle m-1"></i>Detalles</a>
+                        
                         @if (item.ESTADO == "Aceptado")
                         {
-                            <a href="#exampleModalCenter5" class="btnVenta btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.ORDEN">Detalle Venta</a>
+                            <a href="#exampleModalCenter5" class="btnVenta btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.ORDEN">Detalle Venta</a>
                         }
                         else
                         {
-                            <a href="#exampleModalCenter5" class="btnVenta btn btn-primary notika-btn-primary" style="display:none" data-toggle="modal" data-id="@item.ORDEN">Venta</a>
+                            <a href="#exampleModalCenter5" class="btnVenta btn notika-btn-teal" style="display:none" data-toggle="modal" data-id="@item.ORDEN">Venta</a>
                         }
                     </td>
                 </tr>
