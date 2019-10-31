@@ -37,8 +37,12 @@
             @Html.DisplayFor(modelItem => item.STOCK)
         </td>
         <td>
-            <a href="#exampleModalCenter" class="btnEdit btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.IDPRODUCTO">Actualizar</a>
-            <a href="#exampleModalCenter" class="btnDelete btn btn-danger notika-btn-danger" data-toggle="modal" data-id="@item.IDPRODUCTO">Eliminar</a>
+            <span data-toggle="tooltip" data-placement="top" title="Actualizar">
+                <a href="#exampleModalCenter" class="btnEdit btn btn-primary notika-btn-primary" data-toggle="modal" data-id="@item.IDPRODUCTO"><i class="fas fa-edit"></i></a>
+            </span>
+            <span data-toggle="tooltip" data-placement="top" title="Eliminar">
+                <a href="#exampleModalCenter" class="btnDelete btn btn-danger notika-btn-danger" data-toggle="modal" data-id="@item.IDPRODUCTO"><i class="fas fa-trash"></i></a>
+            </span>    
         </td>
     </tr>
 }

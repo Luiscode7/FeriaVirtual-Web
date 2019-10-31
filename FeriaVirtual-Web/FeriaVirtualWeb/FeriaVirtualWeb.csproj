@@ -211,17 +211,14 @@
     <Content Include="assest\css\bootstrap-grid.min.css" />
     <Content Include="assest\css\bootstrap-reboot.css" />
     <Content Include="assest\css\bootstrap-reboot.min.css" />
-    <Content Include="assest\css\bootstrap-select.css" />
     <Content Include="assest\css\bootstrap.css" />
     <Content Include="assest\css\bootstrap.min.css" />
-    <Content Include="assest\css\bootstrap2.min.css" />
     <Content Include="assest\css\brands.min.css" />
     <Content Include="assest\css\button.css" />
     <Content Include="assest\css\chosen-sprite.png" />
     <Content Include="assest\css\chosen\chosen-sprite%402x.png" />
     <Content Include="assest\css\chosen\chosen-sprite.png" />
     <Content Include="assest\css\chosen\chosen.css" />
-    <Content Include="assest\css\fontawesome.min.css" />
     <Content Include="assest\css\jquery.mCustomScrollbar.min.css" />
     <Content Include="assest\css\main.css" />
     <Content Include="assest\css\meanmenu.min.css" />
@@ -281,6 +278,9 @@
     <Content Include="assest\js\wave-active.js" />
     <Content Include="assest\js\waves.min.js" />
     <Content Include="assest\js\wow.min.js" />
+    <Content Include="assest\webfonts\fa-brands-400.svg" />
+    <Content Include="assest\webfonts\fa-regular-400.svg" />
+    <Content Include="assest\webfonts\fa-solid-900.svg" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -388,6 +388,18 @@
     <Content Include="assest\css\fonts\notika-icon.eot" />
     <Content Include="assest\css\fonts\notika-icon.ttf" />
     <Content Include="assest\css\fonts\notika-icon.woff" />
+    <Content Include="assest\webfonts\fa-brands-400.eot" />
+    <Content Include="assest\webfonts\fa-brands-400.ttf" />
+    <Content Include="assest\webfonts\fa-brands-400.woff" />
+    <Content Include="assest\webfonts\fa-brands-400.woff2" />
+    <Content Include="assest\webfonts\fa-regular-400.eot" />
+    <Content Include="assest\webfonts\fa-regular-400.ttf" />
+    <Content Include="assest\webfonts\fa-regular-400.woff" />
+    <Content Include="assest\webfonts\fa-regular-400.woff2" />
+    <Content Include="assest\webfonts\fa-solid-900.eot" />
+    <Content Include="assest\webfonts\fa-solid-900.ttf" />
+    <Content Include="assest\webfonts\fa-solid-900.woff" />
+    <Content Include="assest\webfonts\fa-solid-900.woff2" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
