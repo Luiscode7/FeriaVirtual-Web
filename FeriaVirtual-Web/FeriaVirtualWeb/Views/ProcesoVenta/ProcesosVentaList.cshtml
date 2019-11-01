@@ -68,10 +68,10 @@
                 console.log(response);
                 if (response != "[]") {
                     toastr.options = {
-                        "positionClass": "toast-top-center",
+                        "positionClass": "toast-top-right",
                         "timeOut": "4000",
                     }
-                    toastr["success"]("Su Postulacion ha sido Enviada Exitosamente", "Maipo Grande Dice")
+                    toastr["success"]("Su Postulacion ha sido Enviada Exitosamente")
 
                     if ($("#pexternoid").hasClass("active")) {
                         $("#pexternoid").trigger("click");
@@ -81,7 +81,7 @@
 
                 } else {
                     toastr.options = {
-                        "positionClass": "toast-top-center",
+                        "positionClass": "toast-top-right",
                         "timeOut": "4000",
                     }
                     toastr["error"]("No Tiene los Productos Necesarios o su Stock es Insuficiente", "Maipo Grande Dice")

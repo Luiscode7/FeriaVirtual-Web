@@ -51,3 +51,12 @@
     color: #000000;
     font-weight: bold;
 }
+
+.toast-top-right {
+    top: 80px !important;
+    left: 12px
+}
+
+.toast-success {
+    background-color: #009688 !important
+}

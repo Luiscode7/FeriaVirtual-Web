@@ -82,10 +82,10 @@
                 $("#exampleModalCenter4").modal("hide");
                 $(".divPujar").prepend('<input type="submit" value="Enviar Puja" class="btnPuja btn btn-primary col" />');
                 toastr.options = {
-                    "positionClass": "toast-top-center",
+                    "positionClass": "toast-top-right",
                     "timeOut": "4000",
                 }
-                toastr["success"]("Su Puja ha sido Enviada Exitosamente", "Maipo Grande Dice")
+                toastr["success"]("Su Puja ha sido Enviada Exitosamente")
                 $("#subastaid").trigger("click");
             }
         });

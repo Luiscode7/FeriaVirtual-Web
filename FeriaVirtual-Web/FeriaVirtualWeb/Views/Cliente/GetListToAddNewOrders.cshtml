@@ -80,10 +80,10 @@
                     if (response) {
                         $("#exampleModalCenter2").modal("hide");
                         toastr.options = {
-                            "positionClass": "toast-top-center",
+                            "positionClass": "toast-top-right",
                             "timeOut": "4000"
                         }
-                        toastr["success"]("Su Orden ha sido Enviada Exitosamente", "Maipo Grande Dice")
+                        toastr["success"]("Su Orden ha sido Enviada Exitosamente")
                         $("#ordenesid").trigger("click");
                     }
                 }

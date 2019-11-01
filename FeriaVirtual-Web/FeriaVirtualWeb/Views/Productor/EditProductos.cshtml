@@ -98,10 +98,10 @@
                     if (response) {
                         $("#exampleModalCenter").modal("hide");
                         toastr.options = {
-                            "positionClass": "toast-top-center",
+                            "positionClass": "toast-top-right",
                             "timeOut": "4000",
                         }
-                        toastr["success"]("Su Producto ha sido Actualizado Exitosamente", "Maipo Grande Dice")
+                        toastr["success"]("Su Producto ha sido Actualizado Exitosamente")
                         if ($("#externoid").hasClass("active")) {
                             $("#externoid").trigger("click");
                         } else {

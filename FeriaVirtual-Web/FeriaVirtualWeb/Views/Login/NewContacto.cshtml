@@ -68,23 +68,10 @@
                     $(".loadbutton").hide();
                     $("#divBtnContacto").html('<input type="submit" value="Enviar" class="btn btn-primary col" id="btnContacto" />');
                     toastr.options = {
-                        "closeButton": false,
-                        "debug": false,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-center",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": "5000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
+                        "positionClass": "toast-top-right",
+                        "timeOut": "4000"
                     }
-                    toastr["success"]("Sus Datos han sido Enviados Exitosamente", "Maipo Grande Dice")
+                    toastr["success"]("Sus Datos han sido Enviados Exitosamente")
                 }
             });
             return false;

@@ -71,10 +71,10 @@
                 success: function (response) {
                     if (response) {
                         toastr.options = {
-                            "positionClass": "toast-top-center",
+                            "positionClass": "toast-top-right",
                             "timeOut": "4000",
                         }
-                        toastr["success"]("Sus Compra ha sido Generada Exitosamente", "Maipo Grande Dice")
+                        toastr["success"]("Sus Compra ha sido Generada Exitosamente")
                         form[0].reset();
                         var data = JSON.parse(response);
                         var proceso;

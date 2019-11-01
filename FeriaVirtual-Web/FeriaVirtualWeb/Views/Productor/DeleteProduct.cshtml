@@ -42,10 +42,10 @@
                     if (response) {
                         $("#exampleModalCenter").modal("hide");
                         toastr.options = {
-                            "positionClass": "toast-top-center",
+                            "positionClass": "toast-top-right",
                             "timeOut": "4000",
                         }
-                        toastr["success"]("El Producto ha sido Eliminado Exitosamente", "Maipo Grande Dice")
+                        toastr["success"]("El Producto ha sido Eliminado Exitosamente")
                         if ($("#externoid").hasClass("active")) {
                             $("#externoid").trigger("click");
                         } else {
