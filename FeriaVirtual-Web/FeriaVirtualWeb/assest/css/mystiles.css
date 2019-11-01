@@ -60,3 +60,56 @@
 .toast-success {
     background-color: #009688 !important
 }
+
+.card-header {
+    background-color: #FFFFFF !important;
+    border-bottom: none !important;
+}
+
+.card {
+    border: none !important; 
+}
+
+.nav-item .nav-link {
+    padding-top:0 !important;
+    padding-bottom: 0 !important;
+    height: 40px !important;
+}
+
+.card-header ul {
+    border-bottom: 1px solid #E6E6E6 !important;
+}
+
+.nav-tabs .nav-link {
+    border: none !important;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link {
+    position:relative;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link::before {
+    content: "";
+    display: block;
+    width: 0;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    border-bottom: 2px solid #00c292 !important;
+    transition: all 0.5s ease;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active::before {
+    width:100%;
+    left:0;
+}
+
+
+a {
+    color: #000000;
+    text-decoration: none;
+    background-color: transparent;
+}

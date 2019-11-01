@@ -63,17 +63,30 @@
 
         var externo = $("#externoid");
         var local = $("#localid");
+        var proceso = $("#card-procesos");
+        var posicion = proceso.offset().top;
 
         $("#externoid").click(function () {
             $(this).addClass("active");
             local.removeClass("active");
-            $("#card-procesos").load("/Productor/MyProductsListProcesoExterno/");
-        });
+            proceso.load("/Productor/MyProductsListProcesoExterno/");
 
+            $('html, body').animate({
+                scrollTop: posicion
+            }, 500);
+
+       
+        });
+            
         $("#localid").click(function () {
             $(this).addClass("active");
             externo.removeClass("active");
-            $("#card-procesos").load("/Productor/MyProductsListProcesoLocal/");
+            proceso.load("/Productor/MyProductsListProcesoLocal/");
+
+            $('html, body').animate({
+                scrollTop: posicion
+            }, 500);
+
         });
 
         $("#btnNuevo").click(function () {
@@ -82,4 +95,5 @@
 
         $("#externoid").trigger("click");
     });
+
 </script>
