@@ -37,10 +37,20 @@
             @Html.DisplayFor(modelItem => item.STOCK)
         </td>
         <td>
-            <a href="#exampleModalCenter" class="btnEdit btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDPRODUCTO">Editar</a>
-            <a href="#exampleModalCenter" class="btnDelete btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDPRODUCTO">Eliminar</a>
+            <a href="#exampleModalCenter" class="btnEditL btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDPRODUCTO">Editar</a>
+            <a href="#exampleModalCenter" class="btnDeleteL btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDPRODUCTO">Eliminar</a>
         </td>
     </tr>
 }
 
 </table>
+
+<script>
+    $(".btnEditL").click(function () {
+        $(".modal-body").load("/Productor/EditProductos/" + $(this).data("id"));
+    });
+
+    $(".btnDeleteL").click(function () {
+        $(".modal-body").load("/Productor/DeleteProduct/" + $(this).data("id"));
+    });
+</script>
