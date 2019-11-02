@@ -24,6 +24,9 @@
     </div>
 </div>
 
+<a id="btnNuevoT" href="#exampleModalCenter6" class="btnVer btn btn-success notika-btn-success" data-toggle="modal">Transporte&nbsp;&nbsp;<i class="fas fa-plus-circle"></i></a>
+<br />
+<br />
 <div class="card text-center">
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
@@ -60,5 +63,9 @@
         });
 
         $("#transporteid").trigger("click");
+    });
+
+    $("#btnNuevoT").click(function () {
+        $(".modal-body").load("/Transportista/AddNewTransporte/");
     });
 </script>

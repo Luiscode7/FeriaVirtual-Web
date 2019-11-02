@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using FeriaVirtualWeb.Models.DataContext;
+using FeriaVirtualWeb.Utils;
 
 namespace FeriaVirtualWeb.Models.DataManager
 {
@@ -21,6 +22,37 @@ namespace FeriaVirtualWeb.Models.DataManager
                     trans.LARGO = uptrans.LARGO;
                     trans.CAPACIDADCARGA = uptrans.CAPACIDADCARGA;
                     trans.REFRIGERACION = uptrans.REFRIGERACION;
+                    db.SaveChanges();
+                    return trans;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public TRANSPORTISTA InsertNewTransporte(TRANSPORTISTA newTrans)
+        {
+            try
+            {
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    TRANSPORTISTA trans = new TRANSPORTISTA
+                    {
+                        IDTRANSPORTISTA = DatabaseUtil.GetNextIDTransportista(),
+                        RUTTRANSPORTISTA = newTrans.RUTTRANSPORTISTA,
+                        NOMBRE = newTrans.NOMBRE,
+                        TELEFONO = newTrans.TELEFONO,
+                        TIPOTRANSPORTE = newTrans.TIPOTRANSPORTE,
+                        ANCHO = newTrans.ANCHO,
+                        ALTO = newTrans.ALTO,
+                        LARGO = newTrans.LARGO,
+                        CAPACIDADCARGA = newTrans.CAPACIDADCARGA,
+                        REFRIGERACION = newTrans.REFRIGERACION
+                    };
+                    db.TRANSPORTISTA.Add(trans);
                     db.SaveChanges();
                     return trans;
                 }

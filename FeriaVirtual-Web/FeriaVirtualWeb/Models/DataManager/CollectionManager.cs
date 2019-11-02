@@ -305,6 +305,22 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public TRANSPORTISTA GetMyTransporteByToNew(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(t => t.RUTTRANSPORTISTA == usuario.RUTUSUARIO).FirstOrDefault();
+            }
+        }
+
+        public IEnumerable<string> GetRefrigeracionList()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.ToList().Select(t => t.REFRIGERACION).Distinct();
+            }
+        }
+
         public List<SUBASTA> GetSubasta()
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())

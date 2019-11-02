@@ -364,6 +364,7 @@
     <Content Include="Views\Shared\_LayoutClienteInterno.cshtml" />
     <Content Include="Views\Shared\_LayoutTransportista.cshtml" />
     <Content Include="Views\Productor\GetMyVenta.cshtml" />
+    <Content Include="Views\Transportista\AddNewTransporte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -42,6 +42,27 @@ namespace FeriaVirtualWeb.Controllers
             return View(newLista);
         }
 
+        public ActionResult AddNewTransporte()
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            var transporte = collection.GetMyTransporteByToNew(usuario);
+            var newtransporte = new TRANSPORTISTA
+            {
+                IDTRANSPORTISTA = transporte.IDTRANSPORTISTA,
+                RUTTRANSPORTISTA = transporte.RUTTRANSPORTISTA,
+                NOMBRE = transporte.NOMBRE,
+                TELEFONO = transporte.TELEFONO
+            };
+
+            return View(newtransporte);
+        }
+
+        public JsonResult AddNewTransportes(TRANSPORTISTA transportista)
+        {
+            var newtransporte = new TransportistaManager();
+            return Json(newtransporte.InsertNewTransporte(transportista));
+        }
+
         public ActionResult EditMyTransportes(decimal id)
         {
             var updateTrans = collection.GetMyTransporteById(id);

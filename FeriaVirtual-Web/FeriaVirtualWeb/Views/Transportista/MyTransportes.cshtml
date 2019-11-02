@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.TRANSPORTISTA>
 
-@{ 
+@{
     Layout = null;
 }
+
 <table class="table table-condensed">
     <tr>
         <th>
@@ -60,5 +61,5 @@
 <script>
     $(".btnEdit").click(function () {
         $(".modal-body").load("/Transportista/EditMyTransportes/" + $(this).data("id"));
-    }); 
+    });
 </script>

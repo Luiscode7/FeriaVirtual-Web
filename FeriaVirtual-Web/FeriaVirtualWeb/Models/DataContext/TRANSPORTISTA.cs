@@ -37,7 +37,9 @@ namespace FeriaVirtualWeb.Models.DataContext
         public string ESTADOSUBASTA { get; set; }
         [Display(Name = "TRANSPORTE")]
         public List<TRANSPORTISTA> TRANSPORTELISTA { get; set; }
-        
+        [Display(Name = "REFRIGERACION")]
+        public List<string> BoolRefrigeracionList { get; set; }
+
         public virtual SUBASTA SUBASTA { get; set; }
     }
 }
