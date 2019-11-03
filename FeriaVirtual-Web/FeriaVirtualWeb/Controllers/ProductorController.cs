@@ -29,12 +29,12 @@ namespace FeriaVirtualWeb.Controllers
             return View(lista);
         }
 
-        public ActionResult GetMyVenta(decimal id)
-        {
-            var proceso = collection.GetProcesoByOrden(id);
-            var venta = collection.GetMyVenta(proceso.IDPROCESOVENTA);
-            return View(venta);
-        }
+        //public ActionResult GetMyVenta(decimal id)
+        //{
+        //    var proceso = collection.GetProcesoByOrden(id);
+        //    var venta = collection.GetMyVenta(proceso.IDPROCESOVENTA);
+        //    return View(venta);
+        //}
 
         public ActionResult MyProductsListProcesoLocal()
         {
@@ -137,6 +137,18 @@ namespace FeriaVirtualWeb.Controllers
             }
 
             return Json(productoDelete);
+        }
+
+        public ActionResult GetMyProductsSelledAndProfit(decimal id)
+        {
+            var idproceso = id;
+            var usuario = (USUARIO)Session["usuario"];
+            var listaPAceppted = collection.GetMyProductsAccepted(usuario, idproceso);
+            var sumaPrecios = collection.TotalSumOfPrecioOfProductorAccordingToOneSell(listaPAceppted);
+
+            var ventaByProceso = collection.GetVentaByProcesoVenta(idproceso);
+            var ganancia = collection.GetMyProfit(ventaByProceso, sumaPrecios);
+            return View();
         }
     }
 }

@@ -3,6 +3,7 @@
 @{ 
     Layout = null;
     FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel clientes = ViewBag.datoscliente;
+    FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel clientesL = ViewBag.datosclienteL;
 }
 
 <div>
@@ -99,30 +100,61 @@
     <div>@Html.DisplayName("Datos de Cliente")</div>
     <hr />
     <table class="table table-condensed table-sm">
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => clientes.NOMBRECLIENTE)
-            </td>
+        @if (clientes.TIPOPROCESO == "Externo")
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => clientes.NOMBREPRODUCTOR)
+                </td>
 
-            <td>
-                @Html.DisplayFor(model => clientes.NOMBRECLIENTE)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => clientes.PAISCLIENTE)
-            </td>
-            <td>
-                @Html.DisplayFor(model => clientes.PAISCLIENTE)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => clientes.CLIENTEFINAL)
-            </td>
-            <td>
-                @Html.DisplayFor(model => clientes.CLIENTEFINAL)
-            </td>
-        </tr>
+                <td>
+                    @Html.DisplayFor(model => clientes.NOMBREPRODUCTOR)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => clientes.DIRECCIONCLINICIAL)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => clientes.DIRECCIONCLINICIAL)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => clientes.TELEFONOCLI)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => clientes.TELEFONOCLI)
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => clientesL.NOMBRECLIENTE)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => clientesL.NOMBRECLIENTE)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => clientesL.DIRECCIONCLINICIAL)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => clientesL.DIRECCIONCLINICIAL)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => clientesL.TELEFONOCLI)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => clientesL.TELEFONOCLI)
+                </td>
+            </tr>
+        }
     </table>
 </div>

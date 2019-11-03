@@ -28,7 +28,10 @@
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-                <a id="subastaid" class="nav-link active" href="#card-subasta">SUBASTAS</a>
+                <a id="subastaidex" class="nav-link" href="#card-subasta">SUBASTAS VENTA EXTERNA</a>
+            </li>
+            <li class="nav-item">
+                <a id="subastaidlo" class="nav-link" href="#card-subasta">SUBASTAS VENTA LOCAL</a>
             </li>
         </ul>
     </div>
@@ -55,10 +58,38 @@
 
 <script>
     $(document).ready(function () {
-        $("#subastaid").click(function () {
-            $("#card-subasta").load("/Subasta/SubastasList/");
+        //$("#subastaid").click(function () {
+        //    $("#card-subasta").load("/Subasta/SubastasList/");
+        //});
+
+        //$("#subastaid").trigger("click");
+        var proceso = $("#card-subasta");
+        var externo = $("#subastaidex");
+        var local = $("#subastaidlo");
+
+        $("#subastaidex").click(function () {
+            $(this).addClass("active");
+            local.removeClass("active");
+            proceso.load("/Subasta/SubastasList/");
+
+            $('html, body').animate({
+                scrollTop: posicion
+            }, 500);
+
+
         });
 
-        $("#subastaid").trigger("click");
+        $("#subastaidlo").click(function () {
+            $(this).addClass("active");
+            externo.removeClass("active");
+            proceso.load("/Subasta/SubastasListLocal/");
+
+            $('html, body').animate({
+                scrollTop: posicion
+            }, 500);
+
+        });
+
+        externo.trigger("click");
     });
 </script>

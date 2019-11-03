@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using FeriaVirtualWeb.Filter;
 using FeriaVirtualWeb.Models.DataContext;
 using FeriaVirtualWeb.Models.DataManager;
+using FeriaVirtualWeb.Models.ViewModels;
 
 namespace FeriaVirtualWeb.Controllers
 {
@@ -23,7 +24,13 @@ namespace FeriaVirtualWeb.Controllers
 
         public ActionResult SubastasList()
         {
-            var subasta = collection.GetSubasta();
+            var subasta = collection.GetSubastaExterna();
+            return View(subasta);
+        }
+
+        public ActionResult SubastasListLocal()
+        {
+            var subasta = collection.GetSubastaLocal();
             return View(subasta);
         }
 
@@ -39,6 +46,7 @@ namespace FeriaVirtualWeb.Controllers
         {
             var usuario = (USUARIO)Session["usuario"];
             var listaT = collection.GetTransportistaDetailsBySubasta(id, usuario);
+            decimal? proceso = 0;
             var trans = new TRANSPORTISTA
             {
                 TIPOTRANSPORTE = listaT.TIPOTRANSPORTE,
@@ -51,9 +59,25 @@ namespace FeriaVirtualWeb.Controllers
                 ESTADOSUBASTA = listaT.ESTADOSUBASTA,
                 PRECIO = listaT.PRECIO
             };
-            var proceso = collection.GetProcesoIdBySubastaId(id);
+            proceso = collection.GetProcesoIdBySubastaId(id);
             var detallesCli = collection.GetDatosClientByProcesoVenta(proceso);
             ViewBag.datoscliente = detallesCli;
+
+            var clientedatos = new ProcesoVentaViewModel();
+            if (detallesCli.TIPOPROCESO == "Local")
+            {
+                var datos = collection.GetDatosClientByProcesoVentaLocal(proceso);
+                var cliente = collection.GetDatosClienteByRutOfProducto(datos.RUTCLIENTELOCAL);
+                var productosLocal = collection.GetProductosByRutClienteLocalAndProceso(cliente.RUTCLIENTE, proceso);
+
+                clientedatos.IDSUBASTA = datos.IDSUBASTA;
+                clientedatos.NOMBRECLIENTE = cliente.NOMBRE;
+                clientedatos.DIRECCIONCLINICIAL = cliente.DIRECCION;
+                clientedatos.TELEFONOCLI = cliente.TELEFONO;
+            }
+
+            ViewBag.datosclienteL = clientedatos;
+
             return View(trans);
         }
 
@@ -65,6 +89,23 @@ namespace FeriaVirtualWeb.Controllers
             var listaP = collection.GetProductClientByOrderAndProductorNull(ordenid);
             ViewBag.productos = listaP;
             return View(datos);
+        }
+
+        public ActionResult ProductsAccordingToProcesoVentaLocal(decimal id)
+        {
+            var subastaM = new SubastaManager();
+            var idproceso = id;
+            var datos = collection.GetDatosClientByProcesoVentaLocal(idproceso);
+            var cliente = collection.GetDatosClienteByRutOfProducto(datos.RUTCLIENTELOCAL);
+            var productosLocal = collection.GetProductosByRutClienteLocalAndProceso(cliente.RUTCLIENTE, idproceso);
+            var clientedatos = new ProcesoVentaViewModel
+            {
+                IDSUBASTA = datos.IDSUBASTA,
+                NOMBRECLIENTE = cliente.NOMBRE,
+                DIRECCIONCLINICIAL = cliente.DIRECCION
+            };
+            ViewBag.productos = productosLocal;
+            return View(clientedatos);
         }
 
         public ActionResult AddTransportAndPrecioToSubasta(decimal id)

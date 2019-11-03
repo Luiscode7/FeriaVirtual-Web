@@ -363,8 +363,9 @@
     <Content Include="Views\Shared\_LayoutClienteExterno.cshtml" />
     <Content Include="Views\Shared\_LayoutClienteInterno.cshtml" />
     <Content Include="Views\Shared\_LayoutTransportista.cshtml" />
-    <Content Include="Views\Productor\GetMyVenta.cshtml" />
     <Content Include="Views\Transportista\AddNewTransporte.cshtml" />
+    <Content Include="Views\Subasta\SubastasListLocal.cshtml" />
+    <Content Include="Views\Subasta\ProductsAccordingToProcesoVentaLocal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

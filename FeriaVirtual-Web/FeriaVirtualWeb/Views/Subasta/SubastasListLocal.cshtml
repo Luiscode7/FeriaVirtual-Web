@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.SUBASTA>
+
+@{
+    Layout = null;
+}
+<table class="table table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDSUBASTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA)
+        </th>
+        <th>
+            @Html.DisplayName("ACCIONES")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDSUBASTA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FECHA)
+            </td>
+            <td>
+                <a href="#exampleModalCenter4" class="btnVerPL btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.PROCESOVENTAID">
+                    Ver Productos
+                </a>
+                <a href="#exampleModalCenter4" class="btnPostularS btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDSUBASTA">
+                    Subastar
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+    $(document).on('click','.btnVerPL',(function (e) {
+            e.preventDefault();
+        $(".modal-body").load("/Subasta/ProductsAccordingToProcesoVentaLocal/" + $(this).data("id"));
+    }));
+
+    $(document).on('click', '.btnPostularS', (function (e) {
+        e.preventDefault();
+        $(".modal-body").load("/Subasta/AddTransportAndPrecioToSubasta/" + $(this).data("id"));
+    }));
+</script>

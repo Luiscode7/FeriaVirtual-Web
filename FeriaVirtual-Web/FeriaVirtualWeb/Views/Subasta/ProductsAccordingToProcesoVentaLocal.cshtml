@@ -1,6 +1,6 @@
 ﻿@model FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel
 
-@{ 
+@{
     Layout = null;
     List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> listaproductos = ViewBag.productos;
 }
@@ -17,17 +17,17 @@
                 @Html.DisplayFor(model => model.IDSUBASTA)
             </td>
         </tr>
-       
+
         <tr>
             <td class="text-table-modal">
-                @Html.DisplayNameFor(model => model.NOMBREPRODUCTOR)
+                @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
             </td>
 
             <td>
-                @Html.DisplayFor(model => model.NOMBREPRODUCTOR)
+                @Html.DisplayFor(model => model.NOMBRECLIENTE)
             </td>
         </tr>
-        
+
         <tr>
             <td class="text-table-modal">
                 @Html.DisplayNameFor(model => model.DIRECCIONCLINICIAL)
@@ -47,7 +47,7 @@
                 @Html.DisplayName("CANTIDAD")
             </th>
         </tr>
-        @foreach(var item in listaproductos)
+        @foreach (var item in listaproductos)
         {
             <tr>
                 <td>
@@ -60,3 +60,4 @@
         }
     </table>
 </div>
+

@@ -321,11 +321,27 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public List<SUBASTA> GetSubasta()
+        public List<SUBASTA> GetSubastaExterna()
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.SUBASTA.ToList();
+                var query = (from sb in db.SUBASTA join pv in db.PROCESOVENTA
+                             on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+                             where pv.TIPOPROCESO == "Externo"
+                             select sb).ToList();
+                return query;
+            }
+        }
+
+        public List<SUBASTA> GetSubastaLocal()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from sb in db.SUBASTA join pv in db.PROCESOVENTA
+                             on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+                             where pv.TIPOPROCESO == "Local"
+                             select sb).ToList();
+                return query;
             }
         }
 
@@ -422,21 +438,119 @@ namespace FeriaVirtualWeb.Models.DataManager
             {
                 var query = (from sb in db.SUBASTA join pv in db.PROCESOVENTA
                              on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
-                             join or in db.ORDEN on pv.ORDENID equals or.IDORDEN
-                             join cl in db.CLIENTE on or.CLIENTE_RUTCLIENTE equals
-                             cl.RUTCLIENTE where pv.IDPROCESOVENTA == proceso
+                             join pr in db.PRODUCTO on pv.IDPROCESOVENTA equals
+                             pr.IDPROCESOVENTA join pd in db.PRODUCTOR on
+                             pr.PRODUCTOR_RUTPRODUCTOR equals pd.RUTPRODUCTOR
+                             where pv.IDPROCESOVENTA == proceso
                              select new ProcesoVentaViewModel()
                              {
                                  IDSUBASTA = sb.IDSUBASTA,
-                                 NOMBRECLIENTE = cl.NOMBRE,
-                                 PAISCLIENTE = cl.PAIS,
-                                 CLIENTEFINAL = cl.DIRECCION,
-                                 FECHA = pv.FECHA
+                                 NOMBREPRODUCTOR = pd.NOMBRE,
+                                 DIRECCIONCLINICIAL = pd.DIRECCION,
+                                 TELEFONOCLI = pd.TELEFONO,
+                                 FECHA = pv.FECHA,
+                                 TIPOPROCESO = pr.TIPOVENTA
 
                              }).FirstOrDefault();
 
                 return query as ProcesoVentaViewModel;
             }
+        }
+
+        public ProcesoVentaViewModel GetDatosClientByProcesoVentaLocal(decimal? proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from sb in db.SUBASTA join pv in db.PROCESOVENTA
+                             on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+                             join pr in db.PRODUCTO on pv.IDPROCESOVENTA equals
+                             pr.IDPROCESOVENTA
+                             where pv.IDPROCESOVENTA == proceso && pr.CLIENTEINTERNO != null
+                             select new ProcesoVentaViewModel()
+                             {
+                                 IDSUBASTA = sb.IDSUBASTA,
+                                 FECHA = pv.FECHA,
+                                 RUTCLIENTELOCAL = pr.CLIENTEINTERNO
+
+                             }).FirstOrDefault();
+
+                return query as ProcesoVentaViewModel;
+            }
+        }
+
+        public CLIENTE GetDatosClienteByRutOfProducto(string rut)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.CLIENTE.Where(cl => cl.RUTCLIENTE == rut).FirstOrDefault();
+            }
+        }
+
+        public List<PRODUCTO> GetProductosByRutClienteLocalAndProceso(string rutclienteL, decimal? proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.CLIENTEINTERNO == rutclienteL && p.IDPROCESOVENTA == proceso).ToList();
+            }
+        }
+
+        // public ProcesoVentaViewModel GetDatosClientByProcesoVenta(decimal? proceso)
+        // {
+        //     using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+        //     {
+        //         var query = (from sb in db.SUBASTA
+        //                      join pv in db.PROCESOVENTA
+        //on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+        //                      join or in db.ORDEN on pv.ORDENID equals or.IDORDEN
+        //                      join cl in db.CLIENTE on or.CLIENTE_RUTCLIENTE equals
+        //                      cl.RUTCLIENTE
+        //                      where pv.IDPROCESOVENTA == proceso
+        //                      select new ProcesoVentaViewModel()
+        //                      {
+        //                          IDSUBASTA = sb.IDSUBASTA,
+        //                          NOMBRECLIENTE = cl.NOMBRE,
+        //                          PAISCLIENTE = cl.PAIS,
+        //                          CLIENTEFINAL = cl.DIRECCION,
+        //                          FECHA = pv.FECHA
+
+        //                      }).FirstOrDefault();
+
+        //         return query as ProcesoVentaViewModel;
+        //     }
+        // }
+
+        public List<PRODUCTO> GetMyProductsAccepted(USUARIO usuario, decimal proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == proceso && p.ESTADOPROCESO == "Aceptado").ToList();
+            }
+        }
+
+        public decimal? TotalSumOfPrecioOfProductorAccordingToOneSell(List<PRODUCTO> productos)
+        {
+            decimal? total = 0;
+            foreach (var item in productos)
+            {
+                total += item.PRECIO * item.CANTIDAD;
+            }
+
+            return total;
+        }
+
+        public VENTA GetVentaByProcesoVenta(decimal proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.VENTA.Where(v => v.PROCESOVENTA_IDPROCESOVENTA == proceso).FirstOrDefault();
+            }
+        }
+
+        public decimal? GetMyProfit(VENTA venta, decimal? preciTotalP)
+        {
+            decimal? ventaGanancia = 0;
+            ventaGanancia = preciTotalP - venta.COSTOTOTAL;
+            return ventaGanancia;
         }
     }
 }

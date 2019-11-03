@@ -70,11 +70,11 @@
                         
                         @if (item.ESTADO == "Aceptado")
                         {
-                            <a href="#exampleModalCenter5" class="btnVenta btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.ORDEN">Detalle Venta</a>
+                            <a href="#exampleModalCenter5" class="btnVenta btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.PROCESO">Detalle Venta</a>
                         }
                         else
                         {
-                            <a href="#exampleModalCenter5" class="btnVenta btn notika-btn-teal" style="display:none" data-toggle="modal" data-id="@item.ORDEN">Venta</a>
+                            <a href="#exampleModalCenter5" class="btnVenta btn notika-btn-teal" style="display:none" data-toggle="modal" data-id="@item.PROCESO">Detalle Venta</a>
                         }
                     </td>
                 </tr>
@@ -107,6 +107,6 @@
     });
 
     $(".btnVenta").click(function () {
-        $(".modal-body").load("/Productor/GetMyVenta/" + $(this).data("id"));
+        $(".modal-body").load("/Productor/GetMyProductsSelledAndProfit/" + $(this).data("id"));
     });
 </script>
