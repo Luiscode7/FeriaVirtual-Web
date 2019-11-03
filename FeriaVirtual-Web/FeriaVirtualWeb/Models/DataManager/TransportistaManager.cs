@@ -21,7 +21,6 @@ namespace FeriaVirtualWeb.Models.DataManager
                     trans.ALTO = uptrans.ALTO;
                     trans.LARGO = uptrans.LARGO;
                     trans.CAPACIDADCARGA = uptrans.CAPACIDADCARGA;
-                    trans.REFRIGERACION = uptrans.REFRIGERACION;
                     db.SaveChanges();
                     return trans;
                 }

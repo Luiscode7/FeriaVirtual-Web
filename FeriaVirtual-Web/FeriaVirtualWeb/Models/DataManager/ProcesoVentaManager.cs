@@ -91,7 +91,7 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public void UpdateStockProductsAfterPostular(List<PRODUCTO> listaProductos)
+        public void UpdateStockProductsAfterPostular(List<PRODUCTO> listaProductos, USUARIO usuario)
         {
             try
             {
@@ -99,17 +99,20 @@ namespace FeriaVirtualWeb.Models.DataManager
                 {
                     foreach (var item in listaProductos)
                     {
-                        PRODUCTO producto = db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == item.PRODUCTOR_RUTPRODUCTOR
-                        && p.DESCRIPCION == item.DESCRIPCION && p.IDPROCESOVENTA == null ).FirstOrDefault();
-                        if(item.CANTIDAD >= producto.STOCK)
+                        PRODUCTO producto = db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                        && p.DESCRIPCION == item.DESCRIPCION && p.IDPROCESOVENTA == null && p.TIPOVENTA == "Externo" ).FirstOrDefault();
+                        if(producto != null)
                         {
-                            producto.STOCK = 0;
+                            if (item.CANTIDAD >= producto.STOCK)
+                            {
+                                producto.STOCK = 0;
+                            }
+                            else
+                            {
+                                producto.STOCK = producto.STOCK - item.CANTIDAD;
+                            }
+                            db.SaveChanges();
                         }
-                        else
-                        {
-                            producto.STOCK = producto.STOCK - item.CANTIDAD;
-                        }
-                        db.SaveChanges();
                     }
                 }
             }

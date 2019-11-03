@@ -51,7 +51,6 @@ namespace FeriaVirtualWeb.Controllers
             if (pPostulacion.Count() != 0)
             {
                 var productsInserted = procesoManager.InsertProcesoVentaAccordingToUsuario(pPostulacion, proceso.IDPROCESOVENTA, newOrden);
-                var productosfull = procesoManager.UpdateCantidadProductsToProductsPostulados(productos, usuario);
                 foreach (var item in productos)
                 {
                     if (item.IDPROCESOVENTA == null)
@@ -60,7 +59,7 @@ namespace FeriaVirtualWeb.Controllers
                     }
                 }
                 
-                procesoManager.UpdateStockProductsAfterPostular(productosfull);
+                procesoManager.UpdateStockProductsAfterPostular(productos, usuario);
             }
           
             return Json(pPostulacion);
