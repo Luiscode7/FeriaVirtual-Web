@@ -42,15 +42,37 @@
                     @Html.DisplayFor(modelItem => Model[i].STOCK)
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="nk-int-st">
+                        @Html.EditorFor(modelItem => Model[i].CANTIDAD, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
                 </td>
             </tr>
         }
 
     </table>
-    <input type="submit" class="btn btn-primary notika-btn-primary col" value="Comprar" id="btnComprar" />
+    <input type="submit" class="btn btn-success notika-btn-success col" value="Comprar" id="btnComprar" />
     <div class="loadcomprar d-flex justify-content-center"></div>
 }
+
+<script src="~/assest/js/wow.min.js"></script>
+<script src="~/assest/js/jquery-price-slider.js"></script>
+<script src="~/assest/js/owl.carousel.min.js"></script>
+<script src="~/assest/js/jquery.scrollUp.min.js"></script>
+<script src="~/assest/js/jquery.meanmenu.js"></script>
+<script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/assest/js/jquery.sparkline.min.js"></script>
+<script src="~/assest/js/sparkline-active.js"></script>
+<script src="~/assest/js/jquery.flot.js"></script>
+<script src="~/assest/js/jquery.flot.resize.js"></script>
+<script src="~/assest/js/flot-active.js"></script>
+<script src="~/assest/js/jquery.knob.js"></script>
+<script src="~/assest/js/jquery.appear.js"></script>
+<script src="~/assest/js/knob-active.js"></script>
+<script src="~/assest/js/jquery.todo.js"></script>
+@*<script src="~/assest/js/waves.min.js"></script>
+    <script src="~/assest/js/wave-active.js"></script>*@
+<script src="~/assest/js/plugins.js"></script>
+<script src="~/assest/js/main.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -79,7 +101,7 @@
                         var data = JSON.parse(response);
                         var proceso;
                         for (var item of data) {
-                            proceso = item.IDPROCESOVENTA;    
+                            proceso = item.IDPROCESOVENTA;
                         }
 
                         $(".btncomprar").click(function () {
