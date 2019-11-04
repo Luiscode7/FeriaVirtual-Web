@@ -99,7 +99,7 @@ namespace FeriaVirtualWeb.Models.DataManager
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == null && p.TIPOVENTA == "Local").OrderBy(p => p.IDPRODUCTO).ToList();
+                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.TIPOVENTA == "Local" && p.CLIENTEINTERNO == null).OrderBy(p => p.IDPRODUCTO).ToList();
             }
         }
 
@@ -215,9 +215,35 @@ namespace FeriaVirtualWeb.Models.DataManager
 
         public List<PRODUCTO> GetProductsListAccordingToPostulacion(decimal? orden, USUARIO usuario)
         {
+            var listaP = new List<PRODUCTO>();
+            var listaOr = new List<PRODUCTO>();
+            var ordenid = orden;
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == orden && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO).ToList();
+                listaP = db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == ordenid && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO).ToList();
+                listaOr = GetProductsListClientOrdenAccordingPostulacionProducts(ordenid, listaP);
+                return listaOr;
+            }
+        }
+
+        private List<PRODUCTO> GetProductsListClientOrdenAccordingPostulacionProducts(decimal? orden, List<PRODUCTO> productos)
+        {
+            var producto = new PRODUCTO();
+            var lista = new List<PRODUCTO>();
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                foreach (var item in productos)
+                {
+                    producto = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION && p.ORDEN_IDORDEN == orden && p.PRECIO == null).FirstOrDefault();
+                    lista.Add(new PRODUCTO()
+                    {
+                        DESCRIPCION = item.DESCRIPCION,
+                        CANTIDAD = producto.CANTIDAD,
+                        STOCK = item.STOCK,
+                        ESTADOPROCESO = item.ESTADOPROCESO
+                    });
+                }
+                return lista;
             }
         }
 
