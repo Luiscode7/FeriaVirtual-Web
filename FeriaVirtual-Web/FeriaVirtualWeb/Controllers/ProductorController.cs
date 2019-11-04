@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using FeriaVirtualWeb.Models.DataManager;
 using FeriaVirtualWeb.Models.DataContext;
@@ -28,13 +25,6 @@ namespace FeriaVirtualWeb.Controllers
             var lista = collection.GetMyProductosList(usuario);
             return View(lista);
         }
-
-        //public ActionResult GetMyVenta(decimal id)
-        //{
-        //    var proceso = collection.GetProcesoByOrden(id);
-        //    var venta = collection.GetMyVenta(proceso.IDPROCESOVENTA);
-        //    return View(venta);
-        //}
 
         public ActionResult MyProductsListProcesoLocal()
         {

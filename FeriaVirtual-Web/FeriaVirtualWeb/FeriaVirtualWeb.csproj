@@ -366,6 +366,7 @@
     <Content Include="Views\Transportista\AddNewTransporte.cshtml" />
     <Content Include="Views\Subasta\SubastasListLocal.cshtml" />
     <Content Include="Views\Subasta\ProductsAccordingToProcesoVentaLocal.cshtml" />
+    <Content Include="Views\ClienteInterno\GetMyCompras.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

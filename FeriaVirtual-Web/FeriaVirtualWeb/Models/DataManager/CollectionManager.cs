@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using FeriaVirtualWeb.Models.DataContext;
 using FeriaVirtualWeb.Models.ViewModels;
-using FeriaVirtualWeb.Models.DataManager;
 
 namespace FeriaVirtualWeb.Models.DataManager
 {
@@ -520,31 +518,6 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        // public ProcesoVentaViewModel GetDatosClientByProcesoVenta(decimal? proceso)
-        // {
-        //     using (FeriaVirtualEntities db = new FeriaVirtualEntities())
-        //     {
-        //         var query = (from sb in db.SUBASTA
-        //                      join pv in db.PROCESOVENTA
-        //on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
-        //                      join or in db.ORDEN on pv.ORDENID equals or.IDORDEN
-        //                      join cl in db.CLIENTE on or.CLIENTE_RUTCLIENTE equals
-        //                      cl.RUTCLIENTE
-        //                      where pv.IDPROCESOVENTA == proceso
-        //                      select new ProcesoVentaViewModel()
-        //                      {
-        //                          IDSUBASTA = sb.IDSUBASTA,
-        //                          NOMBRECLIENTE = cl.NOMBRE,
-        //                          PAISCLIENTE = cl.PAIS,
-        //                          CLIENTEFINAL = cl.DIRECCION,
-        //                          FECHA = pv.FECHA
-
-        //                      }).FirstOrDefault();
-
-        //         return query as ProcesoVentaViewModel;
-        //     }
-        // }
-
         public List<PRODUCTO> GetMyProductsAccepted(USUARIO usuario, decimal proceso)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -577,6 +550,30 @@ namespace FeriaVirtualWeb.Models.DataManager
             decimal? ventaGanancia = 0;
             ventaGanancia = preciTotalP - venta.COSTOTOTAL;
             return ventaGanancia;
+        }
+
+        public IEnumerable<PRODUCTO> GetProductsListMyCompras(USUARIO usuario)
+        {
+            var listaP = new List<PRODUCTO>();
+            var listaConmonto = new List<PRODUCTO>();
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                listaP = db.PRODUCTO.Where(p => p.CLIENTEINTERNO == usuario.RUTUSUARIO).ToList();
+
+                foreach (var item in listaP)
+                {
+                    listaConmonto.Add(new PRODUCTO()
+                    {
+                        DESCRIPCION = item.DESCRIPCION,
+                        PRECIO = item.PRECIO,
+                        STOCK = item.STOCK,
+                        IDPROCESOVENTA = item.IDPROCESOVENTA,
+                        CANTIDAD = item.CANTIDAD,
+                        MONTOTOTALPRECIO = item.PRECIO * item.CANTIDAD
+                    });
+                }
+                return listaConmonto.OrderBy(p => p.IDPROCESOVENTA);
+            }
         }
     }
 }

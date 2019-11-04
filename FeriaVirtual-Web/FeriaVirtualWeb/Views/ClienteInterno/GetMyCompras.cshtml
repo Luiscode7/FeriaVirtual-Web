@@ -1,0 +1,81 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+
+@{
+    Layout = "~/Views/Shared/_LayoutClienteInterno.cshtml";
+}
+
+<div class="breadcomb-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="breadcomb-list">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="breadcomb-wp">
+                            <div class="breadcomb-icon">
+                                <i class="notika-icon notika-form"></i>
+                            </div>
+                            <div class="breadcomb-ctn">
+                                <h2>Historial Compras</h2>
+                                <p>Revise el historial de todas sus compras realizadas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a id="ordenesid" class="nav-link active" href="#card-ordenes">Historial</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <table class="table table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDPROCESOVENTA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DESCRIPCION)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PRECIO)
+                </th>
+                <th>
+                    @Html.DisplayName("CANTIDAD ADQUIRIDA")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MONTOTOTALPRECIO)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDPROCESOVENTA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DESCRIPCION)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PRECIO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CANTIDAD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MONTOTOTALPRECIO)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>
