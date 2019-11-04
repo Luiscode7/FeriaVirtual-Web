@@ -8,8 +8,8 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>ORDEN</h4>
+    <div class="form-horizontal col-md-9 m-auto">
+        <h5 class="d-flex justify-content-center">Recepcionar Orden</h5>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IDORDEN)
@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ESTADO, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="nk-int-st">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     @Html.EditorFor(model => model.ESTADO, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.ESTADO, "", new { @class = "text-danger" })
                 </div>
@@ -26,7 +26,7 @@
         </div>
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-offset-2 col-md-12">
                     <input type="submit" value="Confirmar Recepcion" class="btn btn-success notika-btn-success col" id="btnRecepcion" />
                     <div class="loadrecepcion d-flex justify-content-center"></div>
                 </div>

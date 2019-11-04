@@ -8,15 +8,15 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>TRANSPORTISTA</h4>
+    <div class="form-horizontal col-md-9 m-auto">
+        <h5 class="d-flex justify-content-center">Editar Transportista</h5>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IDTRANSPORTISTA)
         <div class="form-group">
             @Html.LabelFor(model => model.TIPOTRANSPORTE, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="nk-int-st">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     @Html.EditorFor(model => model.TIPOTRANSPORTE, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.TIPOTRANSPORTE, "", new { @class = "text-danger" })
                 </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ANCHO, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="nk-int-st">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     @Html.EditorFor(model => model.ANCHO, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ANCHO, "", new { @class = "text-danger" })
                 </div>
@@ -36,7 +36,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ALTO, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="nk-int-st">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     @Html.EditorFor(model => model.ALTO, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ALTO, "", new { @class = "text-danger" })
                 </div>
@@ -46,7 +46,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LARGO, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="nk-int-st">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     @Html.EditorFor(model => model.LARGO, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.LARGO, "", new { @class = "text-danger" })
                 </div>
@@ -56,7 +56,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CAPACIDADCARGA, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="nk-int-st">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     @Html.EditorFor(model => model.CAPACIDADCARGA, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.CAPACIDADCARGA, "", new { @class = "text-danger" })
                 </div>
@@ -64,7 +64,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-12">
                 <input type="submit" value="Actualizar" class="btn btn-success notika-btn-success col" id="btnEditTrans" />
                 <div class="loadedit d-flex justify-content-center"></div>
             </div>
