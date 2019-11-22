@@ -173,6 +173,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        //public List<ProcesoVentaViewModel> GetOrdenListToAdministrador()
+        //{
+        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+        //    {
+        //        var query = (from )
+        //    }
+        //}
+
         public List<PRODUCTO> GetMyProductsByOrders(decimal orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -414,7 +422,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                                  ORDEN = pv.ORDENID,
                                  TIPOPROCESO = pv.TIPOPROCESO
 
-                             }).Distinct().ToList();
+                             }).GroupBy(p => p.PROCESO).Select(p => p.FirstOrDefault()).ToList();
 
                 return query as IEnumerable<ProcesoVentaViewModel>;
             }

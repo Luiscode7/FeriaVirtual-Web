@@ -48,6 +48,9 @@ namespace FeriaVirtualWeb.Controllers
                 case 2:
                     output = RedirectToAction("ListsProcesoVentaLocal", "ClienteInterno");
                     break;
+                case 1:
+                    output = RedirectToAction("ListsProcesoVentaLocal", "Administrador");
+                    break;
                 default:
                     break;
             }

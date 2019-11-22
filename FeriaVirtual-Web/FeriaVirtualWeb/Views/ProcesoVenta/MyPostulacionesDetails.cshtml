@@ -78,20 +78,30 @@
         </tr>
         @foreach (var item in listaproductos)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => item.DESCRIPCION)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.DESCRIPCION)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.CANTIDAD)
+            </td>
+            @if (item.STOCK > item.CANTIDAD)
+            {
                 <td>
                     @Html.DisplayFor(model => item.CANTIDAD)
                 </td>
+            }
+            else
+            {
                 <td>
                     @Html.DisplayFor(model => item.STOCK)
                 </td>
-                <td>
-                    @Html.DisplayFor(model => item.ESTADOPROCESO)
-                </td>
-            </tr>
+            }
+
+            <td>
+                @Html.DisplayFor(model => item.ESTADOPROCESO)
+            </td>
+        </tr>
         }
     </table>  
 </div>
