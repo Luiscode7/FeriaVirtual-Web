@@ -393,7 +393,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                              on tr.SUBASTAID equals sb.IDSUBASTA
                              join pv in db.PROCESOVENTA on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
                              where pv.TIPOPROCESO == "Externo" && tr.ESTADOSUBASTA != "Aceptado"
-                             select sb).ToList();
+                             select sb).GroupBy(sb => sb.IDSUBASTA).Select(sb => sb.FirstOrDefault()).ToList();
                 return query;
             }
         }
@@ -406,7 +406,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                              on tr.SUBASTAID equals sb.IDSUBASTA join pv in db.PROCESOVENTA
                              on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
                              where pv.TIPOPROCESO == "Local" && tr.ESTADOSUBASTA != "Aceptado"
-                             select sb).ToList();
+                             select sb).GroupBy(sb => sb.IDSUBASTA).Select(sb => sb.FirstOrDefault()).ToList();
                 return query;
             }
         }

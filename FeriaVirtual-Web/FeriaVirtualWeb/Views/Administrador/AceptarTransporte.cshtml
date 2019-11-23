@@ -113,6 +113,7 @@
                 },
                 success: function (response) {
                     if (response) {
+                        $("#exampleModalCenter").modal("hide");
                         toastr.options = {
                             "positionClass": "toast-top-right",
                             "timeOut": "4000",
