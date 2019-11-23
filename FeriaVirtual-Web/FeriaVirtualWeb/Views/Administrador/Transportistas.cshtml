@@ -1,0 +1,100 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.TRANSPORTISTA>
+
+@{ 
+    Layout = null;
+}
+
+<table class="table table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDTRANSPORTISTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NOMBRE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIPOTRANSPORTE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ANCHO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ALTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LARGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CAPACIDADCARGA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.REFRIGERACION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PRECIO)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDTRANSPORTISTA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMBRE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIPOTRANSPORTE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ANCHO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ALTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LARGO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CAPACIDADCARGA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.REFRIGERACION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRECIO)
+        </td>
+    </tr>
+}
+
+</table>
+
+<script>
+    $(document).ready(function () {
+
+        var btnAceptar = $(".btnAceptar");
+
+        btnAceptar.click(function () {
+            $.ajax({
+                url: '@Url.Action("AceptarTransporte", "Administrador")',
+                type: "POST",
+                dataType: 'html',
+                data: { transportista: $(this).data("id") },
+                beforeSend: function () {
+                    btnAceptar.replaceWith("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+                },
+                success: function (response) {
+                    if (response) {
+                        toastr.options = {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "4000",
+                        }
+                        toastr["success"]("El Tranporte ha sido Aceptado")
+                        btnAceptar.replaceWith('<i class="fas fa-check-circle fa-2x"></i>');
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>

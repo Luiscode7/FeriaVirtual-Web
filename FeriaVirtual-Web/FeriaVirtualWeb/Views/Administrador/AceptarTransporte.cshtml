@@ -1,0 +1,127 @@
+﻿@model FeriaVirtualWeb.Models.DataContext.TRANSPORTISTA
+
+@{ 
+    Layout = null;
+}
+
+<div>
+    <h4>TRANSPORTISTA</h4>
+    <hr />
+    <table class="table table-condensed table-sm">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.IDTRANSPORTISTA)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.IDTRANSPORTISTA)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.NOMBRE)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.NOMBRE)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.TIPOTRANSPORTE)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.TIPOTRANSPORTE)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ANCHO)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ANCHO)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ALTO)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ALTO)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.LARGO)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.LARGO)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.CAPACIDADCARGA)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.CAPACIDADCARGA)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.REFRIGERACION)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.REFRIGERACION)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PRECIO)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.PRECIO)
+            </td>
+        </tr>  
+    </table>
+</div>
+<p>
+    <a href="#" class="btnAceptar btn btn-success notika-btn-success" data-id="@Model.IDTRANSPORTISTA">
+        Aceptar
+    </a>
+</p>
+
+<script>
+    $(document).ready(function () {
+
+        var btnAceptar = $(".btnAceptar");
+
+        btnAceptar.click(function () {
+            $.ajax({
+                url: '@Url.Action("AceptarTransportePost", "Administrador")',
+                type: "POST",
+                dataType: 'html',
+                data: { transportista: $(this).data("id") },
+                beforeSend: function () {
+                    btnAceptar.replaceWith("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+                },
+                success: function (response) {
+                    if (response) {
+                        toastr.options = {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "4000",
+                        }
+                        toastr["success"]("El Tranporte ha sido Aceptado")
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>

@@ -49,7 +49,7 @@ namespace FeriaVirtualWeb.Controllers
                     output = RedirectToAction("ListsProcesoVentaLocal", "ClienteInterno");
                     break;
                 case 1:
-                    output = RedirectToAction("ListsProcesoVentaLocal", "Administrador");
+                    output = RedirectToAction("OfertasTranportistas", "Administrador");
                     break;
                 default:
                     break;

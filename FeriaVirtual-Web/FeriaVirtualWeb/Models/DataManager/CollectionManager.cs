@@ -321,6 +321,38 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public TRANSPORTISTA GetTransportistaByLowPrice(decimal? lowprice)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(tr => tr.PRECIO == lowprice).FirstOrDefault();
+            }
+        }
+
+        public decimal? GetTransportistaLowPrice(decimal subastaid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(tr => tr.SUBASTAID == subastaid).Min(tr => tr.PRECIO);
+            }
+        }
+
+        public List<TRANSPORTISTA> GetTransportistasOfertas(decimal subasta)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(t => t.SUBASTAID == subasta && t.ESTADOSUBASTA == "Pendiente").ToList();
+            }
+        }
+
+        public List<TRANSPORTISTA> GetTransportistas()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(t => t.ESTADOSUBASTA != null).ToList();
+            }
+        }
+
         public List<TRANSPORTISTA> GetTransporte(USUARIO usuario)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -350,6 +382,32 @@ namespace FeriaVirtualWeb.Models.DataManager
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 return db.TRANSPORTISTA.ToList().Select(t => t.REFRIGERACION).Distinct();
+            }
+        }
+
+        public List<SUBASTA> GetSubastaExternaToAdministrador()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from tr in db.TRANSPORTISTA join sb in db.SUBASTA
+                             on tr.SUBASTAID equals sb.IDSUBASTA
+                             join pv in db.PROCESOVENTA on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+                             where pv.TIPOPROCESO == "Externo" && tr.ESTADOSUBASTA != "Aceptado"
+                             select sb).ToList();
+                return query;
+            }
+        }
+
+        public List<SUBASTA> GetSubastaLocalToAdministrador()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from tr in db.TRANSPORTISTA join sb in db.SUBASTA
+                             on tr.SUBASTAID equals sb.IDSUBASTA join pv in db.PROCESOVENTA
+                             on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+                             where pv.TIPOPROCESO == "Local" && tr.ESTADOSUBASTA != "Aceptado"
+                             select sb).ToList();
+                return query;
             }
         }
 

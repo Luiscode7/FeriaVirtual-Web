@@ -1,0 +1,56 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.SUBASTA>
+
+@{
+    Layout = null;
+}
+<table class="table table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDSUBASTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PROCESOVENTAID)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDSUBASTA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FECHA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PROCESOVENTAID)
+            </td>
+            <td>
+                <a href="#exampleModalCenter" class="btnDetalleL btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDSUBASTA">
+                    Detalle
+                </a>
+                <a href="#exampleModalCenter" class="btnOfertaL btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDSUBASTA">
+                    Oferta
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<script>
+    $(document).on('click','.btnDetalleL',(function (e) {
+        e.preventDefault();
+        $(".modal-body").load("/Administrador/Transportistas/" + $(this).data("id"));
+    }));
+
+    $(document).on('click', '.btnOfertaL', (function (e) {
+        e.preventDefault();
+        $(".modal-body").load("/Administrador/AceptarTransporte/" + $(this).data("id"));
+    }));
+</script>

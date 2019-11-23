@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<div class="breadcomb-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="breadcomb-list">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="breadcomb-wp">
+                            <div class="breadcomb-icon">
+                                <i class="notika-icon notika-form"></i>
+                            </div>
+                            <div class="breadcomb-ctn">
+                                <h2>Subastas</h2>
+                                <p>Revise las Subastas Disponibles y sus Oferta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a id="externoid" class="nav-link" href="#card-subasta">Subasta Externa</a>
+            </li>
+            <li class="nav-item">
+                <a id="localid" class="nav-link" href="#card-subasta">Subasta Local</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body" id="card-subasta">
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal fade bd-example-modal-xl" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #00c292">
+                <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br />
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var externo = $("#externoid");
+        var local = $("#localid");
+        var proceso = $("#card-subasta");
+        //var posicion = proceso.offset().top;
+
+        $("#externoid").click(function () {
+            $(this).addClass("active");
+            local.removeClass("active");
+            proceso.load("/Administrador/SubastasExternaList/");
+
+            //$('html, body').animate({
+            //    scrollTop: posicion
+            //}, 500);
+
+
+        });
+
+        $("#localid").click(function () {
+            $(this).addClass("active");
+            externo.removeClass("active");
+            proceso.load("/Administrador/SubastasLocalList/");
+
+            //$('html, body').animate({
+            //    scrollTop: posicion
+            //}, 500);
+
+        });
+
+        $("#externoid").trigger("click");
+    });
+
+</script>

@@ -192,6 +192,7 @@
     <Compile Include="Models\DataContext\VENTA.cs">
       <DependentUpon>FeriaVirtual.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataManager\AdministradorManager.cs" />
     <Compile Include="Models\DataManager\ClienteInternoManager.cs" />
     <Compile Include="Models\DataManager\ClienteManager.cs" />
     <Compile Include="Models\DataManager\CollectionManager.cs" />
@@ -368,10 +369,15 @@
     <Content Include="Views\Subasta\SubastasListLocal.cshtml" />
     <Content Include="Views\Subasta\ProductsAccordingToProcesoVentaLocal.cshtml" />
     <Content Include="Views\ClienteInterno\GetMyCompras.cshtml" />
+    <Content Include="Views\Administrador\Transportistas.cshtml" />
+    <Content Include="Views\Administrador\OfertasTranportistas.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdministrador.cshtml" />
+    <Content Include="Views\Administrador\SubastasExternaList.cshtml" />
+    <Content Include="Views\Administrador\SubastasLocalList.cshtml" />
+    <Content Include="Views\Administrador\AceptarTransporte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Administrador\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assest\css\fonts\glyphicons-halflings-regular.woff2" />

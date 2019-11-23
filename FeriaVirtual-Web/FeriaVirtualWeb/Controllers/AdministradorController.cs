@@ -12,14 +12,52 @@ namespace FeriaVirtualWeb.Controllers
     [UserAuthorization(Rol = 1)]
     public class AdministradorController : Controller
     {
-        // GET: Administrador
+        CollectionManager collection = new CollectionManager();
         public ActionResult Ordenes()
         {
 
             return View();
         }
 
-        // GET: Administrador/Details/5
+        public ActionResult OfertasTranportistas()
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
+            return View();
+        }
+
+        public ActionResult SubastasExternaList()
+        {
+            var subasta = collection.GetSubastaExternaToAdministrador();
+            return View(subasta);
+        }
+
+        public ActionResult SubastasLocalList()
+        {
+            var subasta = collection.GetSubastaLocalToAdministrador();
+            return View(subasta);
+        }
+
+        public ActionResult Transportistas(decimal id)
+        {
+            var oferta = collection.GetTransportistasOfertas(id);
+            return View(oferta);
+        }
+
+        public ActionResult AceptarTransporte(decimal id)
+        {
+            var lowprice = collection.GetTransportistaLowPrice(id);
+            var accept = collection.GetTransportistaByLowPrice(lowprice);
+            return View(accept);
+        }
+
+        public JsonResult AceptarTransportePost(decimal transportista)
+        {
+            var adminM = new AdministradorManager();
+            var accept = adminM.UpdateEstadoTransporteToAccept(transportista);
+            return Json(accept);
+        }
+
         public ActionResult Reportes()
         {
             return View();
