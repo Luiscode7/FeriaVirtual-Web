@@ -123,7 +123,8 @@ namespace FeriaVirtualWeb.Controllers
             var transIns = trans;
             var subastaIn = new SubastaManager();
             var transportista = new TRANSPORTISTA();
-            if (trans != null)
+            var transExist = collection.GetSubastaTransporteIfExist(usuario, trans.SUBASTAID);
+            if (trans != null && transExist == null)
             {
                 transportista = subastaIn.InsertSubastaAccordingTransportista(usuario, transIns);
             }

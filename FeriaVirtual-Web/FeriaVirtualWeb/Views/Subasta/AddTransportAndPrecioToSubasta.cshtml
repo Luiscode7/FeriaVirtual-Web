@@ -79,14 +79,25 @@
                     $(".loadpuja").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
             },
             success: function (response) {
+                var json = JSON.parse(response);
                 $("#exampleModalCenter4").modal("hide");
                 $(".divPujar").prepend('<input type="submit" value="Enviar Puja" class="btnPuja btn btn-primary col" />');
-                toastr.options = {
-                    "positionClass": "toast-top-right",
-                    "timeOut": "4000",
+                if (json.IDTRANSPORTISTA != 0) {
+                    toastr.options = {
+                        "positionClass": "toast-top-right",
+                        "timeOut": "4000",
+                    }
+                    toastr["success"]("Su Puja ha sido Enviada Exitosamente")
+                    $("#subastaid").trigger("click");
+                } else
+                {
+                    toastr.options = {
+                        "positionClass": "toast-top-right",
+                        "timeOut": "4000",
+                    }
+                    toastr["warning"]("Usted Ya ha Postulado a Esta Subasta")
                 }
-                toastr["success"]("Su Puja ha sido Enviada Exitosamente")
-                $("#subastaid").trigger("click");
+                
             }
         });
         return false;

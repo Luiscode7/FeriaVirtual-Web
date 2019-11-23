@@ -361,6 +361,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public TRANSPORTISTA GetSubastaTransporteIfExist(USUARIO usuario, decimal? idsubasta)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(t => t.RUTTRANSPORTISTA == usuario.RUTUSUARIO && t.SUBASTAID == idsubasta).FirstOrDefault();
+            }
+        }
+
         public TRANSPORTISTA GetMyTransporteById(decimal idtrans)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
