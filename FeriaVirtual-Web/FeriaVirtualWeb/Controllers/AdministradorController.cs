@@ -47,7 +47,7 @@ namespace FeriaVirtualWeb.Controllers
         public ActionResult AceptarTransporte(decimal id)
         {
             var lowprice = collection.GetTransportistaLowPrice(id);
-            var accept = collection.GetTransportistaByLowPrice(lowprice);
+            var accept = collection.GetTransportistaByLowPrice(lowprice, id);
             return View(accept);
         }
 

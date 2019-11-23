@@ -18,11 +18,11 @@ namespace FeriaVirtualWeb.Models.DataManager
                     trans.ESTADOSUBASTA = "Aceptado";
                     db.SaveChanges();
 
-                    List<TRANSPORTISTA> lista = db.TRANSPORTISTA.Where(tr => tr.SUBASTAID == trans.SUBASTAID).ToList();
+                    List<TRANSPORTISTA> lista = db.TRANSPORTISTA.Where(tr => tr.SUBASTAID == trans.SUBASTAID && tr.ESTADOSUBASTA != "Aceptado").ToList();
 
                     foreach (var item in lista)
                     {
-                        TRANSPORTISTA transRechazado = db.TRANSPORTISTA.Where(tr => tr.SUBASTAID == item.SUBASTAID && tr.ESTADOSUBASTA != "Aceptado").FirstOrDefault();
+                        TRANSPORTISTA transRechazado = db.TRANSPORTISTA.Where(tr => tr.IDTRANSPORTISTA == item.IDTRANSPORTISTA).FirstOrDefault();
                         transRechazado.ESTADOSUBASTA = "Rechazado";
                         db.SaveChanges();
                     }

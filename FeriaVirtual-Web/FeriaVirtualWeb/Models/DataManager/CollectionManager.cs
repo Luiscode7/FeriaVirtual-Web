@@ -321,11 +321,11 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public TRANSPORTISTA GetTransportistaByLowPrice(decimal? lowprice)
+        public TRANSPORTISTA GetTransportistaByLowPrice(decimal? lowprice, decimal subastaid)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.TRANSPORTISTA.Where(tr => tr.PRECIO == lowprice).FirstOrDefault();
+                return db.TRANSPORTISTA.Where(tr => tr.PRECIO == lowprice && tr.SUBASTAID == subastaid).FirstOrDefault();
             }
         }
 
