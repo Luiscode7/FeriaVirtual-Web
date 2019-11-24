@@ -57,7 +57,7 @@ namespace FeriaVirtualWeb.Controllers
                     }
                 }
                 
-                procesoManager.UpdateStockProductsAfterPostular(productos, usuario);
+                procesoManager.UpdateStockProductsAfterPostular(productos, usuario, proceso.IDPROCESOVENTA);
             }
           
             return Json(pPostulacion);

@@ -261,7 +261,8 @@ namespace FeriaVirtualWeb.Models.DataManager
             {
                 foreach (var item in productos)
                 {
-                    productosP = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.TIPOVENTA == "Externo").FirstOrDefault();
+                    productosP = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION && p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                    && p.IDPROCESOVENTA == null && p.TIPOVENTA == "Externo").FirstOrDefault();
                     if(productosP != null && productosP.STOCK >= 1)
                     {
                         newList.Add(new PRODUCTO
