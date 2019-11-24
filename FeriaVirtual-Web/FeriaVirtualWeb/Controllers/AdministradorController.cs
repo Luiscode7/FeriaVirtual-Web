@@ -77,6 +77,14 @@ namespace FeriaVirtualWeb.Controllers
             return View(detalle);
         }
 
+        public ActionResult IngresarValoresDeVenta(decimal id)
+        {
+            var venta = new VENTA();
+            venta.PROCESOVENTA_IDPROCESOVENTA = id;
+            venta.FECHA = DateTime.Now;
+            return View(venta);
+        }
+
         public ActionResult Reportes()
         {
             return View();

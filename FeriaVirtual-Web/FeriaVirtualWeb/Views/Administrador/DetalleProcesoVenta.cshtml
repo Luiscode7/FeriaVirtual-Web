@@ -121,6 +121,12 @@
             </tr>
         }
     </table>
+    <a href="#exampleModalCenter" class="btnVenta btn btn-success notika-btn-success col" data-toggle="modal" data-id="@Model.PROCESO">Ingresar Valores</a>
 </div>
 
+<script>
+    $(".btnVenta").click(function () {
+        $(".modal-body").load("/Administrador/IngresarValoresDeVenta/" + $(this).data("id"));
+    });
+</script>
 
