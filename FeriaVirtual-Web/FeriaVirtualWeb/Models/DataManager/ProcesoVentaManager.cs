@@ -112,6 +112,14 @@ namespace FeriaVirtualWeb.Models.DataManager
                             }
                             db.SaveChanges();
                         }
+
+                        PRODUCTO productoPostulado = db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                        && p.DESCRIPCION == item.DESCRIPCION && p.IDPROCESOVENTA != null && p.ESTADOPROCESO == "Pendiente" && p.TIPOVENTA == "Externo").FirstOrDefault();
+                        if(item.CANTIDAD < productoPostulado.STOCK)
+                        {
+                            productoPostulado.STOCK = item.CANTIDAD;
+                            db.SaveChanges();
+                        }
                     }
                 }
             }

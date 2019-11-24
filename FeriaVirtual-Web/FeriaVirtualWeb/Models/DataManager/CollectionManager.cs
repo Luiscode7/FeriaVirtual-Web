@@ -662,8 +662,7 @@ namespace FeriaVirtualWeb.Models.DataManager
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == ordenid && p.ESTADOPROCESO == "Aceptado")
-                    .GroupBy(p => p.DESCRIPCION).Select(p => p.FirstOrDefault()).ToList();
+                return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == ordenid && p.ESTADOPROCESO == "Aceptado").ToList();
             }
         }
     }
