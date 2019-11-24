@@ -375,6 +375,7 @@
     <Content Include="Views\Administrador\SubastasExternaList.cshtml" />
     <Content Include="Views\Administrador\SubastasLocalList.cshtml" />
     <Content Include="Views\Administrador\AceptarTransporte.cshtml" />
+    <Content Include="Views\Administrador\ProcesosVentaExterna.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

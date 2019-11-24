@@ -13,12 +13,6 @@ namespace FeriaVirtualWeb.Controllers
     public class AdministradorController : Controller
     {
         CollectionManager collection = new CollectionManager();
-        public ActionResult Ordenes()
-        {
-
-            return View();
-        }
-
         public ActionResult OfertasTranportistas()
         {
             var usuario = (USUARIO)Session["usuario"];
@@ -56,6 +50,22 @@ namespace FeriaVirtualWeb.Controllers
             var adminM = new AdministradorManager();
             var accept = adminM.UpdateEstadoTransporteToAccept(transportista);
             return Json(accept);
+        }
+
+        public ActionResult ProcesosVentaExterna()
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
+            var listaP = collection.GetProcesoVentaExternaList();
+            var ordenid = listaP[0].ORDENID;
+            var listaPordenes = collection.GetMyProductsByOrders(ordenid);
+            var listaPpostulados = collection.GetProductosByOrdenId(ordenid);
+
+            //if(listaPordenes.Count() == listaPpostulados.Count())
+            //{
+            //    ViewBag.completados = 
+            //}
+            return View();
         }
 
         public ActionResult Reportes()

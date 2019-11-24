@@ -181,7 +181,7 @@ namespace FeriaVirtualWeb.Models.DataManager
         //    }
         //}
 
-        public List<PRODUCTO> GetMyProductsByOrders(decimal orden)
+        public List<PRODUCTO> GetMyProductsByOrders(decimal? orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
@@ -647,6 +647,23 @@ namespace FeriaVirtualWeb.Models.DataManager
                     });
                 }
                 return listaConmonto.OrderBy(p => p.IDPROCESOVENTA);
+            }
+        }
+
+        public List<PROCESOVENTA> GetProcesoVentaExternaList()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PROCESOVENTA.Where(pv => pv.TIPOPROCESO == "Externo").ToList();
+            }
+        }
+
+        public List<PRODUCTO> GetProductosByOrdenId(decimal? ordenid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == ordenid && p.ESTADOPROCESO == "Aceptado")
+                    .GroupBy(p => p.DESCRIPCION).Select(p => p.FirstOrDefault()).ToList();
             }
         }
     }
