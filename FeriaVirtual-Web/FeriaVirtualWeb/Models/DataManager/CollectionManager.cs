@@ -658,11 +658,24 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public List<PRODUCTO> GetProductosByOrdenId(decimal? ordenid)
+        public List<ProcesoVentaViewModel> GetProductorDatosbyOrdenId(decimal ordenid)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PRODUCTO.Where(p => p.ORDEN_IDORDEN == ordenid && p.ESTADOPROCESO == "Aceptado").ToList();
+                var query = (from pd in db.PRODUCTOR join pr in db.PRODUCTO
+                             on pd.RUTPRODUCTOR equals pr.PRODUCTOR_RUTPRODUCTOR
+                             where pr.ORDEN_IDORDEN == ordenid
+                             && pr.ESTADOPROCESO == "Aceptado"
+                             select new ProcesoVentaViewModel
+                             {
+                                 NOMBREPRODUCTOR = pd.NOMBRE,
+                                 DESCRIPCIONP = pr.DESCRIPCION,
+                                 PRECIOP = pr.PRECIO,
+                                 STOCKP = pr.STOCK
+
+                             }).ToList();
+
+                return query as List<ProcesoVentaViewModel>;
             }
         }
     }

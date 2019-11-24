@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using FeriaVirtualWeb.Models.DataContext;
 
 namespace FeriaVirtualWeb.Models.ViewModels
 {
@@ -43,6 +45,11 @@ namespace FeriaVirtualWeb.Models.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         [Display(Name = "TELEFONO")]
         public string TELEFONOCLI { get; set; }
+        public string DESCRIPCIONP { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
+        public decimal? PRECIOP { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        public decimal? STOCKP { get; set; }
 
     }
 }

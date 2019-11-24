@@ -1,0 +1,126 @@
+﻿@model FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel
+
+@{
+    Layout = null;
+    List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> listaproductosOrden = ViewBag.productosOr;
+    List<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel> productores = ViewBag.productores;
+}
+
+<div>
+    <div>@Html.DisplayName("Datos de Orden")</div>
+    <hr />
+    <table class="table table-condensed">
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.ORDEN)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ORDEN)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.NOMBRECLIENTE)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.FECHA)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.FECHA)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.PAISCLIENTE)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.PAISCLIENTE)
+            </td>
+        </tr>
+
+        <tr>
+            <td class="text-table-modal">
+                @Html.DisplayNameFor(model => model.TIPOPROCESO)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.TIPOPROCESO)
+            </td>
+        </tr>
+
+    </table>
+    <br />
+    <div>@Html.DisplayName("Datos de Productos Solicitados")</div>
+    <hr />
+    <table class="table table-condensed">
+        <tr>
+            <th>
+                @Html.DisplayName("PRODUCTO")
+            </th>
+            <th>
+                @Html.DisplayName("CANTIDAD")
+            </th>
+        </tr>
+        @foreach (var item in listaproductosOrden)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.DESCRIPCION)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CANTIDAD)
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    <div>@Html.DisplayName("Datos de Productos de Productor Aceptados")</div>
+    <hr />
+    <table class="table table-condensed">
+        <tr>
+            <th>
+                @Html.DisplayName("PRODUCTOR")
+            </th>
+            <th>
+                @Html.DisplayName("PRODUCTO")
+            </th>
+            <th>
+                @Html.DisplayName("PRECIO A VENDER")
+            </th>
+            <th>
+                @Html.DisplayName("CANTIDAD ENVIADA")
+            </th>
+        </tr>
+        @foreach (var item in productores)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.NOMBREPRODUCTOR)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.DESCRIPCIONP)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PRECIOP)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.STOCKP)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+

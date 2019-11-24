@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.PROCESOVENTA>
 
 @{
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
@@ -29,13 +29,13 @@
 <div class="d-flex">
     <div class="card text-center col-6 pr-0 pl-0 mr-2">
         <div class="card-header pr-0 pl-0">
-            PRODUCTOR
+            Procesos Venta Externa
         </div>
         <div class="card-body">
             <table class="table table-condensed">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.NOMBREPRODUCTOR)
+                        @Html.DisplayNameFor(model => model.IDPROCESOVENTA)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FECHA)
@@ -49,13 +49,13 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.NOMBREPRODUCTOR)
+                            @Html.DisplayFor(modelItem => item.IDPROCESOVENTA)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FECHA)
                         </td>
                         <td>
-                            <a href="#card-comprar" class="btncomprar btn btn-success notika-btn-success" data-id="@item.PROCESO">Productos</a>
+                            <a href="#card-venta" class="btnConcretar btn btn-success notika-btn-success" data-id="@item.ORDENID">Concretar Venta</a>
                         </td>
                     </tr>
                 }
@@ -67,9 +67,9 @@
 
     <div class="card text-center col-6 pr-0 pl-0 ml-2">
         <div class="card-header pr-0 pl-0">
-            COMPRAR PRODUCTOS
+            Detalle
         </div>
-        <div class="card-body" id="card-comprar">
+        <div class="card-body" id="card-venta">
 
         </div>
     </div>
@@ -77,7 +77,7 @@
 </div>
 
 <script>
-    $(".btncomprar").click(function () {
-        $("#card-comprar").load("/ClienteInterno/PutCompra/" + $(this).data("id"));
+    $(".btnConcretar").click(function () {
+        $("#card-venta").load("/Administrador/DetalleProcesoVenta/" + $(this).data("id"));
     });
 </script>

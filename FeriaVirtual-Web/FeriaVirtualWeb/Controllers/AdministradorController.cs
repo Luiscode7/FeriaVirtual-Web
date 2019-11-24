@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using FeriaVirtualWeb.Models.DataContext;
 using FeriaVirtualWeb.Models.DataManager;
+using FeriaVirtualWeb.Models.ViewModels;
 
 namespace FeriaVirtualWeb.Controllers
 {
@@ -57,15 +58,23 @@ namespace FeriaVirtualWeb.Controllers
             var usuario = (USUARIO)Session["usuario"];
             ViewBag.session = usuario.NOMBREUSUARIO;
             var listaP = collection.GetProcesoVentaExternaList();
-            var ordenid = listaP[0].ORDENID;
-            var listaPordenes = collection.GetMyProductsByOrders(ordenid);
-            var listaPpostulados = collection.GetProductosByOrdenId(ordenid);
+            return View(listaP);
+        }
 
-            //if(listaPordenes.Count() == listaPpostulados.Count())
-            //{
-            //    ViewBag.completados = 
-            //}
-            return View();
+        public ActionResult DetalleProcesoVenta(decimal id)
+        {
+            var detalle = new ProcesoVentaViewModel();
+            var listaProductores = new List<ProcesoVentaViewModel>();
+            var listaPordenes = new List<PRODUCTO>();
+            if (id != 0)
+            {
+                detalle = collection.GetMyPostulacionDetails(id);
+                listaProductores = collection.GetProductorDatosbyOrdenId(id);
+                listaPordenes = collection.GetMyProductsByOrders(id);
+            }
+            ViewBag.productores = listaProductores;
+            ViewBag.productosOr = listaPordenes;
+            return View(detalle);
         }
 
         public ActionResult Reportes()
