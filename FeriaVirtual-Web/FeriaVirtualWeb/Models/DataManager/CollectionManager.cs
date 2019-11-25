@@ -672,7 +672,8 @@ namespace FeriaVirtualWeb.Models.DataManager
                                  NOMBREPRODUCTOR = pd.NOMBRE,
                                  DESCRIPCIONP = pr.DESCRIPCION,
                                  PRECIOP = pr.PRECIO,
-                                 STOCKP = pr.STOCK
+                                 STOCKP = pr.STOCK,
+                                 CANTIDAD = pr.CANTIDAD
 
                              }).ToList();
 

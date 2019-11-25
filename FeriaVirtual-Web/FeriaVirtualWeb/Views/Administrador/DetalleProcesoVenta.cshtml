@@ -102,6 +102,9 @@
             <th>
                 @Html.DisplayName("CANTIDAD ENVIADA")
             </th>
+            <th>
+                @Html.DisplayName("CANTIDAD ACEPTADA")
+            </th>
         </tr>
         @foreach (var item in productores)
         {
@@ -117,6 +120,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(model => item.STOCKP)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CANTIDAD)
                 </td>
             </tr>
         }
