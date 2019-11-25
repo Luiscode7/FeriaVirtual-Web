@@ -44,5 +44,15 @@ namespace FeriaVirtualWeb.Utils
                 return nextID;
             }
         }
+
+        public static decimal GetNextIDVenta()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var lastID = db.VENTA.DefaultIfEmpty().Max(p => p == null ? 0 : p.IDVENTA);
+                var nextID = lastID + 1;
+                return nextID;
+            }
+        }
     }
 }

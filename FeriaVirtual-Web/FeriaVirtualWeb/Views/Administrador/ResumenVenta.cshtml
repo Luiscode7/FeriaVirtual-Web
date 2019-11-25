@@ -1,0 +1,96 @@
+﻿@model FeriaVirtualWeb.Models.DataContext.VENTA
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<div>
+    <h4>VENTA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDVENTA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDVENTA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IMPUESTOADUANA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IMPUESTOADUANA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COSTOTRANSPORTE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COSTOTRANSPORTE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMISIONEMPRESA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMISIONEMPRESA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COSTOTOTAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COSTOTOTAL)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.GANANCIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GANANCIA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ESTADO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTADO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EMPRESA_RUTEMPRESA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMPRESA_RUTEMPRESA)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

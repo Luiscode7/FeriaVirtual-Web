@@ -88,6 +88,21 @@ namespace FeriaVirtualWeb.Controllers
             return View(venta);
         }
 
+        [HttpPost]
+        public ActionResult ResumenVenta(VentaViewModel venta)
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
+            var ventaM = new VentaManager();
+            var insertVenta = new VENTA();
+            if (venta != null)
+            {
+                insertVenta = ventaM.InsertNewVenta(venta);
+            }
+            var ventaDetalle = ventaM.GetAndInsertDetalisVenta(insertVenta);
+            return View(ventaDetalle);
+        }
+
         public ActionResult Reportes()
         {
             return View();
