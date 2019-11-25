@@ -98,8 +98,8 @@ namespace FeriaVirtualWeb.Models.DataManager
                 {
                     foreach (var item in listaProductos)
                     {
-                        PRODUCTO producto = db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
-                        && p.DESCRIPCION == item.DESCRIPCION && p.IDPROCESOVENTA == null && p.TIPOVENTA == "Externo" ).FirstOrDefault();
+                        PRODUCTO producto = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION &&
+                        p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == null && p.TIPOVENTA == "Externo" ).FirstOrDefault();
                         if(producto != null)
                         {
                             if (item.CANTIDAD >= producto.STOCK)
@@ -111,15 +111,15 @@ namespace FeriaVirtualWeb.Models.DataManager
                                 producto.STOCK = producto.STOCK - item.CANTIDAD;
                             }
                             db.SaveChanges();
-                        }
 
-                        PRODUCTO productoPostulado = db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
-                        && p.DESCRIPCION == item.DESCRIPCION && p.IDPROCESOVENTA == procesoid && p.ESTADOPROCESO == "Pendiente" && p.TIPOVENTA == "Externo").FirstOrDefault();
-                        if(item.CANTIDAD < productoPostulado.STOCK)
-                        {
-                            productoPostulado.STOCK = item.CANTIDAD;
-                            db.SaveChanges();
-                        }
+                            PRODUCTO productoPostulado = db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                            && p.DESCRIPCION == item.DESCRIPCION && p.IDPROCESOVENTA == procesoid && p.ESTADOPROCESO == "Pendiente" && p.TIPOVENTA == "Externo").FirstOrDefault();
+                            if (item.CANTIDAD < productoPostulado.STOCK)
+                            {
+                                productoPostulado.STOCK = item.CANTIDAD;
+                                db.SaveChanges();
+                            }
+                        }        
                     }
                 }
             }
