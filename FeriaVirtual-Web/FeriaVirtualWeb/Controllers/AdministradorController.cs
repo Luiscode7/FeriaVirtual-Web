@@ -79,9 +79,12 @@ namespace FeriaVirtualWeb.Controllers
 
         public ActionResult IngresarValoresDeVenta(decimal id)
         {
-            var venta = new VENTA();
+            var venta = new VentaViewModel();
             venta.PROCESOVENTA_IDPROCESOVENTA = id;
             venta.FECHA = DateTime.Now;
+            var subastaid = collection.GetSubastaByProcesoVenta(id);
+            var costoT = collection.GetCostoTranporteToVenta(subastaid);
+            venta.COSTOTRANSPORTE = costoT;
             return View(venta);
         }
 

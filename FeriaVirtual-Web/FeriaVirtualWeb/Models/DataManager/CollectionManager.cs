@@ -679,5 +679,21 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return query as List<ProcesoVentaViewModel>;
             }
         }
+
+        public decimal? GetSubastaByProcesoVenta(decimal procesoventaid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.SUBASTA.Where(s => s.PROCESOVENTAID == procesoventaid).FirstOrDefault().IDSUBASTA;
+            }
+        }
+
+        public decimal? GetCostoTranporteToVenta(decimal? subastaid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.TRANSPORTISTA.Where(t => t.SUBASTAID == subastaid && t.ESTADOSUBASTA == "Aceptado").FirstOrDefault().PRECIO;
+            }
+        }
     }
 }
