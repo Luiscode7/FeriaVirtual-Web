@@ -14,13 +14,13 @@ namespace FeriaVirtualWeb.Models.ViewModels
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime FECHA { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
-        [Display(Name = "COSTO ADUANA")]
+        [Display(Name = "COSTO ADUANA (%)")]
         public decimal? IMPUESTOADUANA { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         [Display(Name = "COSTO TRANSPORTE")]
         public decimal? COSTOTRANSPORTE { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}%")]
-        [Display(Name = "COMISION EMPRESA")]
+        [Display(Name = "COMISION EMPRESA (%)")]
         public decimal? COMISIONEMPRESA { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
         [Display(Name = "COSTO TOTAL")]

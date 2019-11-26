@@ -173,14 +173,6 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        //public List<ProcesoVentaViewModel> GetOrdenListToAdministrador()
-        //{
-        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
-        //    {
-        //        var query = (from )
-        //    }
-        //}
-
         public List<PRODUCTO> GetMyProductsByOrders(decimal? orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -694,6 +686,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 return db.TRANSPORTISTA.Where(t => t.SUBASTAID == subastaid && t.ESTADOSUBASTA == "Aceptado").FirstOrDefault().PRECIO;
+            }
+        }
+
+        public List<VENTA> GetVentas()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.VENTA.ToList();
             }
         }
     }

@@ -1,0 +1,103 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.VENTA>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<div class="breadcomb-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="breadcomb-list">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="breadcomb-wp">
+                            <div class="breadcomb-icon">
+                                <i class="notika-icon notika-form"></i>
+                            </div>
+                            <div class="breadcomb-ctn">
+                                <h2>Ventas</h2>
+                                <p>Gestione las ventas y reparta las ganancias</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header text-center pr-0 pl-0">
+        Ventas
+    </div>
+    <div class="card-body" id="card-ventas">
+        <table class="table table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDVENTA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FECHA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IMPUESTOADUANA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.COSTOTRANSPORTE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.COMISIONEMPRESA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.COSTOTOTAL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GANANCIA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
+                </th>
+                <th>
+                    @Html.DisplayName("ACCIONES")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDVENTA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FECHA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IMPUESTOADUANA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.COSTOTRANSPORTE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.COMISIONEMPRESA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.COSTOTOTAL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GANANCIA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PROCESOVENTA_IDPROCESOVENTA)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

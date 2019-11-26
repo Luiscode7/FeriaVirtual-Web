@@ -106,6 +106,14 @@ namespace FeriaVirtualWeb.Controllers
             return View(ventaDetalle);
         }
 
+        public ActionResult HistorialVentas()
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
+            var ventas = collection.GetVentas();
+            return View(ventas);
+        }
+
         public ActionResult Reportes()
         {
             return View();

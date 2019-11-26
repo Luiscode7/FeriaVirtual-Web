@@ -16,6 +16,7 @@ namespace FeriaVirtualWeb.Models.DataManager
             {
                 using (FeriaVirtualEntities db = new FeriaVirtualEntities())
                 {
+
                     VENTA venta = new VENTA
                     {
                         IDVENTA = DatabaseUtil.GetNextIDVenta(),
@@ -47,6 +48,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                     var productosOrden = GetProductByOrden(ordenid);
                     var productos = GetProductsProductorAccordingProductosOrden(productosOrden);
                     decimal? costoTotal = 0;
+                    decimal? comisionEm = ventaDet.COMISIONEMPRESA / 100;
                     foreach (var item in productos)
                     {
                         costoTotal += item.PRECIO * item.CANTIDAD;
@@ -54,6 +56,7 @@ namespace FeriaVirtualWeb.Models.DataManager
 
                     VENTA venta = db.VENTA.Where(v => v.IDVENTA == ventaDet.IDVENTA).FirstOrDefault();
                     venta.COSTOTOTAL = costoTotal;
+                    venta.GANANCIA = costoTotal * comisionEm;
                     db.SaveChanges();
 
                     return venta;
