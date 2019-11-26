@@ -20,7 +20,7 @@ namespace FeriaVirtualWeb.Models.DataContext
         public decimal IDVENTA { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}%")]
         [Display(Name = "COSTO ADUANA")]
         public Nullable<decimal> IMPUESTOADUANA { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
@@ -30,7 +30,7 @@ namespace FeriaVirtualWeb.Models.DataContext
         [Display(Name = "COMISION EMPRESA")]
         public Nullable<decimal> COMISIONEMPRESA { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
-        [Display(Name = "COSTO TOTAL")]
+        [Display(Name = "COSTO TOTAL PRODUCTOS")]
         public Nullable<decimal> COSTOTOTAL { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
         [Display(Name = "GANANCIA TOTAL")]

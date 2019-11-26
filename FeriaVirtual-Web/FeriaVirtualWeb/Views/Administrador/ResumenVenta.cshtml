@@ -2,95 +2,139 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+    List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> listaP = ViewBag.productos;
 }
 
-<div>
-    <h4>VENTA</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.IDVENTA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IDVENTA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FECHA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FECHA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IMPUESTOADUANA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IMPUESTOADUANA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.COSTOTRANSPORTE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.COSTOTRANSPORTE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.COMISIONEMPRESA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.COMISIONEMPRESA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.COSTOTOTAL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.COSTOTOTAL)
-        </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.GANANCIA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GANANCIA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ESTADO)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ESTADO)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EMPRESA_RUTEMPRESA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EMPRESA_RUTEMPRESA)
-        </dd>*@
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
-        </dd>
-
-    </dl>
+<div class="breadcomb-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="breadcomb-list">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="breadcomb-wp">
+                            <div class="breadcomb-icon">
+                                <i class="notika-icon notika-form"></i>
+                            </div>
+                            <div class="breadcomb-ctn">
+                                <h2>Resumen Venta</h2>
+                                <p>Detalle de la venta a realizar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<div class="d-flex">
+    <div class="card col-6 pr-0 pl-0 mr-2">
+        <div class="card-header pr-0 pl-0">
+            Resumen General de Venta
+        </div>
+        <div class="card-body" id="card-resumenv">
+            <div>
+                <table class="table table-condensed">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.IDVENTA)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.IDVENTA)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.FECHA)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.FECHA)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.IMPUESTOADUANA)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.IMPUESTOADUANA)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.COSTOTRANSPORTE)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.COSTOTRANSPORTE)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.COMISIONEMPRESA)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.COMISIONEMPRESA)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.COSTOTOTAL)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.COSTOTOTAL)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card text-center col-6 pr-0 pl-0 ml-2">
+        <div class="card-header pr-0 pl-0">
+            Productos
+        </div>
+        <div class="card-body" id="card-resumenvP">
+            <table class="table table-condensed">
+                <tr>
+                    <th>
+                        @Html.DisplayName("PRODUCTO")
+                    </th>
+                    <th>
+                        @Html.DisplayName("CANTIDAD")
+                    </th>
+                    <th>
+                        @Html.DisplayName("PRECIO")
+                    </th>
+                </tr>
+                @foreach (var item in listaP)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item.DESCRIPCION)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.CANTIDAD)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.PRECIO)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

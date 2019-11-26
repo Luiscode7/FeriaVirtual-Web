@@ -100,6 +100,9 @@ namespace FeriaVirtualWeb.Controllers
                 insertVenta = ventaM.InsertNewVenta(venta);
             }
             var ventaDetalle = ventaM.GetAndInsertDetalisVenta(insertVenta);
+            var ordenid = ventaM.GetOrdenIdByProcesoID(venta.PROCESOVENTA_IDPROCESOVENTA);
+            var productosOr = ventaM.GetProductByOrden(ordenid);
+            ViewBag.productos = ventaM.GetProductsWithCantidadAndPrecioToResumenVenta(productosOr);
             return View(ventaDetalle);
         }
 

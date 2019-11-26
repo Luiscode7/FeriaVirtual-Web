@@ -66,7 +66,7 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        private decimal? GetOrdenIdByProcesoID(decimal? procesoid)
+        public decimal? GetOrdenIdByProcesoID(decimal? procesoid)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
@@ -74,7 +74,7 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        private List<PRODUCTO> GetProductByOrden(decimal? orden)
+        public List<PRODUCTO> GetProductByOrden(decimal? orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
@@ -82,7 +82,7 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        private List<PRODUCTO> GetProductsProductorAccordingProductosOrden(List<PRODUCTO> productos)
+        public List<PRODUCTO> GetProductsProductorAccordingProductosOrden(List<PRODUCTO> productos)
         {
             var productosP = new List<PRODUCTO>();
             var newList = new List<PRODUCTO>();
@@ -112,6 +112,67 @@ namespace FeriaVirtualWeb.Models.DataManager
 
                 }
                 return newList;
+            }
+        }
+
+        public List<PRODUCTO> GetProductsWithCantidadAndPrecioToResumenVenta(List<PRODUCTO> productos)
+        {
+            var productosP = new List<PRODUCTO>();
+            var newList = new List<PRODUCTO>();
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                foreach (var item in productos)
+                {
+                    productosP = db.PRODUCTO.Where(p => p.DESCRIPCION == item.DESCRIPCION
+                    && p.IDPROCESOVENTA == item.IDPROCESOVENTA && p.PRECIO != null && p.TIPOVENTA == "Externo"
+                    && p.ESTADOPROCESO == "Aceptado").ToList();
+                    if (productosP.Count() != 0)
+                    {
+                        foreach (var item2 in productosP)
+                        {
+                            var repetido = newList.Where(p => p.DESCRIPCION == item2.DESCRIPCION).FirstOrDefault();
+                            if(repetido == null)
+                            {
+                                newList.Add(new PRODUCTO
+                                {
+                                    IDPRODUCTO = item2.IDPRODUCTO,
+                                    DESCRIPCION = item2.DESCRIPCION,
+                                    PRECIO = item2.PRECIO,
+                                    STOCK = item2.CANTIDAD,
+                                    CANTIDAD = item.CANTIDAD,
+                                    PRODUCTOR_RUTPRODUCTOR = item2.PRODUCTOR_RUTPRODUCTOR
+                                });
+                            }
+                            else
+                            {
+                                decimal? precioRepetido = repetido.PRECIO * repetido.STOCK;
+                                decimal? precioNuevo = item2.PRECIO * item2.CANTIDAD;
+                                repetido.PRECIO = precioRepetido + precioNuevo;
+                            }
+                            
+                        }
+
+                    }
+                }
+                return newList;
+            }
+        }
+
+        public decimal? GetCostoTotal(VENTA venta)
+        {
+            decimal? costoTotal = 0;
+            double ivaD = 0.19;
+            decimal iva = (decimal)ivaD;
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                VENTA ventaCosto = db.VENTA.Where(v => v.IDVENTA == venta.IDVENTA).FirstOrDefault();
+                decimal? impuestoAduana = ventaCosto.COSTOTOTAL * ventaCosto.IMPUESTOADUANA;
+                decimal? impuestoIva = ventaCosto.COSTOTOTAL * iva;
+                decimal? impuestos = impuestoAduana + impuestoIva;
+                decimal? comisionEmpresa = ventaCosto.COSTOTOTAL * ventaCosto.COMISIONEMPRESA;
+                costoTotal = impuestos + venta.COSTOTRANSPORTE + comisionEmpresa;
+
+                return costoTotal;
             }
         }
     }
