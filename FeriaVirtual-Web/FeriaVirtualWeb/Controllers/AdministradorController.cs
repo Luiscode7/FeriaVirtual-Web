@@ -114,8 +114,41 @@ namespace FeriaVirtualWeb.Controllers
             return View(ventas);
         }
 
+        public ActionResult RepartirGanancias(decimal id)
+        {
+            var procedoid = id;
+            var agregarProcesoventa = new List<PRODUCTOR>();
+            var productores = collection.GetProductorByProcesoVentaToGananciaVenta(id);
+            foreach (var item in productores)
+            {
+                agregarProcesoventa.Add(new PRODUCTOR
+                {
+                    RUTPRODUCTOR = item.RUTPRODUCTOR,
+                    NOMBRE = item.NOMBRE,
+                    TELEFONO = item.TELEFONO,
+                    CORREO = item.CORREO,
+                    DIRECCION = item.DIRECCION,
+                    CIUDAD = item.CIUDAD,
+                    CONTRATO = item.CONTRATO,
+                    FECHAINICIOCONTRATO = item.FECHAINICIOCONTRATO,
+                    FECHATERMINOCONTRATO = item.FECHATERMINOCONTRATO,
+                    ESTADOCONTRATO = item.ESTADOCONTRATO,
+                    PROCESOID = procedoid
+                });
+            }
+
+            return View(agregarProcesoventa);
+        }
+
+        [HttpPost]
+        public ActionResult GananciasOfProductores(List<PRODUCTOR> productor)
+        {
+            return View();
+        }
+
         public ActionResult Reportes()
         {
+
             return View();
         }
 

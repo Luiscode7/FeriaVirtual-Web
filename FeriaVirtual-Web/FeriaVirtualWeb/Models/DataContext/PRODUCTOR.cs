@@ -29,7 +29,8 @@ namespace FeriaVirtualWeb.Models.DataContext
         public System.DateTime FECHAINICIOCONTRATO { get; set; }
         public System.DateTime FECHATERMINOCONTRATO { get; set; }
         public string ESTADOCONTRATO { get; set; }
-    
+        public Nullable<decimal> PROCESOID { get; set; }
+
         public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }
     }
 }

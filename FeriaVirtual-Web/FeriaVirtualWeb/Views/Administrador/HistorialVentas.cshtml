@@ -26,6 +26,22 @@
     </div>
 </div>
 
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #00c292">
+                <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br />
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="card">
     <div class="card-header text-center pr-0 pl-0">
         Ventas
@@ -90,9 +106,7 @@
                         @Html.DisplayFor(modelItem => item.PROCESOVENTA_IDPROCESOVENTA)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        <a href="#exampleModalCenter" class="btnGanancias btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.PROCESOVENTA_IDPROCESOVENTA">Repartir Ganancias</a>
                     </td>
                 </tr>
             }
@@ -101,3 +115,9 @@
 
     </div>
 </div>
+
+<script>
+    $(".btnGanancias").click(function () {
+        $(".modal-body").load("/Administrador/RepartirGanancias/" + $(this).data("id"));
+    });
+</script>

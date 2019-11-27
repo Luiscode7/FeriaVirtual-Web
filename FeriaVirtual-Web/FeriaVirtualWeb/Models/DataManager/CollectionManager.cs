@@ -844,5 +844,20 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return db.VENTA.ToList();
             }
         }
+
+        public List<PRODUCTOR> GetProductorByProcesoVentaToGananciaVenta(decimal procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from pd in db.PRODUCTOR join pr in
+                             db.PRODUCTO on pd.RUTPRODUCTOR equals
+                             pr.PRODUCTOR_RUTPRODUCTOR where
+                             pr.IDPROCESOVENTA == procesoid &&
+                             pr.ESTADOPROCESO == "Aceptado"
+                             select pd).ToList();
+
+                return query;
+            }
+        }
     }
 }

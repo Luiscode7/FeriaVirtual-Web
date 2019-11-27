@@ -1,0 +1,96 @@
+﻿@model List<FeriaVirtualWeb.Models.DataContext.PRODUCTOR>
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("GananciasOfProductores", "Administrador", FormMethod.Post, new { id = "form-ganancias" }))
+{
+    
+    <table class="table table-condensed">
+        <tr>
+            <th>
+                @Html.DisplayName("RUT PRODUCTOR")
+            </th>
+            <th>
+                @Html.DisplayName("NOMBRE")
+            </th>
+        </tr>
+
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            @Html.HiddenFor(model => Model[i].TELEFONO)
+            @Html.HiddenFor(model => Model[i].CORREO)
+            @Html.HiddenFor(model => Model[i].DIRECCION)
+            @Html.HiddenFor(model => Model[i].CIUDAD)
+            @Html.HiddenFor(model => Model[i].CONTRATO)
+            @Html.HiddenFor(model => Model[i].FECHAINICIOCONTRATO)
+            @Html.HiddenFor(model => Model[i].FECHATERMINOCONTRATO)
+            @Html.HiddenFor(model => Model[i].PROCESOID)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].RUTPRODUCTOR)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].NOMBRE)
+                </td>
+            </tr>
+        }
+
+    </table>
+    <input type="submit" class="btnRGanancias btn btn-success notika-btn-success" value="Enviar" />
+    <div class="loadbuttonRG d-flex justify-content-center"></div>
+}
+
+<script src="~/assest/js/bootstrap-select.js"></script>
+<script src="~/assest/js/wow.min.js"></script>
+<script src="~/assest/js/jquery-price-slider.js"></script>
+<script src="~/assest/js/owl.carousel.min.js"></script>
+<script src="~/assest/js/jquery.scrollUp.min.js"></script>
+<script src="~/assest/js/jquery.meanmenu.js"></script>
+<script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/assest/js/jquery.sparkline.min.js"></script>
+<script src="~/assest/js/sparkline-active.js"></script>
+<script src="~/assest/js/jquery.flot.js"></script>
+<script src="~/assest/js/jquery.flot.resize.js"></script>
+<script src="~/assest/js/flot-active.js"></script>
+<script src="~/assest/js/jquery.knob.js"></script>
+<script src="~/assest/js/jquery.appear.js"></script>
+<script src="~/assest/js/knob-active.js"></script>
+<script src="~/assest/js/jquery.todo.js"></script>
+@*<script src="~/assest/js/waves.min.js"></script>
+    <script src="~/assest/js/wave-active.js"></script>*@
+<script src="~/assest/js/plugins.js"></script>
+<script src="~/assest/js/main.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        var form = $("#form-ganancias");
+        var btnRGanancias = $(".btnRGanancias");
+
+        btnRGanancias.click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                beforeSend: function () {
+                    btnRGanancias.replaceWith($(".loadbuttonRG"));
+                    $(".loadbuttonRG").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+                },
+                success: function (response) {
+                    if (response) {
+                        $("#exampleModalCenter").modal("hide");
+                        toastr.options = {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "4000",
+                        }
+                        toastr["success"]("Las Ganancias Han sido Enviadas Exitosamente")
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
