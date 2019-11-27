@@ -464,7 +464,52 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public IEnumerable<ProcesoVentaViewModel> GetMyPostulaciones(USUARIO usuario)
+        public List<ProcesoVentaViewModel> GetMyPostulaciones(USUARIO usuario)
+        {
+            var repetido = new ProcesoVentaViewModel();
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var listadoAceptados = GetMyPostulacionesAceptadas(usuario);
+                var listadoPendientes = GetMyPostulacionesPendientes(usuario);
+                var listadoMovidos = GetMyPostulacionesMovidas(usuario);
+
+                foreach (var item in listadoPendientes)
+                {
+                    repetido = listadoAceptados.Where(p => p.PROCESO == item.PROCESO).FirstOrDefault();
+                    if (repetido == null)
+                    {
+                        listadoAceptados.Add(new ProcesoVentaViewModel
+                        {
+                            PROCESO = item.PROCESO,
+                            ESTADO = item.ESTADO,
+                            FECHA = item.FECHA,
+                            ORDEN = item.ORDEN,
+                            TIPOPROCESO = item.TIPOPROCESO
+                        });
+                    }
+                }
+
+                foreach (var item in listadoMovidos)
+                {
+                    repetido = listadoAceptados.Where(p => p.PROCESO == item.PROCESO).FirstOrDefault();
+                    if (repetido == null)
+                    {
+                        listadoAceptados.Add(new ProcesoVentaViewModel
+                        {
+                            PROCESO = item.PROCESO,
+                            ESTADO = item.ESTADO,
+                            FECHA = item.FECHA,
+                            ORDEN = item.ORDEN,
+                            TIPOPROCESO = item.TIPOPROCESO
+                        });
+                    }
+                }
+
+                return listadoAceptados;
+            }
+        }
+
+        private List<ProcesoVentaViewModel> GetMyPostulacionesAceptadas(USUARIO usuario)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
@@ -472,7 +517,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                              join pr in db.PRODUCTO on pv.IDPROCESOVENTA
                              equals pr.IDPROCESOVENTA
                              where pr.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
-                             && pr.TIPOVENTA == "Externo"
+                             && pr.TIPOVENTA == "Externo" && pr.ESTADOPROCESO == "Aceptado"
                              select new ProcesoVentaViewModel
                              {
                                  PROCESO = pr.IDPROCESOVENTA,
@@ -483,7 +528,54 @@ namespace FeriaVirtualWeb.Models.DataManager
 
                              }).GroupBy(p => p.PROCESO).Select(p => p.FirstOrDefault()).ToList();
 
-                return query as IEnumerable<ProcesoVentaViewModel>;
+                return query;
+            }
+        }
+
+        
+        private List<ProcesoVentaViewModel> GetMyPostulacionesPendientes(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from pv in db.PROCESOVENTA
+                             join pr in db.PRODUCTO on pv.IDPROCESOVENTA
+                             equals pr.IDPROCESOVENTA
+                             where pr.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                             && pr.TIPOVENTA == "Externo" && pr.ESTADOPROCESO == "Pendiente"
+                             select new ProcesoVentaViewModel
+                             {
+                                 PROCESO = pr.IDPROCESOVENTA,
+                                 ESTADO = pr.ESTADOPROCESO,
+                                 FECHA = pv.FECHA,
+                                 ORDEN = pv.ORDENID,
+                                 TIPOPROCESO = pv.TIPOPROCESO
+
+                             }).GroupBy(p => p.PROCESO).Select(p => p.FirstOrDefault()).ToList();
+
+                return query as List<ProcesoVentaViewModel>;
+            }
+        }
+
+        private List<ProcesoVentaViewModel> GetMyPostulacionesMovidas(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from pv in db.PROCESOVENTA
+                             join pr in db.PRODUCTO on pv.IDPROCESOVENTA
+                             equals pr.IDPROCESOVENTA
+                             where pr.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                             && pr.TIPOVENTA == "Externo" && pr.ESTADOPROCESO == "Movido"
+                             select new ProcesoVentaViewModel
+                             {
+                                 PROCESO = pr.IDPROCESOVENTA,
+                                 ESTADO = pr.ESTADOPROCESO,
+                                 FECHA = pv.FECHA,
+                                 ORDEN = pv.ORDENID,
+                                 TIPOPROCESO = pv.TIPOPROCESO
+
+                             }).GroupBy(p => p.PROCESO).Select(p => p.FirstOrDefault()).ToList();
+
+                return query as List<ProcesoVentaViewModel>;
             }
         }
 
@@ -585,11 +677,27 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public List<PRODUCTO> GetMyProductsAccepted(USUARIO usuario, decimal proceso)
+        public List<PRODUCTO> GetMyProductsAccepted(USUARIO usuario, decimal? proceso)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO && p.IDPROCESOVENTA == proceso && p.ESTADOPROCESO == "Aceptado").ToList();
+            }
+        }
+
+        public List<PRODUCTO> GetProductsAccepted(decimal proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.IDPROCESOVENTA == proceso && p.ESTADOPROCESO == "Aceptado").ToList();
+            }
+        }
+
+        private List<PRODUCTO> GetProductoresByProductsAccepteed(List<PRODUCTO> productos)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return productos.GroupBy(p => p.PRODUCTOR_RUTPRODUCTOR).Select(p => p.FirstOrDefault()).ToList();
             }
         }
 
@@ -612,11 +720,51 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public decimal? GetMyProfit(VENTA venta, decimal? preciTotalP)
+        public VENTA GetMyProfit(List<PRODUCTO> productsAceptados, VENTA venta, decimal? preciTotalP, USUARIO usuario)
         {
+            var gananciaTotal = new VENTA();
             decimal? ventaGanancia = 0;
-            ventaGanancia = preciTotalP - venta.COSTOTOTAL;
-            return ventaGanancia;
+            decimal? costoTranporte = 0;
+            decimal? gananciaEmp = 0;
+            decimal? aduana = venta.IMPUESTOADUANA / 100;
+            decimal? costoAduana = 0;
+
+            var listaByProductor = GetProductoresByProductsAccepteed(productsAceptados);
+            if (listaByProductor.Count() > 1)
+            {
+                costoTranporte = venta.COSTOTRANSPORTE / listaByProductor.Count();
+                gananciaEmp = venta.GANANCIA / listaByProductor.Count();
+                costoAduana = venta.COSTOTOTAL * aduana / listaByProductor.Count();
+
+                foreach (var item in listaByProductor)
+                {
+                    if(item.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO)
+                    {
+                        ventaGanancia = preciTotalP - costoTranporte - gananciaEmp - costoAduana;
+
+                        gananciaTotal.GANANCIAPRODUCTORNETA = preciTotalP;
+                        gananciaTotal.COSTOTRANSPORTE = costoTranporte;
+                        gananciaTotal.COMISIONEMPRESA = venta.COMISIONEMPRESA;
+                        gananciaTotal.GANANCIA = gananciaEmp;
+                        gananciaTotal.IMPUESTOADUANA = costoAduana;
+                        gananciaTotal.GANANCIATOTAL = ventaGanancia;
+
+                    }
+                }
+            }
+            else
+            {
+                ventaGanancia = preciTotalP - venta.COSTOTRANSPORTE - venta.GANANCIA - (aduana * preciTotalP);
+
+                gananciaTotal.GANANCIAPRODUCTORNETA = preciTotalP;
+                gananciaTotal.COSTOTRANSPORTE = venta.COSTOTRANSPORTE;
+                gananciaTotal.GANANCIA = venta.GANANCIA;
+                gananciaTotal.IMPUESTOADUANA = venta.IMPUESTOADUANA;
+                gananciaTotal.GANANCIATOTAL = ventaGanancia;
+
+            }
+            
+            return gananciaTotal;
         }
 
         public IEnumerable<PRODUCTO> GetProductsListMyCompras(USUARIO usuario)

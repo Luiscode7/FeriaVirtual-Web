@@ -20,7 +20,7 @@ namespace FeriaVirtualWeb.Models.DataContext
         public decimal IDVENTA { get; set; }
         [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}%")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         [Display(Name = "COSTO ADUANA")]
         public Nullable<decimal> IMPUESTOADUANA { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
@@ -40,7 +40,13 @@ namespace FeriaVirtualWeb.Models.DataContext
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         [Display(Name = "N° PROCESO VENTA")]
         public Nullable<decimal> PROCESOVENTA_IDPROCESOVENTA { get; set; }
-    
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "GANANCIA NETA")]
+        public Nullable<decimal> GANANCIAPRODUCTORNETA { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "GANANCIA TOTAL")]
+        public Nullable<decimal> GANANCIATOTAL { get; set; }
+
         public virtual EMPRESA EMPRESA { get; set; }
         public virtual PROCESOVENTA PROCESOVENTA { get; set; }
     }

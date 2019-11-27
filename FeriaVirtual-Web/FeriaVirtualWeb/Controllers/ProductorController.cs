@@ -134,11 +134,12 @@ namespace FeriaVirtualWeb.Controllers
             var idproceso = id;
             var usuario = (USUARIO)Session["usuario"];
             var listaPAceppted = collection.GetMyProductsAccepted(usuario, idproceso);
+            var listaPAcceptedtotales = collection.GetProductsAccepted(idproceso);
             var sumaPrecios = collection.TotalSumOfPrecioOfProductorAccordingToOneSell(listaPAceppted);
 
             var ventaByProceso = collection.GetVentaByProcesoVenta(idproceso);
-            var ganancia = collection.GetMyProfit(ventaByProceso, sumaPrecios);
-            return View();
+            var ganancia = collection.GetMyProfit(listaPAcceptedtotales, ventaByProceso, sumaPrecios, usuario);
+            return View(ganancia);
         }
     }
 }

@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
 
+@*@{ 
+     List<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel> listadoPA = ViewBag.productosA;
+}*@
+
 <div class="breadcomb-area">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -67,7 +71,6 @@
                     </td>
                     <td>
                         <a href="#exampleModalCenter5" class="btnDetails btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.ORDEN"><i class="fas fa-info-circle m-1"></i>Detalles</a>
-                        
                         @if (item.ESTADO == "Aceptado")
                         {
                             <a href="#exampleModalCenter5" class="btnVenta btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.PROCESO">Detalle Venta</a>

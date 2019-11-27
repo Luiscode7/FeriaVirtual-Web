@@ -382,6 +382,7 @@
     <Content Include="Views\Administrador\IngresarValoresDeVenta.cshtml" />
     <Content Include="Views\Administrador\ResumenVenta.cshtml" />
     <Content Include="Views\Administrador\HistorialVentas.cshtml" />
+    <Content Include="Views\Productor\GetMyProductsSelledAndProfit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
