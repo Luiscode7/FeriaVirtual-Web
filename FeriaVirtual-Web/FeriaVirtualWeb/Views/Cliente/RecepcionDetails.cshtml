@@ -1,43 +1,100 @@
-﻿@model FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel
+﻿@model FeriaVirtualWeb.Models.DataContext.PAGO
 
 @{
     Layout = "~/Views/Shared/_LayoutClienteExterno.cshtml";
+    List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> listaP = ViewBag.productos;
 }
 
-<div>
-    <h5>Detalle Recepcion</h5>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NOMBRECLIENTE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NOMBRECLIENTE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FECHA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FECHA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PAISCLIENTE)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PAISCLIENTE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CLIENTEFINAL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CLIENTEFINAL)
-        </dd>
-    </dl>
+<div class="breadcomb-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="breadcomb-list">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="breadcomb-wp">
+                            <div class="breadcomb-icon">
+                                <i class="notika-icon notika-form"></i>
+                            </div>
+                            <div class="breadcomb-ctn">
+                                <h2>Procesos de Venta Externos</h2>
+                                <p>Concrete la venta para cada proceso</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="card text-center col-6 pr-0 pl-0 ml-2">
+    <div class="card-header pr-0 pl-0">
+        Detalle
+    </div>
+    <div class="card-body" id="card-venta">
+        <div>
+            <div>@Html.DisplayName("Datos de Productos")</div>
+            <br />
+            <table class="table table-condensed">
+                <tr>
+                    <th>
+                        @Html.DisplayName("PRODUCTO")
+                    </th>
+                    <th>
+                        @Html.DisplayName("CANTIDAD")
+                    </th>
+                    <th>
+                        @Html.DisplayName("PRECIO")
+                    </th>
+                </tr>
+                @foreach (var item in listaP)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item.DESCRIPCION)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.CANTIDAD)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.PRECIO)
+                        </td>
+                    </tr>
+                }
+            </table>
+            <hr />
+            <div>@Html.DisplayName("Datos del Pago")</div>
+            <br />
+            <table class="table table-condensed">
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.IDPAGO)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.IDPAGO)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.FECHA)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.FECHA)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.TOTAL)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.TOTAL)
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+

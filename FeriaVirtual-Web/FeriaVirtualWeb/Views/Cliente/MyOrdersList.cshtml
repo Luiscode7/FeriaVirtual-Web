@@ -34,13 +34,21 @@
             <td>
                 <a href="#exampleModalCenter2" class="btnDetalles btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDORDEN">Detalles</a>
 
-                @if (item.ESTADO != "Recepcionado")
+                @if (item.ESTADO != "Recepcionado" && item.ESTADO != "Pagado")
                 {
                     <a href="#exampleModalCenter2" class="btnRecepcion btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDORDEN">Recepcion</a>
                 }
                 else
-                { 
-                    @Html.ActionLink("Pagar", "Pagar", new { id = item.IDORDEN})
+                {
+                    if (item.ESTADO == "Recepcionado")
+                    {
+                        @Html.ActionLink("Pagar", "Pagar", new { id = item.IDORDEN }, new { @class = "btn btn-success notika-btn-success" })
+                    }
+
+                }
+                @if (item.ESTADO == "Pagado")
+                {
+                    @Html.ActionLink("Detalle Transaccion", "RecepcionDetails", new { id = item.IDORDEN }, new { @class = "btn btn-success notika-btn-success" })
                 }
             </td>
         </tr>

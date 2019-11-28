@@ -38,9 +38,11 @@ namespace FeriaVirtualWeb.Controllers
         {
             var usuario = (USUARIO)Session["usuario"];
             ViewBag.session = usuario.NOMBREUSUARIO;
-            var procesoByorden = collection.GetProcesoDecimalByOrden(id);
-            var listadoDetails = collection.GetDatosClientByProcesoVenta(procesoByorden);
-            return View(listadoDetails);
+            var ventaM = new VentaManager();
+            var productosOr = ventaM.GetProductByOrden(id);
+            var pago = collection.GetPago(id);
+            ViewBag.productos = ventaM.GetProductsWithCantidadAndPrecioToResumenVenta(productosOr);
+            return View(pago);
         }
 
         public ActionResult Pagar(decimal id)

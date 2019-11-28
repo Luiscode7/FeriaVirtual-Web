@@ -11,11 +11,17 @@ namespace FeriaVirtualWeb.Models.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PAGO
     {
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        [Display(Name = "N° PAGO")]
         public decimal IDPAGO { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public System.DateTime FECHA { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C0}")]
+        [Display(Name = "COSTO TOTAL")]
         public decimal? TOTAL { get; set; }
         public decimal? ORDEN_IDORDEN { get; set; }
     

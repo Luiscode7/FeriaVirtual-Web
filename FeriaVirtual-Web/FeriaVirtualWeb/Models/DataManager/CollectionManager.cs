@@ -930,5 +930,13 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return query;
             }
         }
+
+        public PAGO GetPago(decimal? ordenid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PAGO.Where(p => p.ORDEN_IDORDEN == ordenid).FirstOrDefault();
+            }
+        }
     }
 }
