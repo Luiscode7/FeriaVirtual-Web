@@ -1,0 +1,147 @@
+﻿@model FeriaVirtualWeb.Models.DataContext.VENTA
+
+@{
+    Layout = "~/Views/Shared/_LayoutClienteExterno.cshtml";
+    List<FeriaVirtualWeb.Models.DataContext.PRODUCTO> listaP = ViewBag.productos;
+}
+
+<div class="breadcomb-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="breadcomb-list">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="breadcomb-wp">
+                            <div class="breadcomb-icon">
+                                <i class="notika-icon notika-form"></i>
+                            </div>
+                            <div class="breadcomb-ctn">
+                                <h2>Pago de Orden de Compra Recepcionada</h2>
+                                <p>Proceder a realizar el pago correspondiente a la orden que ya ha sido recepcionada</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card col-6 pr-0 pl-0 ml-2">
+    <div class="card-header text-center pr-0 pl-0">
+        Realizar Pago de Orden
+    </div>
+    <div class="card-body" id="card-venta">
+        @using (Html.BeginForm("FormalizarPago", "Cliente", FormMethod.Post, new { id = "form-pagar" }))
+        {
+            @Html.HiddenFor(model => Model.COSTOTOTAL)
+            @Html.HiddenFor(model => Model.PROCESOVENTA_IDPROCESOVENTA)
+            <div>
+                <div>@Html.DisplayName("Productos Recepcionados")</div>
+                <br />
+                <table class="table table-condensed">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("PRODUCTO")
+                        </th>
+                        <th>
+                            @Html.DisplayName("CANTIDAD")
+                        </th>
+                        <th>
+                            @Html.DisplayName("PRECIO")
+                        </th>
+                    </tr>
+                    @foreach (var item in listaP)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => item.DESCRIPCION)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.CANTIDAD)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.PRECIO)
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <hr />
+                <div>@Html.DisplayName("Datos para el Pago")</div>
+                <br />
+                <table class="table table-condensed">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.COSTOTOTAL)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.COSTOTOTAL)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="chosen-select-act fm-cmp-mg">
+                                @Html.DropDownListFor(modelItem => Model.METODOPAGO, new List<SelectListItem>
+                           { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true },
+                               new SelectListItem { Text = "Tarjeta de Credito", Value = "credito" },
+                               new SelectListItem { Text = "Transferencia", Value = "transferencia" } },
+                                new { @class = "drop chosen form-control" })
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="boton">
+                <input type="submit" class="btnPagarT btn btn-success notika-btn-success" value="Pagar" />
+                <div class="loadbuttonP d-flex justify-content-center"></div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".drop").on('change', function () {
+            if ($(".drop").val() == "credito") {
+                var padre = $(this).parent().parent().parent().parent();
+                padre.append("<tr><td><input type='text' class='numero form-control' placeholder='numero de tarjeta'/></td></tr>");
+                padre.append("<tr><td><input type='text' class='cvc form-control' placeholder='CVC'/></td></tr>");
+            } else {
+                if ($(".drop").val() == "transferencia") {
+                    $(".numero").parent().parent().hide();
+                    $(".cvc").parent().parent().hide();
+                }
+            }
+        })
+
+        var form = $("#form-pagar");
+        var botonPagar = $(".btnPagarT");
+
+        botonPagar.click(function () {
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                dataType: 'html',
+                data: form.serialize(),
+                beforeSend: function () {
+                    botonPagar.replaceWith($(".loadbuttonP"));
+                    $(".loadbuttonP").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+                },
+                success: function (response) {
+                    if (response) {
+                        toastr.options = {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "4000",
+                        }
+                        toastr["success"]("Su Pago Ha sido Realizado Exitosamente")
+                        $(".loadbuttonP").remove();
+                        $(".boton").append("<input type='submit' class='btnPagarT btn btn-success notika-btn-success' value='Pagar' />");
+                    }
+                }
+            });
+            return false;
+        });
+        
+    });
+</script>

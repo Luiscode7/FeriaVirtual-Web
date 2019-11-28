@@ -19,6 +19,8 @@
 
         @for (var i = 0; i < Model.Count(); i++)
         {
+            @Html.HiddenFor(model => Model[i].RUTPRODUCTOR)
+            @Html.HiddenFor(model => Model[i].NOMBRE)
             @Html.HiddenFor(model => Model[i].TELEFONO)
             @Html.HiddenFor(model => Model[i].CORREO)
             @Html.HiddenFor(model => Model[i].DIRECCION)
@@ -80,14 +82,14 @@
                     $(".loadbuttonRG").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
                 },
                 success: function (response) {
-                    if (response) {
-                        $("#exampleModalCenter").modal("hide");
-                        toastr.options = {
-                            "positionClass": "toast-top-right",
-                            "timeOut": "4000",
-                        }
-                        toastr["success"]("Las Ganancias Han sido Enviadas Exitosamente")
-                    }
+                    //if (response) {
+                    //    $("#exampleModalCenter").modal("hide");
+                    //    toastr.options = {
+                    //        "positionClass": "toast-top-right",
+                    //        "timeOut": "4000",
+                    //    }
+                    //    toastr["success"]("Las Ganancias Han sido Enviadas Exitosamente")
+                    //}
                 }
             });
             return false;

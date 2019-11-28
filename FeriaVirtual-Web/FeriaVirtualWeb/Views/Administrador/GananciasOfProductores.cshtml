@@ -1,0 +1,119 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.VENTA>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<div class="breadcomb-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="breadcomb-list">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="breadcomb-wp">
+                            <div class="breadcomb-icon">
+                                <i class="notika-icon notika-form"></i>
+                            </div>
+                            <div class="breadcomb-ctn">
+                                <h2>Ganancias de Productores</h2>
+                                <p>Vea las ganancias repartidas a los productores</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card col-6 pr-0 pl-0 ml-2">
+    <div class="card-header text-center pr-0 pl-0">
+        Ganancias
+    </div>
+    <div class="card-body" id="card-venta">
+        <table class="table table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IDVENTA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FECHA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IMPUESTOADUANA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.COSTOTRANSPORTE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.COMISIONEMPRESA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.COSTOTOTAL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GANANCIA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ESTADO)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EMPRESA_RUTEMPRESA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GANANCIAPRODUCTORNETA)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GANANCIATOTAL)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDVENTA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FECHA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IMPUESTOADUANA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.COSTOTRANSPORTE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.COMISIONEMPRESA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.COSTOTOTAL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GANANCIA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ESTADO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EMPRESA_RUTEMPRESA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PROCESOVENTA_IDPROCESOVENTA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GANANCIAPRODUCTORNETA)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GANANCIATOTAL)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>

@@ -173,6 +173,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public decimal? GetOrdenIdByProcedoId(decimal? procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PROCESOVENTA.Where(p => p.IDPROCESOVENTA == procesoid).FirstOrDefault().ORDENID;
+            }
+        }
+
         public List<PRODUCTO> GetMyProductsByOrders(decimal? orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -685,7 +693,15 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public List<PRODUCTO> GetProductsAccepted(decimal proceso)
+        public List<PRODUCTO> GetMyProductsAcceptedByListProductor(string rut, decimal? proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == rut && p.IDPROCESOVENTA == proceso && p.ESTADOPROCESO == "Aceptado").ToList();
+            }
+        }
+
+        public List<PRODUCTO> GetProductsAccepted(decimal? proceso)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
@@ -712,7 +728,7 @@ namespace FeriaVirtualWeb.Models.DataManager
             return total;
         }
 
-        public VENTA GetVentaByProcesoVenta(decimal proceso)
+        public VENTA GetVentaByProcesoVenta(decimal? proceso)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
@@ -764,6 +780,61 @@ namespace FeriaVirtualWeb.Models.DataManager
 
             }
             
+            return gananciaTotal;
+        }
+
+        public List<VENTA> GetMyProfitListToAdmin(List<PRODUCTO> productsAceptados, VENTA venta, decimal? preciTotalP, string rut)
+        {
+            var gananciaTotal = new List<VENTA>();
+            decimal? ventaGanancia = 0;
+            decimal? costoTranporte = 0;
+            decimal? gananciaEmp = 0;
+            decimal? aduana = venta.IMPUESTOADUANA / 100;
+            decimal? costoAduana = 0;
+
+            var listaByProductor = GetProductoresByProductsAccepteed(productsAceptados);
+            if (listaByProductor.Count() > 1)
+            {
+                costoTranporte = venta.COSTOTRANSPORTE / listaByProductor.Count();
+                gananciaEmp = venta.GANANCIA / listaByProductor.Count();
+                costoAduana = venta.COSTOTOTAL * aduana / listaByProductor.Count();
+
+                foreach (var item in listaByProductor)
+                {
+                    if (item.PRODUCTOR_RUTPRODUCTOR == rut)
+                    {
+                        ventaGanancia = preciTotalP - costoTranporte - gananciaEmp - costoAduana;
+
+                        gananciaTotal.Add(new VENTA
+                        {
+                            GANANCIAPRODUCTORNETA = preciTotalP,
+                            COSTOTRANSPORTE = costoTranporte,
+                            COMISIONEMPRESA = venta.COMISIONEMPRESA,
+                            GANANCIA = gananciaEmp,
+                            IMPUESTOADUANA = costoAduana,
+                            GANANCIATOTAL = ventaGanancia
+
+                        });
+
+                    }
+                }
+            }
+            else
+            {
+                ventaGanancia = preciTotalP - venta.COSTOTRANSPORTE - venta.GANANCIA - (aduana * preciTotalP);
+
+                gananciaTotal.Add(new VENTA
+                {
+                    GANANCIAPRODUCTORNETA = preciTotalP,
+                    COSTOTRANSPORTE = venta.COSTOTRANSPORTE,
+                    GANANCIA = venta.GANANCIA,
+                    IMPUESTOADUANA = venta.IMPUESTOADUANA,
+                    GANANCIATOTAL = ventaGanancia
+
+                });
+               
+            }
+
             return gananciaTotal;
         }
 

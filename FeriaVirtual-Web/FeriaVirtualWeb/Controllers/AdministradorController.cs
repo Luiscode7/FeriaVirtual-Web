@@ -140,10 +140,23 @@ namespace FeriaVirtualWeb.Controllers
             return View(agregarProcesoventa);
         }
 
-        [HttpPost]
         public ActionResult GananciasOfProductores(List<PRODUCTOR> productor)
         {
-            return View();
+            var listaPaceptados = new List<PRODUCTO>();
+            var listaPAceppted = new List<PRODUCTO>();
+            var listaPAcceptedtotales = new List<PRODUCTO>();
+            decimal? sumaPrecios = 0;
+            var ventaByProceso = new VENTA();
+            var ganancia = new List<VENTA>(); 
+            foreach (var item in productor)
+            {
+                listaPAceppted = collection.GetMyProductsAcceptedByListProductor(item.RUTPRODUCTOR, item.PROCESOID);
+                listaPAcceptedtotales = collection.GetProductsAccepted(item.PROCESOID);
+                sumaPrecios = collection.TotalSumOfPrecioOfProductorAccordingToOneSell(listaPAceppted);
+                ventaByProceso = collection.GetVentaByProcesoVenta(item.PROCESOID);
+                ganancia = collection.GetMyProfitListToAdmin(listaPAcceptedtotales, ventaByProceso, sumaPrecios, item.RUTPRODUCTOR);
+            }
+            return View(ganancia);
         }
 
         public ActionResult Reportes()

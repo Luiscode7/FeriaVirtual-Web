@@ -16,8 +16,8 @@ namespace FeriaVirtualWeb.Models.DataContext
     {
         public decimal IDPAGO { get; set; }
         public System.DateTime FECHA { get; set; }
-        public decimal TOTAL { get; set; }
-        public decimal ORDEN_IDORDEN { get; set; }
+        public decimal? TOTAL { get; set; }
+        public decimal? ORDEN_IDORDEN { get; set; }
     
         public virtual ORDEN ORDEN { get; set; }
     }

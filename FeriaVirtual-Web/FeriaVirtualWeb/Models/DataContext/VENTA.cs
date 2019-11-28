@@ -46,6 +46,7 @@ namespace FeriaVirtualWeb.Models.DataContext
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         [Display(Name = "GANANCIA TOTAL")]
         public Nullable<decimal> GANANCIATOTAL { get; set; }
+        public List<string> METODOPAGO { get; set; }
 
         public virtual EMPRESA EMPRESA { get; set; }
         public virtual PROCESOVENTA PROCESOVENTA { get; set; }

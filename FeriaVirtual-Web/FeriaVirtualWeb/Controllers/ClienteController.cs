@@ -43,6 +43,33 @@ namespace FeriaVirtualWeb.Controllers
             return View(listadoDetails);
         }
 
+        public ActionResult Pagar(decimal id)
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
+            var ventaM = new VentaManager();
+            var productosOr = ventaM.GetProductByOrden(id);
+            var procesoByorden = collection.GetProcesoDecimalByOrden(id);
+            var venta = collection.GetVentaByProcesoVenta(procesoByorden);
+            ViewBag.productos = ventaM.GetProductsWithCantidadAndPrecioToResumenVenta(productosOr);
+            return View(venta);
+        }
+
+        [HttpPost]
+        public JsonResult FormalizarPago(VENTA venta)
+        {
+            var ordenid = collection.GetOrdenIdByProcedoId(venta.PROCESOVENTA_IDPROCESOVENTA);
+            var pago = new PAGO
+            {
+                TOTAL = venta.COSTOTOTAL,
+                ORDEN_IDORDEN = ordenid
+            };
+            var PagoM = new PagoManager();
+            var insertPago = PagoM.InsertNewPago(pago);
+
+            return Json(insertPago);
+        }
+
         public ActionResult GetListToAddNewOrders()
         {
             var lista = (List<PRODUCTO>)collection.GetProductosList();

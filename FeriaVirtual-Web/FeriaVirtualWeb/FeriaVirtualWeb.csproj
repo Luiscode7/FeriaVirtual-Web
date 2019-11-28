@@ -197,6 +197,7 @@
     <Compile Include="Models\DataManager\ClienteManager.cs" />
     <Compile Include="Models\DataManager\CollectionManager.cs" />
     <Compile Include="Models\DataManager\ContactoManager.cs" />
+    <Compile Include="Models\DataManager\PagoManager.cs" />
     <Compile Include="Models\DataManager\ProcesoVentaManager.cs" />
     <Compile Include="Models\DataManager\ProductorManager.cs" />
     <Compile Include="Models\DataManager\SubastaManager.cs" />
@@ -384,6 +385,8 @@
     <Content Include="Views\Administrador\HistorialVentas.cshtml" />
     <Content Include="Views\Productor\GetMyProductsSelledAndProfit.cshtml" />
     <Content Include="Views\Administrador\RepartirGanancias.cshtml" />
+    <Content Include="Views\Administrador\GananciasOfProductores.cshtml" />
+    <Content Include="Views\Cliente\Pagar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
