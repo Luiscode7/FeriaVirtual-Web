@@ -1084,5 +1084,28 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return db.PAGO.Where(p => p.ORDEN_IDORDEN == ordenid).FirstOrDefault();
             }
         }
+
+        public decimal? GetPagoLocalNeto(List<PRODUCTO> productoscomprados)
+        {
+            decimal? total = 0;
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                foreach (var item in productoscomprados)
+                {
+                    total += item.PRECIO * item.CANTIDAD;
+                }
+                return total;
+            }
+        }
+
+        public decimal? GetPagoLocalTotal(decimal? pagoNeto, VENTA venta)
+        {
+            decimal? total = 0;
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                total = pagoNeto - venta.COSTOTRANSPORTE - venta.GANANCIA;
+            }
+            return total;
+        }
     }
 }

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+
+@{ 
+    Layout = null;
+    decimal? Pago = ViewBag.pago;
+    FeriaVirtualWeb.Models.DataContext.VENTA venta = ViewBag.venta;
+}
+
+<div class="d-flex justify-content-center">@Html.DisplayName("Productos Comprados")</div>
+<br />
+<table class="table table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PRECIO)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model => model.CANTIDAD)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPCION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRECIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CANTIDAD)
+        </td>
+    </tr>
+}
+
+</table>
+<hr />
+<div class="d-flex justify-content-center">@Html.DisplayName("Descuento")</div>
+<table class="table table-condensed">
+
+    <tr>
+        <td>
+            @Html.DisplayName("COSTO TRANSPORTE")
+        </td>
+        <td>
+            @Html.DisplayFor(model => venta.COSTOTRANSPORTE)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayName("COMISION EMPRESA")
+        </td>
+        <td>
+            @Html.DisplayFor(model => venta.GANANCIA)
+        </td>
+    </tr>
+</table>
+<hr />
+<table class="table table-condensed">
+    <tr>
+        <td>
+            @Html.DisplayName("PAGO TOTAL") 
+        </td>
+        <td>
+            @("$" + Pago)
+        </td>
+    </tr>
+</table>
+    
+

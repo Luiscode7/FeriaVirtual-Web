@@ -67,7 +67,8 @@
                         @Html.DisplayFor(modelItem => item.FECHA)
                     </td>
                     <td>
-                        <a href="#exampleModalCenter" class="btnVerP btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDPROCESOVENTA">Ver Productos</a>
+                        <a href="#exampleModalCenter" class="btnVerP btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDPROCESOVENTA">Productos Comprados</a>
+                        <a href="#exampleModalCenter" class="btnGanancia btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDPROCESOVENTA">Ganancias</a>
                     </td>
                 </tr>
             }
@@ -79,5 +80,9 @@
 <script>
     $(".btnVerP").click(function () {
         $(".modal-body").load("/Productor/GetProductComprados/" + $(this).data("id"));
+    });
+
+    $(".btnGanancia").click(function () {
+        $(".modal-body").load("/Productor/GetGananciaLocales/" + $(this).data("id"));
     });
 </script>

@@ -157,5 +157,18 @@ namespace FeriaVirtualWeb.Controllers
             var misPlocales = collection.GetMyProductListProcesoLocalComprados(usuario, id);
             return View(misPlocales);
         }
+
+        public ActionResult GetGananciaLocales(decimal id)
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            var misPlocales = (List<PRODUCTO>)collection.GetMyProductListProcesoLocalComprados(usuario, id);
+            var pagoNeto = collection.GetPagoLocalNeto(misPlocales);
+            var ventaByProceso = collection.GetVentaByProcesoVenta(id);
+            var pagoTotal = collection.GetPagoLocalTotal(pagoNeto, ventaByProceso);
+
+            ViewBag.venta = ventaByProceso;
+            ViewBag.pago = pagoTotal;
+            return View(misPlocales);
+        }
     }
 }
