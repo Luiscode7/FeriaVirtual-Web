@@ -123,5 +123,12 @@ namespace FeriaVirtualWeb.Controllers
             return Json(transportista);
         }
 
+        public ActionResult GananciaProcesoExterno(decimal id)
+        {
+            var procesoid = collection.GetProcesoIdBySubastaId(id);
+            var costoTransporte = collection.GetVentaByProcesoVenta(procesoid);
+            return View(costoTransporte);
+        }
+
     }
 }

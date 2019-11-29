@@ -1046,6 +1046,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public decimal? GetProcesoIdBySubastaId(decimal? subastaid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.SUBASTA.Where(s => s.IDSUBASTA == subastaid).FirstOrDefault().PROCESOVENTAID;
+            }
+        }
+
         public decimal? GetCostoTranporteToVenta(decimal? subastaid)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())

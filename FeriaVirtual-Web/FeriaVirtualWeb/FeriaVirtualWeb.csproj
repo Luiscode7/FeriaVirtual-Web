@@ -392,6 +392,7 @@
     <Content Include="Views\Productor\GetMyVentasLocales.cshtml" />
     <Content Include="Views\Productor\GetProductComprados.cshtml" />
     <Content Include="Views\Productor\GetGananciaLocales.cshtml" />
+    <Content Include="Views\Subasta\GananciaProcesoExterno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
