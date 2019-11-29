@@ -623,7 +623,7 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public ProcesoVentaViewModel GetDatosClientByProcesoVenta(decimal? proceso)
+        public List<ProcesoVentaViewModel> GetDatosClientByProcesoVenta(decimal? proceso)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
@@ -632,7 +632,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                              join pr in db.PRODUCTO on pv.IDPROCESOVENTA equals
                              pr.IDPROCESOVENTA join pd in db.PRODUCTOR on
                              pr.PRODUCTOR_RUTPRODUCTOR equals pd.RUTPRODUCTOR
-                             where pv.IDPROCESOVENTA == proceso
+                             where pv.IDPROCESOVENTA == proceso && pr.ESTADOPROCESO == "Aceptado"
                              select new ProcesoVentaViewModel()
                              {
                                  IDSUBASTA = sb.IDSUBASTA,
@@ -642,12 +642,62 @@ namespace FeriaVirtualWeb.Models.DataManager
                                  FECHA = pv.FECHA,
                                  TIPOPROCESO = pr.TIPOVENTA
 
-                             }).FirstOrDefault();
+                             }).GroupBy(p => p.NOMBREPRODUCTOR).Select(p => p.FirstOrDefault()).ToList();
 
-                return query as ProcesoVentaViewModel;
+                return query as List<ProcesoVentaViewModel>;
             }
         }
 
+        public List<ProcesoVentaViewModel> GetDatosClientByProcesoVentaL(decimal? proceso)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from sb in db.SUBASTA join pv in db.PROCESOVENTA
+                             on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+                             join pr in db.PRODUCTO on pv.IDPROCESOVENTA equals
+                             pr.IDPROCESOVENTA join pd in db.PRODUCTOR on
+                             pr.PRODUCTOR_RUTPRODUCTOR equals pd.RUTPRODUCTOR
+                             where pv.IDPROCESOVENTA == proceso && pr.TIPOVENTA == "Local"
+                             select new ProcesoVentaViewModel()
+                             {
+                                 IDSUBASTA = sb.IDSUBASTA,
+                                 NOMBREPRODUCTOR = pd.NOMBRE,
+                                 DIRECCIONCLINICIAL = pd.DIRECCION,
+                                 TELEFONOCLI = pd.TELEFONO,
+                                 FECHA = pv.FECHA,
+                                 TIPOPROCESO = pr.TIPOVENTA
+
+                             }).GroupBy(p => p.NOMBREPRODUCTOR).Select(p => p.FirstOrDefault()).ToList();
+
+                return query as List<ProcesoVentaViewModel>;
+            }
+        }
+
+        public List<ProcesoVentaViewModel> GetDatosClientByProcesoVentaL(string rut, decimal? procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from sb in db.SUBASTA join pv in db.PROCESOVENTA
+                             on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+                             join pr in db.PRODUCTO on pv.IDPROCESOVENTA equals
+                             pr.IDPROCESOVENTA join pd in db.PRODUCTOR on
+                             pr.PRODUCTOR_RUTPRODUCTOR equals pd.RUTPRODUCTOR
+                             where pr.CLIENTEINTERNO == rut && pr.IDPROCESOVENTA == procesoid
+                             && pr.TIPOVENTA == "Local"
+                             select new ProcesoVentaViewModel()
+                             {
+                                 IDSUBASTA = sb.IDSUBASTA,
+                                 NOMBREPRODUCTOR = pd.NOMBRE,
+                                 DIRECCIONCLINICIAL = pd.DIRECCION,
+                                 TELEFONOCLI = pd.TELEFONO,
+                                 FECHA = pv.FECHA,
+                                 TIPOPROCESO = pr.TIPOVENTA
+
+                             }).GroupBy(p => p.NOMBREPRODUCTOR).Select(p => p.FirstOrDefault()).ToList();
+
+                return query as List<ProcesoVentaViewModel>;
+            }
+        }
         public ProcesoVentaViewModel GetDatosClientByProcesoVentaLocal(decimal? proceso)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())

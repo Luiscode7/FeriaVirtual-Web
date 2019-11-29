@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using FeriaVirtualWeb.Filter;
 using FeriaVirtualWeb.Models.DataContext;
 using FeriaVirtualWeb.Models.DataManager;
@@ -57,22 +58,17 @@ namespace FeriaVirtualWeb.Controllers
             };
             proceso = collection.GetProcesoIdBySubastaId(id);
             var detallesCli = collection.GetDatosClientByProcesoVenta(proceso);
-            ViewBag.datoscliente = detallesCli;
-
+            var detallesCliL = collection.GetDatosClientByProcesoVentaL(proceso);
             var clientedatos = new ProcesoVentaViewModel();
-            if (detallesCli.TIPOPROCESO == "Local")
+
+            if (detallesCli.Count() > 0)
             {
-                var datos = collection.GetDatosClientByProcesoVentaLocal(proceso);
-                var cliente = collection.GetDatosClienteByRutOfProducto(datos.RUTCLIENTELOCAL);
-                var productosLocal = collection.GetProductosByRutClienteLocalAndProceso(cliente.RUTCLIENTE, proceso);
-
-                clientedatos.IDSUBASTA = datos.IDSUBASTA;
-                clientedatos.NOMBRECLIENTE = cliente.NOMBRE;
-                clientedatos.DIRECCIONCLINICIAL = cliente.DIRECCION;
-                clientedatos.TELEFONOCLI = cliente.TELEFONO;
+                ViewBag.datoscliente = detallesCli;
             }
-
-            ViewBag.datosclienteL = clientedatos;
+            if(detallesCliL.Count() > 0)
+            {
+                ViewBag.datosclienteL = detallesCliL;
+            }
 
             return View(trans);
         }
@@ -93,15 +89,11 @@ namespace FeriaVirtualWeb.Controllers
             var idproceso = id;
             var datos = collection.GetDatosClientByProcesoVentaLocal(idproceso);
             var cliente = collection.GetDatosClienteByRutOfProducto(datos.RUTCLIENTELOCAL);
+            var productor = collection.GetDatosClientByProcesoVentaL(datos.RUTCLIENTELOCAL, idproceso);
             var productosLocal = collection.GetProductosByRutClienteLocalAndProceso(cliente.RUTCLIENTE, idproceso);
-            var clientedatos = new ProcesoVentaViewModel
-            {
-                IDSUBASTA = datos.IDSUBASTA,
-                NOMBRECLIENTE = cliente.NOMBRE,
-                DIRECCIONCLINICIAL = cliente.DIRECCION
-            };
+            
             ViewBag.productos = productosLocal;
-            return View(clientedatos);
+            return View(productor);
         }
 
         public ActionResult AddTransportAndPrecioToSubasta(decimal id)

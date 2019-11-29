@@ -1,4 +1,4 @@
-﻿@model FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel
+﻿@model List<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
 
 @{ 
     Layout = null;
@@ -6,38 +6,32 @@
 }
 
 <div>
-    <hr />
+    <div class="d-flex justify-content-center">@Html.DisplayName("Datos de Viaje")</div>
+    <br />
     <table class="table table-condensed">
         <tr>
-            <td class="text-table-modal">
-                @Html.DisplayNameFor(model => model.IDSUBASTA)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.IDSUBASTA)
-            </td>
+            <th>
+                @Html.DisplayName("PRODUCTOR")
+            </th>
+            <th>
+                @Html.DisplayName("DIRECCION")
+            </th>
         </tr>
-       
-        <tr>
-            <td class="text-table-modal">
-                @Html.DisplayNameFor(model => model.NOMBREPRODUCTOR)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.NOMBREPRODUCTOR)
-            </td>
-        </tr>
-        
-        <tr>
-            <td class="text-table-modal">
-                @Html.DisplayNameFor(model => model.DIRECCIONCLINICIAL)
-            </td>
-
-            <td>
-                @Html.DisplayFor(model => model.DIRECCIONCLINICIAL)
-            </td>
-        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.NOMBREPRODUCTOR)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.DIRECCIONCLINICIAL)
+                </td>
+            </tr>
+        }
     </table>
+    <hr />
+    <div class="d-flex justify-content-center">@Html.DisplayName("Datos de Productos de Despacho")</div>
+    <br />
     <table class="table table-bordered">
         <tr>
             <th>
@@ -47,7 +41,7 @@
                 @Html.DisplayName("CANTIDAD")
             </th>
         </tr>
-        @foreach(var item in listaproductos)
+        @foreach (var item in listaproductos)
         {
             <tr>
                 <td>
