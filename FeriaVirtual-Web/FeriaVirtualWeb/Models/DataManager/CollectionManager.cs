@@ -504,6 +504,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                 var listadoAceptados = GetMyPostulacionesAceptadas(usuario);
                 var listadoPendientes = GetMyPostulacionesPendientes(usuario);
                 var listadoMovidos = GetMyPostulacionesMovidas(usuario);
+                var listadoRechazados = GetMyPostulacionesRechazadas(usuario);
 
                 foreach (var item in listadoPendientes)
                 {
@@ -522,6 +523,22 @@ namespace FeriaVirtualWeb.Models.DataManager
                 }
 
                 foreach (var item in listadoMovidos)
+                {
+                    repetido = listadoAceptados.Where(p => p.PROCESO == item.PROCESO).FirstOrDefault();
+                    if (repetido == null)
+                    {
+                        listadoAceptados.Add(new ProcesoVentaViewModel
+                        {
+                            PROCESO = item.PROCESO,
+                            ESTADO = item.ESTADO,
+                            FECHA = item.FECHA,
+                            ORDEN = item.ORDEN,
+                            TIPOPROCESO = item.TIPOPROCESO
+                        });
+                    }
+                }
+
+                foreach (var item in listadoRechazados)
                 {
                     repetido = listadoAceptados.Where(p => p.PROCESO == item.PROCESO).FirstOrDefault();
                     if (repetido == null)
@@ -597,6 +614,29 @@ namespace FeriaVirtualWeb.Models.DataManager
                              equals pr.IDPROCESOVENTA
                              where pr.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
                              && pr.TIPOVENTA == "Externo" && pr.ESTADOPROCESO == "Movido"
+                             select new ProcesoVentaViewModel
+                             {
+                                 PROCESO = pr.IDPROCESOVENTA,
+                                 ESTADO = pr.ESTADOPROCESO,
+                                 FECHA = pv.FECHA,
+                                 ORDEN = pv.ORDENID,
+                                 TIPOPROCESO = pv.TIPOPROCESO
+
+                             }).GroupBy(p => p.PROCESO).Select(p => p.FirstOrDefault()).ToList();
+
+                return query as List<ProcesoVentaViewModel>;
+            }
+        }
+
+        private List<ProcesoVentaViewModel> GetMyPostulacionesRechazadas(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from pv in db.PROCESOVENTA
+                             join pr in db.PRODUCTO on pv.IDPROCESOVENTA
+                             equals pr.IDPROCESOVENTA
+                             where pr.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                             && pr.TIPOVENTA == "Externo" && pr.ESTADOPROCESO == "Rechazado"
                              select new ProcesoVentaViewModel
                              {
                                  PROCESO = pr.IDPROCESOVENTA,

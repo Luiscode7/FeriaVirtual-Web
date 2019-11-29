@@ -97,6 +97,12 @@
                     @Html.DisplayFor(model => item.CANTIDADACEPTADA)
                 </td>
             }
+            else
+            {
+                <td>
+                    @("0")
+                </td>
+            }
             <td>
                 @Html.DisplayFor(model => item.ESTADOPROCESO)
             </td>
