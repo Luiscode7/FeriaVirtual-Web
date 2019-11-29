@@ -136,15 +136,31 @@ namespace FeriaVirtualWeb.Models.DataManager
                             var repetido = newList.Where(p => p.DESCRIPCION == item2.DESCRIPCION).FirstOrDefault();
                             if(repetido == null)
                             {
-                                newList.Add(new PRODUCTO
+                                if(productosP.Count() == 1)
                                 {
-                                    IDPRODUCTO = item2.IDPRODUCTO,
-                                    DESCRIPCION = item2.DESCRIPCION,
-                                    PRECIO = item2.PRECIO,
-                                    STOCK = item2.CANTIDAD,
-                                    CANTIDAD = item.CANTIDAD,
-                                    PRODUCTOR_RUTPRODUCTOR = item2.PRODUCTOR_RUTPRODUCTOR
-                                });
+                                    newList.Add(new PRODUCTO
+                                    {
+                                        IDPRODUCTO = item2.IDPRODUCTO,
+                                        DESCRIPCION = item2.DESCRIPCION,
+                                        PRECIO = item2.PRECIO *item2.CANTIDAD,
+                                        STOCK = item2.CANTIDAD,
+                                        CANTIDAD = item.CANTIDAD,
+                                        PRODUCTOR_RUTPRODUCTOR = item2.PRODUCTOR_RUTPRODUCTOR
+                                    });
+                                }
+                                else
+                                {
+                                    newList.Add(new PRODUCTO
+                                    {
+                                        IDPRODUCTO = item2.IDPRODUCTO,
+                                        DESCRIPCION = item2.DESCRIPCION,
+                                        PRECIO = item2.PRECIO,
+                                        STOCK = item2.CANTIDAD,
+                                        CANTIDAD = item.CANTIDAD,
+                                        PRODUCTOR_RUTPRODUCTOR = item2.PRODUCTOR_RUTPRODUCTOR
+                                    });
+                                }
+                                
                             }
                             else
                             {

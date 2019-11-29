@@ -41,6 +41,8 @@ namespace FeriaVirtualWeb.Models.DataContext
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         [Display(Name = "MONTO TOTAL")]
         public decimal? MONTOTOTALPRECIO { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
+        public decimal? CANTIDADACEPTADA { get; set; }
 
         public virtual ORDEN ORDEN { get; set; }
         public virtual PROCESOVENTA PROCESOVENTA { get; set; }

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+
+@{ 
+    Layout = null;
+}
+
+<table class="table table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PRECIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CANTIDAD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLIENTEINTERNO)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPCION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PRECIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CANTIDAD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLIENTEINTERNO)
+        </td>
+    </tr>
+}
+
+</table>

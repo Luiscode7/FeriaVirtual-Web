@@ -101,6 +101,29 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public IEnumerable<PRODUCTO> GetMyProductListProcesoLocalComprados(USUARIO usuario, decimal procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO &&
+                p.TIPOVENTA == "Local" && p.IDPROCESOVENTA == procesoid && p.CLIENTEINTERNO != null).ToList();
+            }
+        }
+
+        public List<PROCESOVENTA> GetMyProcesoVentaLocal(USUARIO usuario)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from pr in db.PRODUCTO join pv in db.PROCESOVENTA
+                             on pr.IDPROCESOVENTA equals pv.IDPROCESOVENTA
+                             where pr.PRODUCTOR_RUTPRODUCTOR == usuario.RUTUSUARIO
+                             && pr.TIPOVENTA == "Local"
+                             select pv).GroupBy(p => p.IDPROCESOVENTA).Select(p => p.FirstOrDefault()).ToList();
+
+                return query;
+            }
+        }
+
         private List<PRODUCTO> GetProductsRejected(USUARIO usuario)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -246,7 +269,8 @@ namespace FeriaVirtualWeb.Models.DataManager
                         DESCRIPCION = item.DESCRIPCION,
                         CANTIDAD = producto.CANTIDAD,
                         STOCK = item.STOCK,
-                        ESTADOPROCESO = item.ESTADOPROCESO
+                        ESTADOPROCESO = item.ESTADOPROCESO,
+                        CANTIDADACEPTADA = item.CANTIDAD
                     });
                 }
                 return lista;

@@ -73,6 +73,9 @@
                 @Html.DisplayName("CANTIDAD ENVIADA")
             </th>
             <th>
+                @Html.DisplayName("CANTIDAD ACEPTADA")
+            </th>
+            <th>
                 @Html.DisplayName("ESTADO")
             </th>
         </tr>
@@ -88,6 +91,12 @@
             <td>
                 @Html.DisplayFor(model => item.STOCK)
             </td>
+            @if (item.ESTADOPROCESO == "Aceptado")
+            {
+                <td>
+                    @Html.DisplayFor(model => item.CANTIDADACEPTADA)
+                </td>
+            }
             <td>
                 @Html.DisplayFor(model => item.ESTADOPROCESO)
             </td>
