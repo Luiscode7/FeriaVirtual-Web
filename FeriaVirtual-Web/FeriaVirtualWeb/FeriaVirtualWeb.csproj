@@ -387,6 +387,8 @@
     <Content Include="Views\Administrador\RepartirGanancias.cshtml" />
     <Content Include="Views\Administrador\GananciasOfProductores.cshtml" />
     <Content Include="Views\Cliente\Pagar.cshtml" />
+    <Content Include="Views\Administrador\ProcesosVentaLocal.cshtml" />
+    <Content Include="Views\Administrador\DetalleProcesoVentaLocal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

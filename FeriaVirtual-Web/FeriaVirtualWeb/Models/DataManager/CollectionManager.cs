@@ -920,6 +920,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public List<PROCESOVENTA> GetProcesoVentaLocalListToAdmin()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PROCESOVENTA.Where(pv => pv.TIPOPROCESO == "Local").ToList();
+            }
+        }
+
         public List<ProcesoVentaViewModel> GetProductorDatosbyOrdenId(decimal ordenid)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -935,6 +943,30 @@ namespace FeriaVirtualWeb.Models.DataManager
                                  PRECIOP = pr.PRECIO,
                                  STOCKP = pr.STOCK,
                                  CANTIDAD = pr.CANTIDAD
+
+                             }).ToList();
+
+                return query as List<ProcesoVentaViewModel>;
+            }
+        }
+
+        public List<ProcesoVentaViewModel> GetProductorDatosbyProcesoId(decimal procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from pd in db.PRODUCTOR join pr in db.PRODUCTO
+                             on pd.RUTPRODUCTOR equals pr.PRODUCTOR_RUTPRODUCTOR
+                             where pr.IDPROCESOVENTA == procesoid
+                             && pr.TIPOVENTA == "Local" && pr.CLIENTEINTERNO != null
+                             select new ProcesoVentaViewModel
+                             {
+                                 NOMBREPRODUCTOR = pd.NOMBRE,
+                                 NOMBRECLIENTE = pr.CLIENTEINTERNO,
+                                 DESCRIPCIONP = pr.DESCRIPCION,
+                                 PRECIOP = pr.PRECIO,
+                                 STOCKP = pr.STOCK,
+                                 CANTIDAD = pr.CANTIDAD,
+                                 PROCESO = pr.IDPROCESOVENTA
 
                              }).ToList();
 

@@ -178,5 +178,51 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return costoTotal;
             }
         }
+
+        public VENTA InsertNewVentaLocal(List<ProcesoVentaViewModel> productos)
+        {
+            decimal? costoByproducto = 0;
+            double comisionemp = 0.20;
+            decimal? comision = (decimal)comisionemp;
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                foreach (var item in productos)
+                {
+                    costoByproducto += item.PRECIOP * item.CANTIDAD;
+                }
+
+                VENTA venta = new VENTA();
+                venta.IDVENTA = DatabaseUtil.GetNextIDVenta();
+                venta.FECHA = DateTime.Now;
+                venta.COSTOTRANSPORTE = CostoTransporte(productos[0].PROCESO);
+                venta.COMISIONEMPRESA = comision * 100;
+                venta.COSTOTOTAL = costoByproducto;
+                venta.GANANCIA = costoByproducto * comision;
+                venta.PROCESOVENTA_IDPROCESOVENTA = productos[0].PROCESO;
+
+                db.VENTA.Add(venta);
+                db.SaveChanges();
+
+                return venta;
+
+            }
+        }
+
+        private decimal? CostoTransporte(decimal? procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var subastaid = GetSubastaIdByProcesoVenta(procesoid);
+                return db.TRANSPORTISTA.Where(t => t.SUBASTAID == subastaid).FirstOrDefault().PRECIO;
+            }
+        }
+
+        private decimal? GetSubastaIdByProcesoVenta(decimal? procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.SUBASTA.Where(s => s.PROCESOVENTAID == procesoid).FirstOrDefault().IDSUBASTA;
+            }
+        } 
     }
 }

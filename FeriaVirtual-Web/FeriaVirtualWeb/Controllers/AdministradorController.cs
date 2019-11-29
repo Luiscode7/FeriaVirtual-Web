@@ -159,6 +159,25 @@ namespace FeriaVirtualWeb.Controllers
             return View(ganancia);
         }
 
+        public ActionResult ProcesosVentaLocal()
+        {
+            var pVental = collection.GetProcesoVentaLocalListToAdmin();
+            return View(pVental);
+        }
+
+        public ActionResult DetalleProcesoVentaLocal(decimal id)
+        {
+            var productores = collection.GetProductorDatosbyProcesoId(id);
+            return View(productores);
+        }
+
+        public JsonResult GenerarVentaLocal(List<ProcesoVentaViewModel> productventa)
+        {
+            var ventaM = new VentaManager();
+            var generarv = ventaM.InsertNewVentaLocal(productventa);
+            return Json(productventa);
+        }
+
         public ActionResult Reportes()
         {
 
