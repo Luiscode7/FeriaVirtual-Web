@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using FeriaVirtualWeb.Models.DataManager;
 using FeriaVirtualWeb.Models.DataContext;
 using FeriaVirtualWeb.Filter;
+using FeriaVirtualWeb.Reports;
 
 
 namespace FeriaVirtualWeb.Controllers
@@ -140,6 +141,26 @@ namespace FeriaVirtualWeb.Controllers
             var ventaByProceso = collection.GetVentaByProcesoVenta(idproceso);
             var ganancia = collection.GetMyProfit(listaPAcceptedtotales, ventaByProceso, sumaPrecios, usuario);
             return View(ganancia);
+        }
+
+        public ActionResult ExportPDFGanancias(decimal id)
+        {
+            var gananciaR = new GananciasProductor();
+            byte[] bytesG = gananciaR.PdfReport(Ganancia(id));
+            return File(bytesG,"application/pdf", "ReporteGanancia.pdf");
+        }
+
+        private VENTA Ganancia(decimal id)
+        {
+            var idproceso = id;
+            var usuario = (USUARIO)Session["usuario"];
+            var listaPAceppted = collection.GetMyProductsAccepted(usuario, idproceso);
+            var listaPAcceptedtotales = collection.GetProductsAccepted(idproceso);
+            var sumaPrecios = collection.TotalSumOfPrecioOfProductorAccordingToOneSell(listaPAceppted);
+
+            var ventaByProceso = collection.GetVentaByProcesoVenta(idproceso);
+            var ganancia = collection.GetMyProfit(listaPAcceptedtotales, ventaByProceso, sumaPrecios, usuario);
+            return ganancia;
         }
 
         public ActionResult GetMyVentasLocales()

@@ -878,6 +878,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                         gananciaTotal.GANANCIA = gananciaEmp;
                         gananciaTotal.IMPUESTOADUANA = costoAduana;
                         gananciaTotal.GANANCIATOTAL = ventaGanancia;
+                        gananciaTotal.PROCESOVENTA_IDPROCESOVENTA = venta.PROCESOVENTA_IDPROCESOVENTA;
 
                     }
                 }
@@ -891,6 +892,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                 gananciaTotal.GANANCIA = venta.GANANCIA;
                 gananciaTotal.IMPUESTOADUANA = venta.IMPUESTOADUANA;
                 gananciaTotal.GANANCIATOTAL = ventaGanancia;
+                gananciaTotal.PROCESOVENTA_IDPROCESOVENTA = venta.PROCESOVENTA_IDPROCESOVENTA;
 
             }
             

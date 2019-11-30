@@ -10,6 +10,15 @@
     <table class="table table-condensed">
         <tr>
             <td>
+                @Html.DisplayNameFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
+            </td>
+        </tr>
+        <tr>
+            <td>
                 @Html.DisplayNameFor(model => model.IMPUESTOADUANA)
             </td>
 
@@ -54,5 +63,9 @@
             </td>
         </tr>
     </table>
+</div>
+
+<div>
+    @Html.ActionLink("Exportar PDF", "ExportPDFGanancias", new { id = Model.PROCESOVENTA_IDPROCESOVENTA }, new { @class = "btn btn-success notika-btn-success" })
 </div>
 
