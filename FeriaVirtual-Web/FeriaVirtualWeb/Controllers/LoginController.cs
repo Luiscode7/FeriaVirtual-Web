@@ -51,6 +51,9 @@ namespace FeriaVirtualWeb.Controllers
                 case 1:
                     output = RedirectToAction("OfertasTranportistas", "Administrador");
                     break;
+                case 6:
+                    output = RedirectToAction("GetReportes", "Consultor");
+                    break;
                 default:
                     break;
             }

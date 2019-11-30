@@ -1117,5 +1117,46 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
             return total;
         }
+
+        public List<ProcesoVentaViewModel> GetOrdenesList()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from cl in db.CLIENTE join or in db.ORDEN
+                             on cl.RUTCLIENTE equals or.CLIENTE_RUTCLIENTE
+                             select new ProcesoVentaViewModel
+                             {
+                                 ORDEN = or.IDORDEN,
+                                 FECHA = or.FECHA,
+                                 RUTCLIENTELOCAL = cl.RUTCLIENTE,
+                                 NOMBRECLIENTE = cl.NOMBRE
+
+                             }).ToList();
+
+                return query;
+            }
+        }
+
+        public List<ProcesoVentaViewModel> GetSubastaExternaList()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from sb in db.SUBASTA join t in db.TRANSPORTISTA
+                             on sb.IDSUBASTA equals t.SUBASTAID join pv in db.PROCESOVENTA
+                             on sb.PROCESOVENTAID equals pv.IDPROCESOVENTA
+                             where t.ESTADOSUBASTA == "Aceptado" && pv.TIPOPROCESO == "Externo"
+                             select new ProcesoVentaViewModel
+                             {
+                                 IDSUBASTA = sb.IDSUBASTA,
+                                 FECHASUBASTA = sb.FECHA,
+                                 TIPOTRANSPORTE = t.NOMBRE,
+                                 PRECIO = t.PRECIO,
+                                 PROCESO = sb.PROCESOVENTAID
+
+                             }).ToList();
+
+                return query;
+            }
+        }
     }
 }
