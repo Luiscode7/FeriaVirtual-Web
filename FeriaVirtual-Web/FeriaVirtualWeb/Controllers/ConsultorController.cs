@@ -46,6 +46,14 @@ namespace FeriaVirtualWeb.Controllers
             return File(bytesG, "application/pdf", "ListadoSubastaExterna.pdf");
         }
 
+        public ActionResult ExportPDFSubastaLocal()
+        {
+            var listadoSubastaLocal = collection.GetSubastaLocalList();
+            var listado = new ListadoSubastasPLocal();
+            byte[] bytesG = listado.PdfReport(listadoSubastaLocal);
+            return File(bytesG, "application/pdf", "ListadoSubastaLocal.pdf");
+        }
+
         // GET: Consultor/Create
         public ActionResult Create()
         {

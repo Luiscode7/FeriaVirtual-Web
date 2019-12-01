@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.VENTA>
+﻿@model List<FeriaVirtualWeb.Models.DataContext.VENTA>
 
 @{
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
@@ -47,77 +47,105 @@
         Ventas
     </div>
     <div class="card-body" id="card-ventas">
-        <table class="table table-condensed">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.IDVENTA)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FECHA)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IMPUESTOADUANA)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.COSTOTRANSPORTE)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.COMISIONEMPRESA)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.COSTOTOTAL)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.GANANCIA)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PROCESOVENTA_IDPROCESOVENTA)
-                </th>
-                <th>
-                    @Html.DisplayName("ACCIONES")
-                </th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        @using (Html.BeginForm("RepartirGanancias", "Administrador", FormMethod.Post, new { id = "form-repartir" }))
+        {
+            <table class="table table-condensed">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IDVENTA)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FECHA)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IMPUESTOADUANA)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.COSTOTRANSPORTE)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.COMISIONEMPRESA)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.COSTOTOTAL)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GANANCIA)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PROCESOVENTA_IDPROCESOVENTA)
-                    </td>
-                    <td>
-                        <a href="#exampleModalCenter" class="btnGanancias btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.PROCESOVENTA_IDPROCESOVENTA">Repartir Ganancias</a>
-                    </td>
+                    <th>
+                        @Html.DisplayName("N° VENTA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("FECHA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("IMPUESTO ADUANA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("COSTO TRANSPORTE")
+                    </th>
+                    <th>
+                        @Html.DisplayName("COMISION EMPRESA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("COSTO TOTAL")
+                    </th>
+                    <th>
+                        @Html.DisplayName("GANANCIA EMPRESA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("N° PROCESO VENTA")
+                    </th>
+                    <th>
+                        @Html.DisplayName("ACCIONES")
+                    </th>
                 </tr>
-            }
 
-        </table>
+                @for (var i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].IDVENTA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].FECHA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].IMPUESTOADUANA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].COSTOTRANSPORTE)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].COMISIONEMPRESA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].COSTOTOTAL)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].GANANCIA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].PROCESOVENTA_IDPROCESOVENTA)
+                        </td>
+                        <td>
+                            <div class="ganancia">
+                                <a href="#" id="btnGanancias" class="btnGanancias btn btn-success notika-btn-success" data-id="@Model[i].PROCESOVENTA_IDPROCESOVENTA">Repartir Ganancias</a>
+                                <div class="loadbuttonGN d-flex justify-content-center"></div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+
 
     </div>
 </div>
 
 <script>
-    $(".btnGanancias").click(function () {
-        $(".modal-body").load("/Administrador/RepartirGanancias/" + $(this).data("id"));
+   $(document).ready(function () {
+       var form = $("#form-repartir");
+       var btnGanancias = $(".btnGanancias");
+       
+       btnGanancias.click(function () {
+           $.ajax({
+               url: form.attr('action'),
+               type: "POST",
+               dataType: 'html',
+               data: { id: $(this).data("id") },
+                success: function (response) {
+                    if (response) {
+                        toastr.options = {
+                            "positionClass": "toast-top-right",
+                            "timeOut": "4000",
+                        }
+                        toastr["success"]("Las Ganancias han sido Repartidas, Se Ha enviado un Correo a los Productores")   
+                             
+                    }
+                }
+            });
+            return false;
+        });
     });
 </script>

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Net.Mail;
 using System.Web.Mvc;
 using FeriaVirtualWeb.Models.DataContext;
 using FeriaVirtualWeb.Models.DataManager;
@@ -114,30 +115,50 @@ namespace FeriaVirtualWeb.Controllers
             return View(ventas);
         }
 
-        public ActionResult RepartirGanancias(decimal id)
+        public JsonResult RepartirGanancias(decimal id)
         {
-            var procedoid = id;
-            var agregarProcesoventa = new List<PRODUCTOR>();
-            var productores = collection.GetProductorByProcesoVentaToGananciaVenta(id);
-            foreach (var item in productores)
+            var idproceso = id;
+            var listaPAceppted = new List<PRODUCTO>();
+            var ganancia = new VENTA();
+            var usuarios = collection.GetProductoresByProcesoID(id);
+            foreach (var item in usuarios)
             {
-                agregarProcesoventa.Add(new PRODUCTOR
-                {
-                    RUTPRODUCTOR = item.RUTPRODUCTOR,
-                    NOMBRE = item.NOMBRE,
-                    TELEFONO = item.TELEFONO,
-                    CORREO = item.CORREO,
-                    DIRECCION = item.DIRECCION,
-                    CIUDAD = item.CIUDAD,
-                    CONTRATO = item.CONTRATO,
-                    FECHAINICIOCONTRATO = item.FECHAINICIOCONTRATO,
-                    FECHATERMINOCONTRATO = item.FECHATERMINOCONTRATO,
-                    ESTADOCONTRATO = item.ESTADOCONTRATO,
-                    PROCESOID = procedoid
-                });
-            }
+                listaPAceppted = collection.GetMyProductsAcceptedByProductorList(item.RUTPRODUCTOR, idproceso);
+                var listaPAcceptedtotales = collection.GetProductsAccepted(idproceso);
+                var sumaPrecios = collection.TotalSumOfPrecioOfProductorAccordingToOneSell(listaPAceppted);
 
-            return View(agregarProcesoventa);
+                var ventaByProceso = collection.GetVentaByProcesoVenta(idproceso);
+                ganancia = collection.GetMyProfitToEmail(listaPAcceptedtotales, ventaByProceso, sumaPrecios, item.RUTPRODUCTOR);
+
+                string body = "<p>Estimado(a)"+" "+ item.NOMBRE +" "+"las ganancias correspondientes a la venta numero"+" "+ ganancia.IDVENTA.ToString()+" "+"son: </p>"
+                    +"</br>"+ "<table><tr><td>Costo Transporte</td><td>"+"$" + ganancia.COSTOTRANSPORTE.ToString() + "</td></tr>" +
+                    "<tr><td>Comision Empresa</td><td>" + ganancia.COMISIONEMPRESA.ToString() +"%"+ "</td></tr>" +
+                    "<tr><td>Impuesto Aduana</td><td>" + "$" + ganancia.IMPUESTOADUANA.ToString() + "</td></tr>" +
+                    "<tr><td>Ganancia Neta</td><td>" + "$" + ganancia.GANANCIAPRODUCTORNETA.ToString() + "</td></tr>" +
+                    "<tr><td>Ganancia Total</td><td>" + "$" + ganancia.GANANCIATOTAL.ToString() + "</td></tr></table>";
+
+                MailMessage correo = new MailMessage();
+                correo.From = new MailAddress("luxcode7@gmail.com");
+                correo.To.Add(item.CORREO);
+                correo.Subject = "Ganancias de Venta Realizada";
+                correo.Body = body;
+                correo.IsBodyHtml = true;
+                correo.Priority = MailPriority.Normal;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 25;
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = true;
+                string mycorreo = "maipogrande77@gmail.com";
+                string password = "maipo123";
+                smtp.Credentials = new System.Net.NetworkCredential(mycorreo, password);
+
+                smtp.Send(correo);
+
+            }
+            
+            return Json(ganancia);
         }
 
         public ActionResult GananciasOfProductores(List<PRODUCTOR> productor)

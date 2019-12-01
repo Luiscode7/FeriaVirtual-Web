@@ -214,6 +214,7 @@
     <Compile Include="Reports\GananciasProductor.cs" />
     <Compile Include="Reports\ListadoOrdenes.cs" />
     <Compile Include="Reports\ListadoSubastasPexterna.cs" />
+    <Compile Include="Reports\ListadoSubastasPLocal.cs" />
     <Compile Include="Reports\ListadoVentas.cs" />
     <Compile Include="Utils\DatabaseUtil.cs" />
   </ItemGroup>
@@ -255,6 +256,7 @@
     <Content Include="assest\css\images\sort_both.png" />
     <Content Include="assest\css\images\sort_desc.png" />
     <Content Include="assest\css\images\sort_desc_disabled.png" />
+    <Content Include="assest\img\checkicon.png" />
     <Content Include="assest\img\circulo.gif" />
     <Content Include="assest\img\engra.gif" />
     <Content Include="assest\img\engra2.gif" />
