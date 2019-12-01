@@ -406,6 +406,7 @@
     <Content Include="Views\Shared\_LayoutConsultor.cshtml" />
     <Content Include="Views\Consultor\GetReportes.cshtml" />
     <Content Include="Views\Administrador\CotizacionDetalleProcesoVenta.cshtml" />
+    <Content Include="Views\Cliente\ShowCotizacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

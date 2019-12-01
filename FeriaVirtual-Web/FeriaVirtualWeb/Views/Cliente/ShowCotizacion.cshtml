@@ -1,0 +1,125 @@
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.PRODUCTO>
+
+@{
+    Layout = null;
+    decimal? costoTotal = ViewBag.costoTotal;
+    FeriaVirtualWeb.Models.DataContext.ORDEN Orden = ViewBag.orden;
+}
+
+<table class="table table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayName("PRODUCTO")
+        </th>
+        <th>
+            @Html.DisplayName("CANTIDAD")
+        </th>
+        <th>
+            @Html.DisplayName("PRECIO")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.DESCRIPCION)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.CANTIDAD)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.PRECIO)
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    <table class="table table-condensed">
+        <tr>
+            <th>
+                @Html.DisplayName("COSTO TOTAL")
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @("$" + costoTotal)
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+@using (Html.BeginForm("ChangeEstadoCotizacion", "Cliente", FormMethod.Post, new { id = "form-cambiaestado" }))
+{
+    <div>
+        @Html.HiddenFor(model => Orden.IDORDEN)
+        <div class="chosen-select-act fm-cmp-mg">
+            @Html.DropDownListFor(modelItem => Orden.CAMBIAESTADO, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Aceptar", Value = "Aceptar" }, new SelectListItem { Text = "Rechazar", Value = "Rechazar" } },
+            new { @class = "chosen form-control" })
+        </div>
+    </div>
+    <br />
+    <br />
+    <div>
+        <input type="submit" class="btnCambiaEstado btn btn-success notika-btn-success col" value="Enviar" />
+        <div class="loadbuttonAR d-flex justify-content-center"></div>
+    </div>
+}
+
+<script src="~/assest/js/wow.min.js"></script>
+<script src="~/assest/js/jquery-price-slider.js"></script>
+<script src="~/assest/js/owl.carousel.min.js"></script>
+<script src="~/assest/js/jquery.scrollUp.min.js"></script>
+<script src="~/assest/js/bootstrap-select.js"></script>
+<script src="~/assest/js/chosen.jquery.js"></script>
+<script src="~/assest/js/jquery.meanmenu.js"></script>
+<script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/assest/js/jquery.sparkline.min.js"></script>
+<script src="~/assest/js/sparkline-active.js"></script>
+<script src="~/assest/js/jquery.flot.js"></script>
+<script src="~/assest/js/jquery.flot.resize.js"></script>
+<script src="~/assest/js/flot-active.js"></script>
+<script src="~/assest/js/jquery.knob.js"></script>
+<script src="~/assest/js/jquery.appear.js"></script>
+<script src="~/assest/js/knob-active.js"></script>
+<script src="~/assest/js/jquery.todo.js"></script>
+@*<script src="~/assest/js/waves.min.js"></script>
+    <script src="~/assest/js/wave-active.js"></script>*@
+<script src="~/assest/js/plugins.js"></script>
+<script src="~/assest/js/main.js"></script>
+
+<script>
+$(document).ready(function () {
+
+    var form = $("#form-cambiaestado");
+    var btnCambiaEstado = $(".btnCambiaEstado");
+
+    btnCambiaEstado.click(function () {
+        $.ajax({
+            url: form.attr('action'),
+            type: "POST",
+            dataType: 'html',
+            data: form.serialize(),
+            beforeSend: function () {
+                btnCambiaEstado.replaceWith($(".loadbuttonAR"));
+                $(".loadbuttonAR").html("<img src='@Url.Content("~/assest/img/loading.gif")'>");
+            },
+            success: function (response) {
+                if (response) {
+                    $("#exampleModalCenter2").modal("hide");
+                    toastr.options = {
+                        "positionClass": "toast-top-right",
+                        "timeOut": "4000",
+                    }
+                    toastr["success"]("El Estado de la Cotizacion ha sido cambiado Exitosamente")
+                    if ($("#ordenesid").hasClass("active")) {
+                        $("#ordenesid").trigger("click");
+                    }
+                }
+            }
+        });
+        return false;
+    });
+});
+</script>

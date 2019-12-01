@@ -188,6 +188,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public ORDEN GetOrdenByOrdenId(decimal? ordenid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.ORDEN.Where(or => or.IDORDEN == ordenid).FirstOrDefault();
+            }
+        }
+
         public ORDEN GetEstadoOrden(decimal orden)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())

@@ -32,7 +32,8 @@ namespace FeriaVirtualWeb.Models.DataContext
         [Display(Name = "CLIENTE")]
         public string CLIENTE_RUTCLIENTE { get; set; }
         public string ESTADO { get; set; }
-    
+        public string CAMBIAESTADO { get; set; }
+
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual ICollection<PAGO> PAGO { get; set; }
         public virtual ICollection<PROCESOVENTA> PROCESOVENTA { get; set; }

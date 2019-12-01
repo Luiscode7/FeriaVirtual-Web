@@ -74,5 +74,52 @@ namespace FeriaVirtualWeb.Models.DataManager
                 throw;
             }
         }
+
+        public string ChangeEstadoCotizacionSent(decimal? ordenid)
+        {
+            try
+            {
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    ORDEN orden = db.ORDEN.Where(or => or.IDORDEN == ordenid).FirstOrDefault();
+                    orden.ESTADO = "Cotizacion";
+                    db.SaveChanges();
+
+                    return orden.ESTADO;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ORDEN ChangeEstadoCotizacionAceptarORechazar(ORDEN ordenC)
+        {
+            try
+            {
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    ORDEN orden = db.ORDEN.Where(or => or.IDORDEN == ordenC.IDORDEN).FirstOrDefault();
+                    if(ordenC.CAMBIAESTADO == "Aceptar")
+                    {
+                        orden.ESTADO = "Aceptado";
+                    }
+                    else
+                    {
+                        orden.ESTADO = "Rechazado";
+                    }
+                    db.SaveChanges();
+
+                    return orden;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

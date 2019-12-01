@@ -97,11 +97,13 @@ namespace FeriaVirtualWeb.Controllers
         public JsonResult EnviarCotizacion(decimal id)
         {
             var ventaM = new VentaManager();
+            var ordenM = new ClienteManager();
             var ordenid = collection.GetOrdenIdByProcedoId(id);
             var productosOr = ventaM.GetProductByOrden(ordenid);
             var listaProducto = ventaM.GetProductsWithCantidadAndPrecioToResumenVenta(productosOr);
             var cliente = collection.GetclienteByOrdenId(ordenid);
             var costoTotal = ventaM.GetCostoTotalProductsOrdesToCotizacion(ordenid);
+            var estado = ordenM.ChangeEstadoCotizacionSent(ordenid);
 
             string productos = string.Empty;
             string paraPortal = "Favor de ACEPTAR o RECHAZAR esta cotizacion por medio de su portal en nuestra pagina";

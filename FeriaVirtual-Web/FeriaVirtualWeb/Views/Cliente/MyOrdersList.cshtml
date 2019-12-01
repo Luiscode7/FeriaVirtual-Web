@@ -33,19 +33,22 @@
             </td>
             <td>
                 <a href="#exampleModalCenter2" class="btnDetalles btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDORDEN">Detalles</a>
+             
+                @if (item.ESTADO == "Cotizacion")
+                {
+                    <a href="#exampleModalCenter2" class="btnCotizacion btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDORDEN">Cotizacion</a>
+                }
 
-                @if (item.ESTADO != "Recepcionado" && item.ESTADO != "Pagado")
+                @if (item.ESTADO == "Aceptado")
                 {
                     <a href="#exampleModalCenter2" class="btnRecepcion btn btn-success notika-btn-success" data-toggle="modal" data-id="@item.IDORDEN">Recepcion</a>
                 }
-                else
-                {
-                    if (item.ESTADO == "Recepcionado")
-                    {
-                        @Html.ActionLink("Pagar", "Pagar", new { id = item.IDORDEN }, new { @class = "btn btn-success notika-btn-success" })
-                    }
 
+                @if (item.ESTADO == "Recepcionado")
+                {
+                    @Html.ActionLink("Pagar", "Pagar", new { id = item.IDORDEN }, new { @class = "btn btn-success notika-btn-success" })
                 }
+
                 @if (item.ESTADO == "Pagado")
                 {
                     @Html.ActionLink("Detalle Transaccion", "RecepcionDetails", new { id = item.IDORDEN }, new { @class = "btn btn-success notika-btn-success" })
@@ -63,5 +66,9 @@
 
     $(".btnRecepcion").click(function () {
         $(".modal-body").load("/Cliente/GetRecepcion/" + $(this).data("id"));
+    });
+
+    $(".btnCotizacion").click(function () {
+        $(".modal-body").load("/Cliente/ShowCotizacion/" + $(this).data("id"));
     });
 </script>
