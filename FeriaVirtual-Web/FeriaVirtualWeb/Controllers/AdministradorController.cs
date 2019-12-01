@@ -242,45 +242,123 @@ namespace FeriaVirtualWeb.Controllers
             var idproceso = id;
             var listaPAceppted = new List<PRODUCTO>();
             var ganancia = new VENTA();
-            var usuarios = collection.GetProductoresByProcesoID(id);
-            foreach (var item in usuarios)
+            var newGanancia = new VENTA();
+            var ventaM = new VentaManager();
+
+            var ventaByProcesoId = collection.GetVentaByProcesoVenta(id);
+            var tipoProceso = collection.GetTipoProcesoByProcesoID(ventaByProcesoId.PROCESOVENTA_IDPROCESOVENTA);
+
+            if (tipoProceso == "Externo")
             {
-                listaPAceppted = collection.GetMyProductsAcceptedByProductorList(item.RUTPRODUCTOR, idproceso);
-                var listaPAcceptedtotales = collection.GetProductsAccepted(idproceso);
-                var sumaPrecios = collection.TotalSumOfPrecioOfProductorAccordingToOneSell(listaPAceppted);
+                var usuarios = collection.GetProductoresByProcesoID(id);
 
-                var ventaByProceso = collection.GetVentaByProcesoVenta(idproceso);
-                ganancia = collection.GetMyProfitToEmail(listaPAcceptedtotales, ventaByProceso, sumaPrecios, item.RUTPRODUCTOR);
+                foreach (var item in usuarios)
+                {
+                    listaPAceppted = collection.GetMyProductsAcceptedByProductorList(item.RUTPRODUCTOR, idproceso);
+                    var listaPAcceptedtotales = collection.GetProductsAccepted(idproceso);
+                    var sumaPrecios = collection.TotalSumOfPrecioOfProductorAccordingToOneSell(listaPAceppted);
 
-                string body = "<p>Estimado(a)"+" "+ item.NOMBRE +" "+"las ganancias correspondientes a la venta numero"+" "+ ganancia.IDVENTA.ToString()+" "+"son: </p>"
-                    +"</br>"+ "<table><tr><td>Costo Transporte</td><td>"+"$" + ganancia.COSTOTRANSPORTE.ToString() + "</td></tr>" +
-                    "<tr><td>Comision Empresa</td><td>" + ganancia.COMISIONEMPRESA.ToString() +"%"+ "</td></tr>" +
-                    "<tr><td>Impuesto Aduana</td><td>" + "$" + ganancia.IMPUESTOADUANA.ToString() + "</td></tr>" +
-                    "<tr><td>Ganancia Neta</td><td>" + "$" + ganancia.GANANCIAPRODUCTORNETA.ToString() + "</td></tr>" +
-                    "<tr><td>Ganancia Total</td><td>" + "$" + ganancia.GANANCIATOTAL.ToString() + "</td></tr></table>";
+                    var ventaByProceso = collection.GetVentaByProcesoVenta(idproceso);
+                    ganancia = collection.GetMyProfitToEmail(listaPAcceptedtotales, ventaByProceso, sumaPrecios, item.RUTPRODUCTOR);
 
-                MailMessage correo = new MailMessage();
-                correo.From = new MailAddress("maipogrande77@gmail.com");
-                correo.To.Add(item.CORREO);
-                correo.Subject = "Ganancias de Venta Realizada";
-                correo.Body = body;
-                correo.IsBodyHtml = true;
-                correo.Priority = MailPriority.Normal;
+                    var ventaUpdate = ventaM.UpdateEstadoVentaAfterRepartir(ganancia);
+                    newGanancia = new VENTA
+                    {
+                        IDVENTA = ventaUpdate.IDVENTA,
+                        FECHA = ventaUpdate.FECHA,
+                        IMPUESTOADUANA = ventaUpdate.IMPUESTOADUANA,
+                        COSTOTRANSPORTE = ventaUpdate.COSTOTRANSPORTE,
+                        COMISIONEMPRESA = ventaUpdate.COMISIONEMPRESA,
+                        COSTOTOTAL = ventaUpdate.COSTOTOTAL,
+                        GANANCIA = ventaUpdate.GANANCIA,
+                        ESTADO = ventaUpdate.ESTADO,
+                        PROCESOVENTA_IDPROCESOVENTA = ventaUpdate.PROCESOVENTA_IDPROCESOVENTA
+                    };
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 25;
-                smtp.EnableSsl = true;
-                smtp.UseDefaultCredentials = true;
-                string mycorreo = "maipogrande77@gmail.com";
-                string password = "maipo123";
-                smtp.Credentials = new System.Net.NetworkCredential(mycorreo, password);
+                    string body = "<p>Estimado(a)" + " " + item.NOMBRE + " " + "las ganancias correspondientes a la venta numero" + " " + ganancia.IDVENTA.ToString() + " " + "son: </p>"
+                        + "</br>" + "<table><tr><td>Costo Transporte</td><td>" + "$" + ganancia.COSTOTRANSPORTE.ToString() + "</td></tr>" +
+                        "<tr><td>Comision Empresa</td><td>" + ganancia.COMISIONEMPRESA.ToString() + "%" + "</td></tr>" +
+                        "<tr><td>Impuesto Aduana</td><td>" + "$" + ganancia.IMPUESTOADUANA.ToString() + "</td></tr>" +
+                        "<tr><td>Ganancia Neta</td><td>" + "$" + ganancia.GANANCIAPRODUCTORNETA.ToString() + "</td></tr>" +
+                        "<tr><td>Ganancia Total</td><td>" + "$" + ganancia.GANANCIATOTAL.ToString() + "</td></tr></table>";
 
-                smtp.Send(correo);
+                    MailMessage correo = new MailMessage();
+                    correo.From = new MailAddress("maipogrande77@gmail.com");
+                    correo.To.Add(item.CORREO);
+                    correo.Subject = "Ganancias de Venta Externa Realizada";
+                    correo.Body = body;
+                    correo.IsBodyHtml = true;
+                    correo.Priority = MailPriority.Normal;
+
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 25;
+                    smtp.EnableSsl = true;
+                    smtp.UseDefaultCredentials = true;
+                    string mycorreo = "maipogrande77@gmail.com";
+                    string password = "maipo123";
+                    smtp.Credentials = new System.Net.NetworkCredential(mycorreo, password);
+
+                    smtp.Send(correo);
+                }
 
             }
+            else
+            {
+                var productores = collection.GetProductoresByProcesoIDLocal(id);
+
+                foreach (var item in productores)
+                {
+                    var misPlocales = (List<PRODUCTO>)collection.GetMyProductListProcesoLocalCompradosByRutP(item.PRODUCTOR_RUTPRODUCTOR, id);
+                    var pagoNeto = collection.GetPagoLocalNeto(misPlocales);
+                    var pagoTotal = collection.GetPagoLocalTotal(pagoNeto, ventaByProcesoId);
+                    var productor = collection.GetProductorByRut(item.PRODUCTOR_RUTPRODUCTOR);
+                    ganancia = ventaByProcesoId;
+
+                    var ventaUpdate = ventaM.UpdateEstadoVentaAfterRepartir(ganancia);
+                    newGanancia = new VENTA
+                    {
+                        IDVENTA = ventaUpdate.IDVENTA,
+                        FECHA = ventaUpdate.FECHA,
+                        COSTOTRANSPORTE = ventaUpdate.COSTOTRANSPORTE,
+                        COMISIONEMPRESA = ventaUpdate.COMISIONEMPRESA,
+                        COSTOTOTAL = ventaUpdate.COSTOTOTAL,
+                        GANANCIA  = ventaUpdate.GANANCIA,
+                        ESTADO = ventaUpdate.ESTADO,
+                        PROCESOVENTA_IDPROCESOVENTA = ventaUpdate.PROCESOVENTA_IDPROCESOVENTA
+                    };
+
+
+                    string body = "<p>Estimado(a)" + " " + productor.NOMBRE + " " + "las ganancias correspondientes a la venta numero" + " " + ganancia.IDVENTA.ToString() + " " + "son: </p>"
+                        + "</br>" + "<table><tr><td>Costo Transporte</td><td>" + "$" + ganancia.COSTOTRANSPORTE.ToString() + "</td></tr>" +
+                        "<tr><td>Comision Empresa</td><td>" + "$" + ganancia.GANANCIA.ToString() + "</td></tr>" +
+                        "<tr><td>Ganancia Neta</td><td>" + "$" + pagoNeto.ToString() + "</td></tr>" +
+                        "<tr><td>Ganancia Total</td><td>" + "$" + pagoTotal.ToString() + "</td></tr></table>";
+
+                    MailMessage correo = new MailMessage();
+                    correo.From = new MailAddress("maipogrande77@gmail.com");
+                    correo.To.Add(productor.CORREO);
+                    correo.Subject = "Ganancias de Venta Local Realizada";
+                    correo.Body = body;
+                    correo.IsBodyHtml = true;
+                    correo.Priority = MailPriority.Normal;
+
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 25;
+                    smtp.EnableSsl = true;
+                    smtp.UseDefaultCredentials = true;
+                    string mycorreo = "maipogrande77@gmail.com";
+                    string password = "maipo123";
+                    smtp.Credentials = new System.Net.NetworkCredential(mycorreo, password);
+
+                    smtp.Send(correo);
+
+                }
+                
+            }
             
-            return Json(ganancia);
+            return Json(newGanancia);
         }
 
         public ActionResult GananciasOfProductores(List<PRODUCTOR> productor)
@@ -326,6 +404,51 @@ namespace FeriaVirtualWeb.Controllers
         {
             var ventaM = new VentaManager();
             var generarv = ventaM.InsertNewVentaLocal(productventa);
+            var clientes = collection.GetClienteOfVentaLocal(generarv.PROCESOVENTA_IDPROCESOVENTA);
+            var productos = new List<PRODUCTO>();
+            foreach (var item in clientes)
+            {
+                productos = collection.GetProductosCompraLocalAccordingToCliente(item.CLIENTEINTERNO);
+                var cliente = collection.GetClienteByClienteInterno(item.CLIENTEINTERNO);
+                var costoTotal = collection.CostoTotalCompraLocal(productos);
+
+                string productosC = string.Empty;
+
+                string datosTransferencia = "<table><tr><td>Banco:</td><td>" + "&nbsp;" + "Banco Chile" + "</td></tr>" +
+                        "<tr><td>N° Cuenta:</td><td>" + "&nbsp;" + "000267789-67899" + "</td></tr>" +
+                        "<tr><td>Nombre Titular:</td><td>" + "&nbsp;" + "Maipo Grande" + "</td></tr></table>";
+
+                foreach (var item2 in productos)
+                {
+                    productosC = productosC + "<br/><hr/>" + "<table><tr><td>Producto:</td><td>" + "&nbsp;" + item2.DESCRIPCION + "</td></tr>" +
+                        "<tr><td>Cantidad Solicitada:</td><td>" + "&nbsp;" + item2.CANTIDAD.ToString() + "</td></tr>" +
+                        "<tr><td>Precio:</td><td>" + "&nbsp;" + "$" + item2.PRECIO.ToString() + "</td></tr></table>";
+                }
+
+                string body = "<p>Estimado(a)" + " " + cliente.NOMBRE + " " + "los costos correspondientes a su compra numero" + " " + generarv.PROCESOVENTA_IDPROCESOVENTA.ToString() + " " + "son: </p>"
+                    + productosC + " " + "<br/>" + "<table><tr><td><strong>Costo Total:</strong></td><td>" + "&nbsp;" + "<strong>$</strong>" + "<strong>" + costoTotal.ToString() + "</strong>" + "</td></tr></table>" +
+                    "<br/>" + "Los datos para la tranferencia son: " + "<br/>" + datosTransferencia;
+
+                MailMessage correo = new MailMessage();
+                correo.From = new MailAddress("maipogrande77@gmail.com");
+                correo.To.Add(cliente.CORREO);
+                correo.Subject = "Factura de Compra";
+                correo.Body = body;
+                correo.IsBodyHtml = true;
+                correo.Priority = MailPriority.Normal;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 25;
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = true;
+                string mycorreo = "maipogrande77@gmail.com";
+                string password = "maipo123";
+                smtp.Credentials = new System.Net.NetworkCredential(mycorreo, password);
+
+                smtp.Send(correo);
+            }
+
             return Json(productventa);
         }
 

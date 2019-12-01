@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
+﻿@model IEnumerable<FeriaVirtualWeb.Models.DataContext.PROCESOVENTA>
 
 @{
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
@@ -35,7 +35,7 @@
             <table class="table table-condensed">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.PROCESO)
+                        @Html.DisplayNameFor(model => model.IDPROCESOVENTA)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FECHA)
@@ -52,24 +52,16 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.PROCESO)
+                            @Html.DisplayFor(modelItem => item.IDPROCESOVENTA)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FECHA)
                         </td>
                         <td>
-                            @if (item.ESTADO != "Completado")
-                            {
-                                <a href="#card-ventaL" class="btnConcretarL btn btn-success notika-btn-success" data-id="@item.PROCESO">Concretar</a>
-                            }
-                            else
-                            {
-                                <img src='@Url.Content("~/assest/img/checkicon.png")' width="40" height="40">
-                            }
-
+                            <a href="#card-ventaL" class="btnConcretarL btn btn-success notika-btn-success" data-id="@item.IDPROCESOVENTA">Concretar</a>
                         </td>
                         <td>
-                            <a href="#card-ventaL" class="btnDetalleL btn btn-success notika-btn-success ml-3" data-id="@item.PROCESO">Detalle</a>
+                            <a href="#card-ventaL" class="btnDetalleL btn btn-success notika-btn-success ml-3" data-id="@item.IDPROCESOVENTA">Detalle</a>
                         </td>
                     </tr>
                 }

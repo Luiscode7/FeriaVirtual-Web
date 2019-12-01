@@ -110,6 +110,31 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public IEnumerable<PRODUCTO> GetMyProductListProcesoLocalCompradosByRutP(string rut, decimal procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.PRODUCTOR_RUTPRODUCTOR == rut &&
+                p.TIPOVENTA == "Local" && p.IDPROCESOVENTA == procesoid && p.CLIENTEINTERNO != null).ToList();
+            }
+        }
+
+        public PRODUCTOR GetProductorByRut(string rut)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTOR.Where(p => p.RUTPRODUCTOR == rut).FirstOrDefault();
+            }
+        }
+
+        public List<PRODUCTO> GetProductoresByProcesoIDLocal(decimal? procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.IDPROCESOVENTA == procesoid 
+                                && p.CLIENTEINTERNO != null).GroupBy(p => p.PRODUCTOR_RUTPRODUCTOR).Select(p => p.FirstOrDefault()).ToList();
+            }
+        }
         public List<PROCESOVENTA> GetMyProcesoVentaLocal(USUARIO usuario)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
@@ -201,6 +226,14 @@ namespace FeriaVirtualWeb.Models.DataManager
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 return db.ORDEN.Where(or => or.IDORDEN == orden).FirstOrDefault();
+            }
+        }
+
+        public string GetTipoProcesoByProcesoID(decimal? procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PROCESOVENTA.Where(p => p.IDPROCESOVENTA == procesoid).FirstOrDefault().TIPOPROCESO;
             }
         }
 
@@ -1076,32 +1109,32 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        //public List<PROCESOVENTA> GetProcesoVentaLocalListToAdmin()
-        //{
-        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
-        //    {
-        //        return db.PROCESOVENTA.Where(pv => pv.TIPOPROCESO == "Local").ToList();
-        //    }
-        //}
-
-        public List<ProcesoVentaViewModel> GetProcesoVentaLocalListToAdmin()
+        public List<PROCESOVENTA> GetProcesoVentaLocalListToAdmin()
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                var query = (from v in db.VENTA join pv in db.PROCESOVENTA
-                             on v.PROCESOVENTA_IDPROCESOVENTA equals pv.IDPROCESOVENTA
-                             where pv.TIPOPROCESO == "Local"
-                             select new ProcesoVentaViewModel
-                             {
-                                 PROCESO = pv.IDPROCESOVENTA,
-                                 FECHA = pv.FECHA,
-                                 ESTADO = v.ESTADO
-
-                             }).GroupBy(p => p.PROCESO).Select(p => p.FirstOrDefault()).ToList();
-
-                return query;
+                return db.PROCESOVENTA.Where(p => p.TIPOPROCESO == "Local").ToList();
             }
         }
+
+        //public List<ProcesoVentaViewModel> GetProcesoVentaLocalListToAdmin()
+        //{
+        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+        //    {
+        //        var query = (from v in db.VENTA join pv in db.PROCESOVENTA
+        //                     on v.PROCESOVENTA_IDPROCESOVENTA equals pv.IDPROCESOVENTA
+        //                     where pv.TIPOPROCESO == "Local"
+        //                     select new ProcesoVentaViewModel
+        //                     {
+        //                         PROCESO = pv.IDPROCESOVENTA,
+        //                         FECHA = pv.FECHA,
+        //                         ESTADO = v.ESTADO
+
+        //                     }).GroupBy(p => p.PROCESO).Select(p => p.FirstOrDefault()).ToList();
+
+        //        return query;
+        //    }
+        //}
 
         public List<ProcesoVentaViewModel> GetProductorDatosbyOrdenId(decimal ordenid)
         {
@@ -1314,6 +1347,59 @@ namespace FeriaVirtualWeb.Models.DataManager
                              }).ToList();
 
                 return query;
+            }
+        }
+
+        public List<PRODUCTO> GetClienteOfVentaLocal(decimal? procesoid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.PRODUCTO.Where(p => p.IDPROCESOVENTA == procesoid &&
+                    p.CLIENTEINTERNO != null).GroupBy(p => p.CLIENTEINTERNO).Select(p => p.FirstOrDefault()).ToList();
+            }
+        }
+
+        public List<PRODUCTO> GetProductosCompraLocalAccordingToCliente(string rut)
+        {
+            var lista = new List<PRODUCTO>();
+            var newLista = new List<PRODUCTO>();
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                lista = db.PRODUCTO.Where(p => p.CLIENTEINTERNO == rut).ToList();
+
+                foreach (var item in lista)
+                {
+                    newLista.Add(new PRODUCTO
+                    {
+                        DESCRIPCION = item.DESCRIPCION,
+                        PRECIO = item.PRECIO * item.CANTIDAD,
+                        CANTIDAD = item.CANTIDAD
+                    });
+                }
+
+                return newLista;
+            }
+        }
+
+        public CLIENTE GetClienteByClienteInterno(string rut)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.CLIENTE.Where(cl => cl.RUTCLIENTE == rut).FirstOrDefault();
+            }
+        }
+
+        public decimal? CostoTotalCompraLocal(List<PRODUCTO> productos)
+        {
+            decimal? costoTotal = 0;
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                foreach (var item in productos)
+                {
+                    costoTotal += item.PRECIO;
+                }
+
+                return costoTotal;
             }
         }
     }

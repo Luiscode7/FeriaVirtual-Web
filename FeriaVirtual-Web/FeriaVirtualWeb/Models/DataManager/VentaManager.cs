@@ -24,7 +24,8 @@ namespace FeriaVirtualWeb.Models.DataManager
                         IMPUESTOADUANA = newVenta.IMPUESTOADUANA,
                         COSTOTRANSPORTE = newVenta.COSTOTRANSPORTE,
                         COMISIONEMPRESA = newVenta.COMISIONEMPRESA,
-                        PROCESOVENTA_IDPROCESOVENTA = newVenta.PROCESOVENTA_IDPROCESOVENTA
+                        PROCESOVENTA_IDPROCESOVENTA = newVenta.PROCESOVENTA_IDPROCESOVENTA,
+                        ESTADO = "Realizado"
                     };
                     db.VENTA.Add(venta);
                     db.SaveChanges();
@@ -228,6 +229,7 @@ namespace FeriaVirtualWeb.Models.DataManager
                 venta.COSTOTOTAL = costoByproducto;
                 venta.GANANCIA = costoByproducto * comision;
                 venta.PROCESOVENTA_IDPROCESOVENTA = productos[0].PROCESO;
+                venta.ESTADO = "Realizado";
 
                 db.VENTA.Add(venta);
                 db.SaveChanges();
@@ -253,5 +255,25 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return db.SUBASTA.Where(s => s.PROCESOVENTAID == procesoid).FirstOrDefault().IDSUBASTA;
             }
         } 
+
+        public VENTA UpdateEstadoVentaAfterRepartir(VENTA ventaUp)
+        {
+            try
+            {
+                using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+                {
+                    VENTA venta = db.VENTA.Where(v => v.IDVENTA == ventaUp.IDVENTA).FirstOrDefault();
+                    venta.ESTADO = "Completado";
+                    db.SaveChanges();
+
+                    return venta;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
