@@ -107,6 +107,49 @@ namespace FeriaVirtualWeb.Controllers
             return View(ventaDetalle);
         }
 
+        public JsonResult EnviarResumen(decimal id)
+        {
+            var ventaM = new VentaManager();
+            var venta = collection.GetVentaByProcesoVenta(id);
+            var ordenid = collection.GetOrdenIdByProcedoId(id);
+            var productosOr = ventaM.GetProductByOrden(ordenid);
+            var listaProducto = ventaM.GetProductsWithCantidadAndPrecioToResumenVenta(productosOr);
+            var cliente = collection.GetclienteByOrdenId(ordenid);
+
+            string productos = string.Empty;
+
+            foreach (var item in listaProducto)
+            {
+                productos = productos + "<br/><hr/>" + "<table><tr><td>Producto:</td><td>" + "&nbsp;" + item.DESCRIPCION + "</td></tr>" +
+                    "<tr><td>Cantidad Solicitada:</td><td>" + "&nbsp;" + item.CANTIDAD.ToString() + "</td></tr>" +
+                    "<tr><td>Precio:</td><td>" + "&nbsp;" + "$" + item.PRECIO.ToString() + "</td></tr></table>";
+            }
+
+            string body = "<p>Estimado(a)" + " " + cliente.NOMBRE + " " + "los costos correspondientes a su orden numero" + " " + ordenid.ToString() + " " + "son: </p>"
+                    + productos +" "+"<br/>"+ "<table><tr><td><strong>Costo Total:</strong></td><td>" + "&nbsp;" + "<strong>$</strong>" + "<strong>"+ venta.COSTOTOTAL.ToString() +"</strong>"+ "</td></tr></table>";
+
+            MailMessage correo = new MailMessage();
+            correo.From = new MailAddress("maipogrande77@gmail.com");
+            correo.To.Add(cliente.CORREO);
+            correo.Subject = "Cotizacion de Orden de Compra";
+            correo.Body = body;
+            correo.IsBodyHtml = true;
+            correo.Priority = MailPriority.Normal;
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 25;
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = true;
+            string mycorreo = "maipogrande77@gmail.com";
+            string password = "maipo123";
+            smtp.Credentials = new System.Net.NetworkCredential(mycorreo, password);
+
+            smtp.Send(correo);
+
+            return Json(id);
+        }
+
         public ActionResult HistorialVentas()
         {
             var usuario = (USUARIO)Session["usuario"];
@@ -138,7 +181,7 @@ namespace FeriaVirtualWeb.Controllers
                     "<tr><td>Ganancia Total</td><td>" + "$" + ganancia.GANANCIATOTAL.ToString() + "</td></tr></table>";
 
                 MailMessage correo = new MailMessage();
-                correo.From = new MailAddress("luxcode7@gmail.com");
+                correo.From = new MailAddress("maipogrande77@gmail.com");
                 correo.To.Add(item.CORREO);
                 correo.Subject = "Ganancias de Venta Realizada";
                 correo.Body = body;

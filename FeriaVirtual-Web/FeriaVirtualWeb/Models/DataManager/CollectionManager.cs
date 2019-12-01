@@ -1191,6 +1191,19 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public CLIENTE GetclienteByOrdenId(decimal? ordenid)
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                var query = (from or in db.ORDEN join cl in db.CLIENTE
+                             on or.CLIENTE_RUTCLIENTE equals cl.RUTCLIENTE
+                             where or.IDORDEN == ordenid
+                             select cl).FirstOrDefault();
+
+                return query;
+            }
+        }
+
         public List<ProcesoVentaViewModel> GetOrdenesList()
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
