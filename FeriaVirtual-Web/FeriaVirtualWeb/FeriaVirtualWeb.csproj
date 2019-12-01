@@ -256,6 +256,7 @@
     <Content Include="assest\css\images\sort_both.png" />
     <Content Include="assest\css\images\sort_desc.png" />
     <Content Include="assest\css\images\sort_desc_disabled.png" />
+    <Content Include="assest\img\check.jpg" />
     <Content Include="assest\img\checkicon.png" />
     <Content Include="assest\img\circulo.gif" />
     <Content Include="assest\img\engra.gif" />

@@ -1045,11 +1045,32 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public List<PROCESOVENTA> GetProcesoVentaExternaList()
+        //public List<PROCESOVENTA> GetProcesoVentaExternaList()
+        //{
+        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+        //    {
+        //        return db.PROCESOVENTA.Where(pv => pv.TIPOPROCESO == "Externo").ToList();
+        //    }
+        //}
+
+        public List<ProcesoVentaViewModel> GetProcesoVentaExternaList()
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PROCESOVENTA.Where(pv => pv.TIPOPROCESO == "Externo").ToList();
+                var query = (from pv in db.PROCESOVENTA join pr in db.PRODUCTO
+                             on pv.IDPROCESOVENTA equals pr.IDPROCESOVENTA
+                             join or in db.ORDEN on pr.ORDEN_IDORDEN equals or.IDORDEN
+                             where pv.TIPOPROCESO == "Externo"
+                             select new ProcesoVentaViewModel
+                             {
+                                 PROCESO = pv.IDPROCESOVENTA,
+                                 FECHA = pv.FECHA,
+                                 ORDEN = or.IDORDEN,
+                                 ESTADO = or.ESTADO
+
+                             }).GroupBy(p => p.PROCESO).Select(p => p.FirstOrDefault()).ToList();
+
+                return query;
             }
         }
 
