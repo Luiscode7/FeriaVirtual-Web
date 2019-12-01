@@ -408,6 +408,8 @@
     <Content Include="Views\Consultor\GetReportes.cshtml" />
     <Content Include="Views\Administrador\CotizacionDetalleProcesoVenta.cshtml" />
     <Content Include="Views\Cliente\ShowCotizacion.cshtml" />
+    <Content Include="Views\Administrador\DetalleProcesoVentaToDetalleAfterVenta.cshtml" />
+    <Content Include="Views\Administrador\DetalleProcesoVentaLocalAfterToVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

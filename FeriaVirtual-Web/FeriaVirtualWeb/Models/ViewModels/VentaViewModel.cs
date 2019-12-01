@@ -33,5 +33,6 @@ namespace FeriaVirtualWeb.Models.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         [Display(Name = "N° PROCESO VENTA")]
         public decimal? PROCESOVENTA_IDPROCESOVENTA { get; set; }
+
     }
 }

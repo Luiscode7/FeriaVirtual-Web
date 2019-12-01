@@ -85,7 +85,18 @@
                             }
                         </td>
                         <td>
-                            <a href="#card-venta" class="btnConcretar btn btn-success notika-btn-success" data-id="@item.ORDEN">Concretar Venta</a>
+                            @if (item.ESTADO == "Aceptado")
+                            {
+                                <a href="#card-venta" class="btnConcretar btn btn-success notika-btn-success" data-id="@item.ORDEN">Concretar</a>
+                            }
+                            else
+                            {
+                                if (item.ESTADO != "Pendiente" && item.ESTADO != "Cotizacion" && item.ESTADO != "Aceptado")
+                                {
+                                    <a href="#card-venta" class="btnDetalleP btn btn-success notika-btn-success" data-id="@item.ORDEN">Detalle</a>
+                                }
+                            }
+
                         </td>
                     </tr>
                 }
@@ -113,5 +124,9 @@
 
     $(".btnCotizacion").click(function () {
         $("#card-venta").load("/Administrador/CotizacionDetalleProcesoVenta/" + $(this).data("id"));
+    });
+
+    $(".btnDetalleP").click(function () {
+        $("#card-venta").load("/Administrador/DetalleProcesoVentaToDetalleAfterVenta/" + $(this).data("id"));
     });
 </script>

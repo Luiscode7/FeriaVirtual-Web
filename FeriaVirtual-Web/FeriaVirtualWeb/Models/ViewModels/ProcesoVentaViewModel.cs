@@ -52,6 +52,7 @@ namespace FeriaVirtualWeb.Models.ViewModels
         public decimal? STOCKP { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         public decimal? CANTIDAD { get; set; }
+        public string ESTADOORDEN { get; set; }
 
     }
 }

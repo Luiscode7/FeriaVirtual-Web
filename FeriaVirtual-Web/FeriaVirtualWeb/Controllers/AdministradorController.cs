@@ -94,6 +94,22 @@ namespace FeriaVirtualWeb.Controllers
             return View(detalle);
         }
 
+        public ActionResult DetalleProcesoVentaToDetalleAfterVenta(decimal id)
+        {
+            var detalle = new ProcesoVentaViewModel();
+            var listaProductores = new List<ProcesoVentaViewModel>();
+            var listaPordenes = new List<PRODUCTO>();
+            if (id != 0)
+            {
+                detalle = collection.GetMyPostulacionDetails(id);
+                listaProductores = collection.GetProductorDatosbyOrdenId(id);
+                listaPordenes = collection.GetMyProductsByOrders(id);
+            }
+            ViewBag.productores = listaProductores;
+            ViewBag.productosOr = listaPordenes;
+            return View(detalle);
+        }
+
         public JsonResult EnviarCotizacion(decimal id)
         {
             var ventaM = new VentaManager();
@@ -288,11 +304,19 @@ namespace FeriaVirtualWeb.Controllers
 
         public ActionResult ProcesosVentaLocal()
         {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             var pVental = collection.GetProcesoVentaLocalListToAdmin();
             return View(pVental);
         }
 
         public ActionResult DetalleProcesoVentaLocal(decimal id)
+        {
+            var productores = collection.GetProductorDatosbyProcesoId(id);
+            return View(productores);
+        }
+
+        public ActionResult DetalleProcesoVentaLocalAfterToVenta(decimal id)
         {
             var productores = collection.GetProductorDatosbyProcesoId(id);
             return View(productores);

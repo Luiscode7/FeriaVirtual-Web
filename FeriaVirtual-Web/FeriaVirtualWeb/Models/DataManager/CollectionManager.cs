@@ -234,7 +234,8 @@ namespace FeriaVirtualWeb.Models.DataManager
                                  PROCESO = pv.IDPROCESOVENTA,
                                  ORDEN = pv.ORDENID,
                                  NOMBRECLIENTE = cl.NOMBRE,
-                                 FECHA = pv.FECHA
+                                 FECHA = pv.FECHA,
+                                 ESTADO = or.ESTADO
                                  
                              }).OrderBy(p => p.ORDEN).ToList();
 
@@ -679,7 +680,8 @@ namespace FeriaVirtualWeb.Models.DataManager
                                  FECHA = pv.FECHA,
                                  NOMBRECLIENTE = cl.NOMBRE,
                                  PAISCLIENTE = cl.PAIS,
-                                 TIPOPROCESO = pv.TIPOPROCESO
+                                 TIPOPROCESO = pv.TIPOPROCESO,
+                                 ESTADOORDEN = or.ESTADO
                                 
                              }).FirstOrDefault();
 
@@ -1074,11 +1076,30 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public List<PROCESOVENTA> GetProcesoVentaLocalListToAdmin()
+        //public List<PROCESOVENTA> GetProcesoVentaLocalListToAdmin()
+        //{
+        //    using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+        //    {
+        //        return db.PROCESOVENTA.Where(pv => pv.TIPOPROCESO == "Local").ToList();
+        //    }
+        //}
+
+        public List<ProcesoVentaViewModel> GetProcesoVentaLocalListToAdmin()
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.PROCESOVENTA.Where(pv => pv.TIPOPROCESO == "Local").ToList();
+                var query = (from v in db.VENTA join pv in db.PROCESOVENTA
+                             on v.PROCESOVENTA_IDPROCESOVENTA equals pv.IDPROCESOVENTA
+                             where pv.TIPOPROCESO == "Local"
+                             select new ProcesoVentaViewModel
+                             {
+                                 PROCESO = pv.IDPROCESOVENTA,
+                                 FECHA = pv.FECHA,
+                                 ESTADO = v.ESTADO
+
+                             }).GroupBy(p => p.PROCESO).Select(p => p.FirstOrDefault()).ToList();
+
+                return query;
             }
         }
 
@@ -1156,7 +1177,7 @@ namespace FeriaVirtualWeb.Models.DataManager
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                return db.VENTA.ToList();
+                return db.VENTA.GroupBy(v => v.IDVENTA).Select(v => v.FirstOrDefault()).ToList();
             }
         }
 

@@ -15,8 +15,8 @@
                                 <i class="notika-icon notika-form"></i>
                             </div>
                             <div class="breadcomb-ctn">
-                                <h2>Ventas</h2>
-                                <p>Gestione las ventas y reparta las ganancias</p>
+                                <h2>Ventas Externas</h2>
+                                <p>Gestione las ventas externas y reparta las ganancias</p>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                         @Html.DisplayName("N° PROCESO VENTA")
                     </th>
                     <th>
-                        @Html.DisplayName("ACCIONES")
+                        @Html.DisplayName("GANANCIAS")
                     </th>
                 </tr>
 
@@ -108,10 +108,18 @@
                             @Html.DisplayFor(modelItem => Model[i].PROCESOVENTA_IDPROCESOVENTA)
                         </td>
                         <td>
-                            <div class="ganancia">
-                                <a href="#" class="btnGanancias btn btn-success notika-btn-success" data-id="@Model[i].PROCESOVENTA_IDPROCESOVENTA">Repartir Ganancias</a>
-                                <div class="loadbuttonGN d-flex justify-content-center"></div>
-                            </div>
+                            @if (Model[i].ESTADO != "Completado")
+                            {
+                                <div class="ganancia">
+                                    <a href="#" class="btnGanancias btn btn-success notika-btn-success" data-id="@Model[i].PROCESOVENTA_IDPROCESOVENTA">Repartir</a>
+                                    <div class="loadbuttonGN d-flex justify-content-center"></div>
+                                </div>
+                            }
+                            else
+                            {
+                                <img src='@Url.Content("~/assest/img/checkicon.png")' width="40" height="40">
+                            }
+
                         </td>
                     </tr>
                 }

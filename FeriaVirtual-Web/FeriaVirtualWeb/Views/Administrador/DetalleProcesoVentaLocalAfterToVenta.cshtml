@@ -1,0 +1,84 @@
+﻿@model List<FeriaVirtualWeb.Models.ViewModels.ProcesoVentaViewModel>
+
+@{
+    /**/
+
+    Layout = null;
+}
+
+@using (Html.BeginForm("GenerarVentaLocal", "Administrador", FormMethod.Post, new { id = "form-ventalocal" }))
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("PRODUCTOR")
+            </th>
+            <th>
+                @Html.DisplayName("PRODUCTO")
+            </th>
+            <th>
+                @Html.DisplayName("PRECIO")
+            </th>
+            <th>
+                @Html.DisplayName("CANTIDAD COMPRADA")
+            </th>
+            <th>
+                @Html.DisplayName("CLIENTE")
+            </th>
+        </tr>
+
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            @Html.HiddenFor(model => Model[i].NOMBREPRODUCTOR)
+            @Html.HiddenFor(model => Model[i].DESCRIPCIONP)
+            @Html.HiddenFor(model => Model[i].PRECIOP)
+            @Html.HiddenFor(model => Model[i].CANTIDAD)
+            @Html.HiddenFor(model => Model[i].NOMBRECLIENTE)
+            @Html.HiddenFor(model => Model[i].PROCESO)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].NOMBREPRODUCTOR)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].DESCRIPCIONP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].PRECIOP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].CANTIDAD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].NOMBRECLIENTE)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
+
+<script src="~/assest/js/bootstrap-select.js"></script>
+<script src="~/assest/js/wow.min.js"></script>
+<script src="~/assest/js/jquery-price-slider.js"></script>
+<script src="~/assest/js/owl.carousel.min.js"></script>
+<script src="~/assest/js/jquery.scrollUp.min.js"></script>
+<script src="~/assest/js/jquery.meanmenu.js"></script>
+<script src="~/assest/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="~/assest/js/jquery.sparkline.min.js"></script>
+<script src="~/assest/js/sparkline-active.js"></script>
+<script src="~/assest/js/jquery.flot.js"></script>
+<script src="~/assest/js/jquery.flot.resize.js"></script>
+<script src="~/assest/js/flot-active.js"></script>
+<script src="~/assest/js/jquery.knob.js"></script>
+<script src="~/assest/js/jquery.appear.js"></script>
+<script src="~/assest/js/knob-active.js"></script>
+<script src="~/assest/js/jquery.todo.js"></script>
+@*<script src="~/assest/js/waves.min.js"></script>
+    <script src="~/assest/js/wave-active.js"></script>*@
+<script src="~/assest/js/plugins.js"></script>
+<script src="~/assest/js/main.js"></script>
+
+
+
+

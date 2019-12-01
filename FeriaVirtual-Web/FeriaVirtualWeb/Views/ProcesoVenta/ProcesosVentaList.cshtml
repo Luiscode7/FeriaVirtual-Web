@@ -35,10 +35,17 @@
                     <a href="#exampleModalCenter3" class="btnVer btn btn-success notika-btn-success" data-toggle="modal" data-id="@Model[i].ORDEN">
                         Ver Productos
                     </a>
+                    @if (Model[i].ESTADO == "Pendiente" || Model[i].ESTADO == "Cotizacion")
+                    {
+                        <a href="#" class="btnPostular btn btn-success notika-btn-success" data-id="@Model[i].ORDEN">
+                            Postular
+                        </a>
+                    }
+                    else
+                    {
+                        <img src='@Url.Content("~/assest/img/checkicon.png")' width="40" height="40">
+                    }
 
-                    <a href="#" class="btnPostular btn btn-success notika-btn-success" data-id="@Model[i].ORDEN">
-                        Postular
-                    </a>
                 </td>
             </tr>
         }
