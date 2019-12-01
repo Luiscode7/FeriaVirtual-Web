@@ -405,6 +405,7 @@
     <Content Include="Views\Subasta\GananciaProcesoExterno.cshtml" />
     <Content Include="Views\Shared\_LayoutConsultor.cshtml" />
     <Content Include="Views\Consultor\GetReportes.cshtml" />
+    <Content Include="Views\Administrador\CotizacionDetalleProcesoVenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

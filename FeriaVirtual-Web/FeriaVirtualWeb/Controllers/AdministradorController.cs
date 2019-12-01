@@ -62,6 +62,22 @@ namespace FeriaVirtualWeb.Controllers
             return View(listaP);
         }
 
+        public ActionResult CotizacionDetalleProcesoVenta(decimal id)
+        {
+            var detalle = new ProcesoVentaViewModel();
+            var listaProductores = new List<ProcesoVentaViewModel>();
+            var listaPordenes = new List<PRODUCTO>();
+            if (id != 0)
+            {
+                detalle = collection.GetMyPostulacionDetails(id);
+                listaProductores = collection.GetProductorDatosbyOrdenId(id);
+                listaPordenes = collection.GetMyProductsByOrders(id);
+            }
+            ViewBag.productores = listaProductores;
+            ViewBag.productosOr = listaPordenes;
+            return View(detalle);
+        }
+
         public ActionResult DetalleProcesoVenta(decimal id)
         {
             var detalle = new ProcesoVentaViewModel();
@@ -76,6 +92,51 @@ namespace FeriaVirtualWeb.Controllers
             ViewBag.productores = listaProductores;
             ViewBag.productosOr = listaPordenes;
             return View(detalle);
+        }
+
+        public JsonResult EnviarCotizacion(decimal id)
+        {
+            var ventaM = new VentaManager();
+            var ordenid = collection.GetOrdenIdByProcedoId(id);
+            var productosOr = ventaM.GetProductByOrden(ordenid);
+            var listaProducto = ventaM.GetProductsWithCantidadAndPrecioToResumenVenta(productosOr);
+            var cliente = collection.GetclienteByOrdenId(ordenid);
+            var costoTotal = ventaM.GetCostoTotalProductsOrdesToCotizacion(ordenid);
+
+            string productos = string.Empty;
+            string paraPortal = "Favor de ACEPTAR o RECHAZAR esta cotizacion por medio de su portal en nuestra pagina";
+
+            foreach (var item in listaProducto)
+            {
+                productos = productos + "<br/><hr/>" + "<table><tr><td>Producto:</td><td>" + "&nbsp;" + item.DESCRIPCION + "</td></tr>" +
+                    "<tr><td>Cantidad Solicitada:</td><td>" + "&nbsp;" + item.CANTIDAD.ToString() + "</td></tr>" +
+                    "<tr><td>Precio:</td><td>" + "&nbsp;" + "$" + item.PRECIO.ToString() + "</td></tr></table>";
+            }
+
+            string body = "<p>Estimado(a)" + " " + cliente.NOMBRE + " " + "hacemos envio de la cotizacion de su orden de compra numero" + " " + ordenid.ToString() + ":" +" </p>"
+                    + productos + " " + "<br/>" + "<table><tr><td><strong>Costo Total:</strong></td><td>" + "&nbsp;" + "<strong>$</strong>" + "<strong>" + costoTotal.ToString() + "</strong>" + "</td></tr></table>" +
+                    "<br/><p><strong>"+ paraPortal +"</strong></p>";
+
+            MailMessage correo = new MailMessage();
+            correo.From = new MailAddress("maipogrande77@gmail.com");
+            correo.To.Add(cliente.CORREO);
+            correo.Subject = "Cotizacion de Orden de Compra";
+            correo.Body = body;
+            correo.IsBodyHtml = true;
+            correo.Priority = MailPriority.Normal;
+
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 25;
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = true;
+            string mycorreo = "maipogrande77@gmail.com";
+            string password = "maipo123";
+            smtp.Credentials = new System.Net.NetworkCredential(mycorreo, password);
+
+            smtp.Send(correo);
+
+            return Json(id);
         }
 
         public ActionResult IngresarValoresDeVenta(decimal id)
@@ -131,7 +192,7 @@ namespace FeriaVirtualWeb.Controllers
             MailMessage correo = new MailMessage();
             correo.From = new MailAddress("maipogrande77@gmail.com");
             correo.To.Add(cliente.CORREO);
-            correo.Subject = "Cotizacion de Orden de Compra";
+            correo.Subject = "Resumen de venta de Orden de Compra";
             correo.Body = body;
             correo.IsBodyHtml = true;
             correo.Priority = MailPriority.Normal;

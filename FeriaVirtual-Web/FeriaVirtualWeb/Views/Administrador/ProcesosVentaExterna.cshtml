@@ -26,6 +26,23 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #00c292">
+                <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br />
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="d-flex">
     <div class="card text-center col-6 pr-0 pl-0 mr-2">
         <div class="card-header pr-0 pl-0">
@@ -55,6 +72,7 @@
                             @Html.DisplayFor(modelItem => item.FECHA)
                         </td>
                         <td>
+                            <a href="#card-venta" class="btnCotizacion btn btn-success notika-btn-success" data-id="@item.ORDENID">Cotizacion</a>
                             <a href="#card-venta" class="btnConcretar btn btn-success notika-btn-success" data-id="@item.ORDENID">Concretar Venta</a>
                         </td>
                     </tr>
@@ -74,27 +92,14 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #00c292">
-                    <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <br />
-                <div class="modal-body">
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <script>
     $(".btnConcretar").click(function () {
         $("#card-venta").load("/Administrador/DetalleProcesoVenta/" + $(this).data("id"));
+    });
+
+    $(".btnCotizacion").click(function () {
+        $("#card-venta").load("/Administrador/CotizacionDetalleProcesoVenta/" + $(this).data("id"));
     });
 </script>

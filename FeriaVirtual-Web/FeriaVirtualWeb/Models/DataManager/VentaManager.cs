@@ -69,6 +69,19 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
+        public decimal? GetCostoTotalProductsOrdesToCotizacion(decimal? ordenid)
+        {
+            var productosOrden = GetProductByOrden(ordenid);
+            var productos = GetProductsProductorAccordingProductosOrden(productosOrden);
+            decimal? costoTotal = 0;
+            foreach (var item in productos)
+            {
+                costoTotal += item.PRECIO * item.CANTIDAD;
+            }
+
+            return costoTotal;
+        }
+
         public decimal? GetOrdenIdByProcesoID(decimal? procesoid)
         {
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
