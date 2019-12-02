@@ -33,7 +33,8 @@ namespace FeriaVirtualWeb.Models.DataContext
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0}")]
         [Display(Name = "N° ORDEN")]
         public Nullable<decimal> ORDENID { get; set; }
-    
+        public int COUNT { get; set; }
+
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         public virtual ORDEN ORDEN { get; set; }
         public virtual ICollection<PRODUCTO> PRODUCTO { get; set; }

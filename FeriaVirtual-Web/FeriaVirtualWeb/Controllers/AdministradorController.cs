@@ -458,6 +458,21 @@ namespace FeriaVirtualWeb.Controllers
             return View();
         }
 
+        public ActionResult Estadistics()
+        {
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
+            var mayorGananciaV = collection.GetVentaMoreGanancia();
+            ViewBag.gananciaM = mayorGananciaV;
+            return View();
+        }
+
+        public JsonResult GetProcesosVentaCount()
+        {
+            var procesos = collection.GetProcesosVentaCount();
+            return Json(procesos, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Administrador/Create
         public ActionResult Create()
         {

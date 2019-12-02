@@ -1402,5 +1402,38 @@ namespace FeriaVirtualWeb.Models.DataManager
                 return costoTotal;
             }
         }
+
+        public List<PROCESOVENTA> GetProcesosVentaCount()
+        {
+            var listado = new List<PROCESOVENTA>();
+            int externos = 0;
+            int locales = 0;
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                externos = db.PROCESOVENTA.Where(p => p.TIPOPROCESO == "Externo").Count();
+                locales = db.PROCESOVENTA.Where(p => p.TIPOPROCESO == "Local").Count();
+
+                listado.Add(new PROCESOVENTA
+                {
+                    TIPOPROCESO = "Externo",
+                    COUNT = externos
+                });
+                listado.Add(new PROCESOVENTA
+                {
+                    TIPOPROCESO = "Local",
+                    COUNT = locales
+                });
+
+                return listado;
+            }
+        }
+
+        public VENTA GetVentaMoreGanancia()
+        {
+            using (FeriaVirtualEntities db = new FeriaVirtualEntities())
+            {
+                return db.VENTA.OrderByDescending(v => v.GANANCIA).Take(1).FirstOrDefault();
+            }
+        }
     }
 }

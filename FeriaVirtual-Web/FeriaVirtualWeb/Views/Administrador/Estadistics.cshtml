@@ -1,0 +1,86 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+    FeriaVirtualWeb.Models.DataContext.VENTA gananciaM = ViewBag.gananciaM;
+}
+
+<div class="breadcomb-area">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="breadcomb-list">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="breadcomb-wp">
+                            <div class="breadcomb-icon">
+                                <i class="notika-icon notika-form"></i>
+                            </div>
+                            <div class="breadcomb-ctn">
+                                <h2>Estadisticas</h2>
+                                <p>Revise las estadisticas de la empresa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="piechart" style="width: 900px; height: 500px;"></div>
+<br />
+<div class="col-4 pb-3 pt-2" style="background-color:white;">
+    <h6 class="d-flex justify-content-center pt-4 pb-3">Venta Con Mayor Ganancia para la Empresa</h6>
+    <table class="table table-condensed">
+        <tr>
+            <td>
+                @Html.DisplayName("N° VENTA")
+            </td>
+            <td>
+                @gananciaM.IDVENTA
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayName("GANANCIA")
+            </td>
+            <td>
+                @("$"+gananciaM.GANANCIA)
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: '@Url.Action("GetProcesosVentaCount","Administrador")',
+            success: function (response) {
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(function () {
+                    drawChart(response);
+                });
+            }
+        });
+    });
+    function drawChart(response) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'TIPOPROCESO');
+        data.addColumn('number', 'COUNT');
+        var dataArray = [];
+        $.each(response, function (i, obj) {
+            dataArray.push([obj.TIPOPROCESO, obj.COUNT]);
+        });
+        data.addRows(dataArray);
+
+        var options = {
+            title: 'Cantidad de Procesos de Venta'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+    }
+</script>
+
