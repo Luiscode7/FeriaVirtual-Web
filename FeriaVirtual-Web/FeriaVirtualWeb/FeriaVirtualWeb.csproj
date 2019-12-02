@@ -411,6 +411,7 @@
     <Content Include="Views\Administrador\DetalleProcesoVentaToDetalleAfterVenta.cshtml" />
     <Content Include="Views\Administrador\DetalleProcesoVentaLocalAfterToVenta.cshtml" />
     <Content Include="Views\Administrador\Estadistics.cshtml" />
+    <Content Include="Views\Administrador\Reportes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using FeriaVirtualWeb.Models.DataContext;
 using FeriaVirtualWeb.Models.DataManager;
 using FeriaVirtualWeb.Models.ViewModels;
+using FeriaVirtualWeb.Reports;
 
 namespace FeriaVirtualWeb.Controllers
 {
@@ -454,8 +455,41 @@ namespace FeriaVirtualWeb.Controllers
 
         public ActionResult Reportes()
         {
-
+            var usuario = (USUARIO)Session["usuario"];
+            ViewBag.session = usuario.NOMBREUSUARIO;
             return View();
+        }
+
+        public ActionResult ExportPDFListaVentas()
+        {
+            var listadoVentas = collection.GetVentas();
+            var listado = new ListadoVentas();
+            byte[] bytesG = listado.PdfReport(listadoVentas);
+            return File(bytesG, "application/pdf", "ListadoVentas.pdf");
+        }
+
+        public ActionResult ExportPDFListaOrdenes()
+        {
+            var listadoOrdenes = collection.GetOrdenesList();
+            var listado = new ListadoOrdenes();
+            byte[] bytesG = listado.PdfReport(listadoOrdenes);
+            return File(bytesG, "application/pdf", "ListadoOrdenes.pdf");
+        }
+
+        public ActionResult ExportPDFSubastaExterna()
+        {
+            var listadoSubastaExterna = collection.GetSubastaExternaList();
+            var listado = new ListadoSubastasPexterna();
+            byte[] bytesG = listado.PdfReport(listadoSubastaExterna);
+            return File(bytesG, "application/pdf", "ListadoSubastaExterna.pdf");
+        }
+
+        public ActionResult ExportPDFSubastaLocal()
+        {
+            var listadoSubastaLocal = collection.GetSubastaLocalList();
+            var listado = new ListadoSubastasPLocal();
+            byte[] bytesG = listado.PdfReport(listadoSubastaLocal);
+            return File(bytesG, "application/pdf", "ListadoSubastaLocal.pdf");
         }
 
         public ActionResult Estadistics()
