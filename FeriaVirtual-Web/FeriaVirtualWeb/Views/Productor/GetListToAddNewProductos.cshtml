@@ -7,51 +7,54 @@
 
 @using (Html.BeginForm("AddNewProductos", "Productor", FormMethod.Post, new { id = "form-productos" }))
 {
-    <table class="table table-condensed">
-        <tr>
-            <th>
-                @Html.DisplayName("DESCRIPCION")
-            </th>
-            <th>
-                @Html.DisplayName("PRECIO")
-            </th>
-            <th>
-                @Html.DisplayName("STOCK")
-            </th>
-            <th>
-                @Html.DisplayName("TIPO VENTA")
-            </th>
-        </tr>
-        @for (var i = 0; i < Model.Count(); i++)
-        {
-            @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
-            @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
+    <div class="pb-4 pl-5 pr-5" >
+        <table class="table table-condensed">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
-                </td>
-                <td>
-                    <div class="nk-int-st">
-                        @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
-                    </div> 
-                </td>
-                <td>
-                    <div class="nk-int-st">
-                        @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
-                    </div>
-                </td>
-                <td>
-                    <div class="chosen-select-act fm-cmp-mg">
-                        @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value = "Externo" }, new SelectListItem { Text = "Local", Value = "Local" } },
-                        new { @class = "chosen form-control" })
-                    </div>
-                </td>
+                <th>
+                    @Html.DisplayName("DESCRIPCION")
+                </th>
+                <th>
+                    @Html.DisplayName("PRECIO")
+                </th>
+                <th>
+                    @Html.DisplayName("STOCK")
+                </th>
+                <th>
+                    @Html.DisplayName("TIPO VENTA")
+                </th>
             </tr>
+            @for (var i = 0; i < Model.Count(); i++)
+            {
+                @Html.HiddenFor(modelItem => Model[i].IDPRODUCTO, new { id = "idprod" })
+                @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
+                    </td>
+                    <td>
+                        <div class="nk-int-st">
+                            @Html.EditorFor(modelItem => Model[i].PRECIO, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </td>
+                    <td>
+                        <div class="nk-int-st">
+                            @Html.EditorFor(modelItem => Model[i].STOCK, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        </div>
+                    </td>
+                    <td>
+                        <div class="chosen-select-act fm-cmp-mg">
+                            @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value = "Externo" }, new SelectListItem { Text = "Local", Value = "Local" } },
+                            new { @class = "chosen form-control" })
+                        </div>
+                    </td>
+                </tr>
 
-        }
-    </table>
-    <button type="submit" class="btnIngresarP btn btn-success notika-btn-success col" id="btnIngresarP">Agregar</button>
-    <div class="loadbutton d-flex justify-content-center"></div>
+            }
+        </table>
+        <button type="submit" class="btnIngresarP btn btn-success notika-btn-success col" id="btnIngresarP">Agregar</button>
+        <div class="loadbutton d-flex justify-content-center"></div>
+    </div>
+    
 }
 
 

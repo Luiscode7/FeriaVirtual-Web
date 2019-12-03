@@ -29,25 +29,13 @@
 <div id="piechart" style="width: 900px; height: 500px;"></div>
 <br />
 <div class="col-4 pb-3 pt-2" style="background-color:white;">
-    <h6 class="d-flex justify-content-center pt-4 pb-3">Venta Con Mayor Ganancia para la Empresa</h6>
-    <table class="table table-condensed">
-        <tr>
-            <td>
-                @Html.DisplayName("N° VENTA")
-            </td>
-            <td>
-                @gananciaM.IDVENTA
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayName("GANANCIA")
-            </td>
-            <td>
-                @("$"+gananciaM.GANANCIA)
-            </td>
-        </tr>
-    </table>
+    <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
+        <div class="website-traffic-ctn">
+            <h2>$<span class="counter">@gananciaM.GANANCIA</span></h2>
+            <p>Venta N° @gananciaM.IDVENTA Tiene la Mayor Ganancia para la Empresa</p>
+        </div>
+        <div class="sparkline-bar-stats3">4,2,8,2,5,6,3,8,3,5,9,5</div>
+    </div>
 </div>
 <script>
     $(document).ready(function () {

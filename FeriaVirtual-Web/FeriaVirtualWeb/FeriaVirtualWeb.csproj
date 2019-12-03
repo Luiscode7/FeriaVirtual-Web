@@ -273,9 +273,12 @@
     <Content Include="assest\js\bootstrap.js" />
     <Content Include="assest\js\bootstrap.min.js" />
     <Content Include="assest\js\chosen.jquery.js" />
+    <Content Include="assest\js\counterup-active.js" />
     <Content Include="assest\js\flot-active.js" />
+    <Content Include="assest\js\jquery-1.12.4.min.js" />
     <Content Include="assest\js\jquery-price-slider.js" />
     <Content Include="assest\js\jquery.appear.js" />
+    <Content Include="assest\js\jquery.counterup.min.js" />
     <Content Include="assest\js\jquery.flot.js" />
     <Content Include="assest\js\jquery.flot.resize.js" />
     <Content Include="assest\js\jquery.knob.js" />
@@ -295,6 +298,7 @@
     <Content Include="assest\js\toastr.min.js" />
     <Content Include="assest\js\wave-active.js" />
     <Content Include="assest\js\waves.min.js" />
+    <Content Include="assest\js\waypoints.min.js" />
     <Content Include="assest\js\wow.min.js" />
     <Content Include="assest\webfonts\fa-brands-400.svg" />
     <Content Include="assest\webfonts\fa-regular-400.svg" />

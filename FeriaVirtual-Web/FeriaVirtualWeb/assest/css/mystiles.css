@@ -114,3 +114,13 @@ a {
     background-color: transparent;
 }
 
+.a-menu {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.a-menu:hover {
+    background-color: #eee !important;
+        
+}
+
