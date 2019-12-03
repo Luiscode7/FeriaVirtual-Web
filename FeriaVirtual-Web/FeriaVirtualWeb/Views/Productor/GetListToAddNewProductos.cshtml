@@ -29,7 +29,9 @@
                 @Html.HiddenFor(modelItem => Model[i].DESCRIPCION, new { id = "descrip" })
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
+                        <div style="height:37px;" class="d-flex align-items-end">
+                            @Html.DisplayFor(modelItem => Model[i].DESCRIPCION, new { id = "descripcion" })
+                        </div>
                     </td>
                     <td>
                         <div class="nk-int-st">
@@ -42,7 +44,7 @@
                         </div>
                     </td>
                     <td>
-                        <div class="chosen-select-act fm-cmp-mg">
+                        <div class="chosen-select-act fm-cmp-mg d-flex align-items-end" style="height:37px;">
                             @Html.DropDownListFor(modelItem => Model[i].TIPOVENTA, new List<SelectListItem> { new SelectListItem { Text = "Seleccione", Value = "Seleccione", Disabled = true, Selected = true }, new SelectListItem { Text = "Externo", Value = "Externo" }, new SelectListItem { Text = "Local", Value = "Local" } },
                             new { @class = "chosen form-control" })
                         </div>

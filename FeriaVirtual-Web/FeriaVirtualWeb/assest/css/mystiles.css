@@ -8,19 +8,19 @@
     display: flex;
     background: url('/assest/img/transporte6.jpg');
     background-size: cover;
-    background-attachment: fixed;
     width: 100%;
+    margin-bottom:100px;
 }
 
 .panel-right {
-    height: 100vh;
+    height: 70vh;
     width: 50%;
     background-color: #00c292;
     opacity: 0.9;
 }
 
 .panel-left {
-    height: 100vh;
+    height: 70vh;
     width: 50%;
     background-color: #FFFFFF;
     opacity: 0.9;
@@ -124,3 +124,41 @@ a {
         
 }
 
+th{
+    border-top:none !important;
+}
+
+.cards-frutas {
+    display: flex;
+    justify-content: center;
+    background-color: #F6F8FA;
+
+    height:500px;
+    
+}
+
+.container-img-frutas {
+    padding: 10px;
+    width: 100%;
+    height: 400px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 24px -16px rgba(0,0,0,0.75);
+}
+
+.container-frutas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+    margin: auto;
+    height: 500px;
+}
+
+.container-card-frutas{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+    height:500px;
+    
+}
