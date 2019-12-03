@@ -257,6 +257,7 @@
     <Content Include="assest\css\images\sort_desc.png" />
     <Content Include="assest\css\images\sort_desc_disabled.png" />
     <Content Include="assest\img\banana.jpg" />
+    <Content Include="assest\img\camion.jpg" />
     <Content Include="assest\img\check.jpg" />
     <Content Include="assest\img\checkicon.png" />
     <Content Include="assest\img\circulo.gif" />
@@ -265,12 +266,18 @@
     <Content Include="assest\img\engra.gif" />
     <Content Include="assest\img\engra2.gif" />
     <Content Include="assest\img\favicon.ico" />
+    <Content Include="assest\img\huerto.jpg" />
     <Content Include="assest\img\loader.gif" />
     <Content Include="assest\img\loading.gif" />
     <Content Include="assest\img\logo.png" />
     <Content Include="assest\img\logomg.png" />
+    <Content Include="assest\img\mision-manzana.jpg" />
+    <Content Include="assest\img\rama.jpg" />
+    <Content Include="assest\img\repartidor.jpg" />
+    <Content Include="assest\img\reportes.png" />
     <Content Include="assest\img\transporte6.jpg" />
     <Content Include="assest\img\user1.png" />
+    <Content Include="assest\img\uvasmanos.jpg" />
     <Content Include="assest\js\bootstrap.bundle.js" />
     <Content Include="assest\js\bootstrap.bundle.min.js" />
     <Content Include="assest\js\bootstrap.js" />

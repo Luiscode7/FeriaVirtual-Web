@@ -6,8 +6,8 @@
 
 .backimg {
     display: flex;
-    background: url('/assest/img/transporte6.jpg');
-    background-size: cover;
+    /*background: url('/assest/img/transporte6.jpg');
+    background-size: cover;*/
     width: 100%;
     margin-bottom:100px;
 }
@@ -16,20 +16,33 @@
     height: 70vh;
     width: 50%;
     background-color: #00c292;
-    opacity: 0.9;
+    /*opacity: 0.9;*/
 }
 
 .panel-left {
     height: 70vh;
     width: 50%;
-    background-color: #FFFFFF;
-    opacity: 0.9;
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../img/uvasmanos.jpg');
+    background-size: cover;
+    /*background-color: #FFFFFF;*/
+    /*opacity: 0.9;*/
 }
 
 .font-white {
-    display:flex;
-    justify-content:center;
-    color: #8D908F;
+    color: #F6F8FA;
+    margin-left: 100px;
+}
+
+.font-titulo {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 48px;
+    color: #F6F8FA;
+    margin-left: 100px;
+}
+
+.font-mision {
+    color: #F6F8FA;
+    font-size: 20px;
 }
 
 #form-login{
@@ -161,4 +174,41 @@ th{
     width:100%;
     height:500px;
     
+}
+
+.container-mision {
+    background-color: #00c292;
+    background-image: linear-gradient( 120deg, rgba(0, 0, 0, 0.5), #00c292 ), url('../img/rama.jpg');
+    width: 100%;
+    height: 400px;
+}
+
+.img-reportes{
+    width:362.31px;
+    height:241.16px;
+}
+
+.container-reportes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+    height: 500px;
+    background-color: #FFFFFF;
+}
+
+.container-img-reportes {
+    padding: 10px;
+    width: 100%;
+    height: 400px;
+    background-color: #FFFFFF;
+}
+
+.container-card-reportes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    height: 500px;
 }
