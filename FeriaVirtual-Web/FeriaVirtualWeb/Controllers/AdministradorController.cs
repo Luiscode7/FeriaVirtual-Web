@@ -409,7 +409,7 @@ namespace FeriaVirtualWeb.Controllers
             var productos = new List<PRODUCTO>();
             foreach (var item in clientes)
             {
-                productos = collection.GetProductosCompraLocalAccordingToCliente(item.CLIENTEINTERNO);
+                productos = collection.GetProductosCompraLocalAccordingToCliente(item.CLIENTEINTERNO,generarv.PROCESOVENTA_IDPROCESOVENTA);
                 var cliente = collection.GetClienteByClienteInterno(item.CLIENTEINTERNO);
                 var costoTotal = collection.CostoTotalCompraLocal(productos);
 

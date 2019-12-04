@@ -1359,13 +1359,13 @@ namespace FeriaVirtualWeb.Models.DataManager
             }
         }
 
-        public List<PRODUCTO> GetProductosCompraLocalAccordingToCliente(string rut)
+        public List<PRODUCTO> GetProductosCompraLocalAccordingToCliente(string rut, decimal? procesoid)
         {
             var lista = new List<PRODUCTO>();
             var newLista = new List<PRODUCTO>();
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
-                lista = db.PRODUCTO.Where(p => p.CLIENTEINTERNO == rut).ToList();
+                lista = db.PRODUCTO.Where(p => p.CLIENTEINTERNO == rut && p.IDPROCESOVENTA == procesoid).ToList();
 
                 foreach (var item in lista)
                 {

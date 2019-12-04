@@ -244,7 +244,7 @@ namespace FeriaVirtualWeb.Models.DataManager
             using (FeriaVirtualEntities db = new FeriaVirtualEntities())
             {
                 var subastaid = GetSubastaIdByProcesoVenta(procesoid);
-                return db.TRANSPORTISTA.Where(t => t.SUBASTAID == subastaid).FirstOrDefault().PRECIO;
+                return db.TRANSPORTISTA.Where(t => t.SUBASTAID == subastaid && t.ESTADOSUBASTA == "Aceptado").FirstOrDefault().PRECIO;
             }
         }
 
